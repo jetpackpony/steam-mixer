@@ -1,0 +1,23 @@
+{
+  "name": "stream-mixer",
+  "version": "0.0.1",
+  "description": "Audio mixer for streaming audio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jetpackpony/steam-mixer.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jetpackpony/steam-mixer/issues"
+  },
+  "homepage": "https://github.com/jetpackpony/steam-mixer#readme",
+  "devDependencies": {
+    "electron": "^3.0.5"
+  }
+}
