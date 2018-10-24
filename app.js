@@ -1,1 +1,5 @@
-console.log("this is electron");
+const getAudioDevices = require('./getAudioDevices');
+
+(async () => {
+    console.log(await getAudioDevices());
+})();
