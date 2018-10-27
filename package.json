@@ -3,9 +3,21 @@
   "version": "0.0.1",
   "description": "Audio mixer for streaming audio",
   "main": "index.js",
+  "dependencies": {
+    "ramda": "^0.25.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-scripts": "2.0.5"
+  },
+  "homepage": "./",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "react-scripts start",
+    "start-https": "HTTPS=true react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "ELECTRON_START_URL=http://localhost:3000 electron electron",
+    "electron-prod": "electron electron"
   },
   "repository": {
     "type": "git",
@@ -13,14 +25,16 @@
   },
   "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jetpackpony/steam-mixer/issues"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "homepage": "https://github.com/jetpackpony/steam-mixer#readme",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "devDependencies": {
-    "electron": "^3.0.5"
-  },
-  "dependencies": {
-    "ramda": "^0.25.0"
+    "electron": "^3.0.6"
   }
 }
