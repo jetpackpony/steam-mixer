@@ -5,9 +5,18 @@ import Button, {
   AddButton, DeleteButton, OkButton, EditButton
 } from './components/buttons';
 import Node from './components/Node';
+import NodeList from './components/NodeList';
 
 class App extends Component {
   render() {
+    let nodes = [
+      { title: "First", nodeId: "I1"},
+      { title: "Second", nodeId: "O1"},
+      { title: "Third", nodeId: "C2"},
+      { title: "Fourth", nodeId: "O2"},
+    ];
+    let onDelete = (nodeId) => console.log("deleting node " + nodeId);
+    let onEdit = (nodeId) => console.log("editing node " + nodeId);
     return (
       <Fragment>
         <div>
@@ -21,9 +30,12 @@ class App extends Component {
           <Node
             title="Test Node"
             nodeId="I1"
-            onDelete={(nodeId) => console.log("deleting node " + nodeId)}
-            onEdit={(nodeId) => console.log("editing node " + nodeId)}
+            onDelete={onDelete}
+            onEdit={onEdit}
           />
+        </div>
+        <div>
+          <NodeList nodes={nodes} onDelete={onDelete} onEdit={onEdit} />
         </div>
       </Fragment>
     );
