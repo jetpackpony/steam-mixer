@@ -1,26 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button, {
+  AddButton, DeleteButton, OkButton, EditButton
+} from './components/buttons';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Fragment>
+        <Button text="Test" onClick={() => console.log("click")} />
+        <AddButton onClick={() => console.log("click add button")} />
+        <DeleteButton onClick={() => console.log("click delete button")} />
+        <OkButton onClick={() => console.log("click ok button")} />
+        <EditButton onClick={() => console.log("click edit button")} />
+      </Fragment>
     );
   }
 }
