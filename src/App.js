@@ -23,8 +23,10 @@ class App extends Component {
       { deviceId: "1", label: "Microphone (built-in)"},
       { deviceId: "2", label: "Microphone (external)"},
       { deviceId: "3", label: "Soundflower (2ch)"},
-      { deviceId: "4", label: "Soundflower (64ch)"},
     ];
+    const addGainNode = () => console.log('adding a gain node');
+    const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
+    const openAddConnection = () => console.log("opening add connection menu");
     return (
       <Fragment>
         <div>
@@ -47,7 +49,32 @@ class App extends Component {
             title="Inputs"
             nodes={nodes}
             onDelete={onDelete}
+            onAdd={openAddEndpoint.bind(null, "input")}
+          />
+        </div>
+        <div>
+          <NodeList
+            title="Outputs"
+            nodes={nodes}
+            onDelete={onDelete}
+            onAdd={openAddEndpoint.bind(null, "output")}
+          />
+        </div>
+        <div>
+          <NodeList
+            title="Audio Nodes"
+            nodes={nodes}
+            onDelete={onDelete}
             onEdit={onEdit}
+            onAdd={addGainNode}
+          />
+        </div>
+        <div>
+          <NodeList
+            title="Connections"
+            nodes={nodes}
+            onDelete={onDelete}
+            onAdd={openAddConnection}
           />
         </div>
         <div>
