@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Node from './Node';
 
-const NodeList = ({ nodes, onDelete, onEdit }) => {
-  return nodes.map(({ title, nodeId }) => (
+const NodeList = ({ title, nodes, onDelete, onEdit }) => {
+  let nodesList = nodes.map(({ title, nodeId }) => (
     <Node
       key={nodeId}
       title={title}
@@ -11,6 +11,12 @@ const NodeList = ({ nodes, onDelete, onEdit }) => {
       onEdit={onEdit}
     />
   ));
+  return (
+    <div className="list">
+      <div className="list-header">{title}</div>
+      {nodesList}
+    </div>
+  )
 };
 
 export default NodeList;

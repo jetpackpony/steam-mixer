@@ -35,7 +35,12 @@ class App extends Component {
           />
         </div>
         <div>
-          <NodeList nodes={nodes} onDelete={onDelete} onEdit={onEdit} />
+          <NodeList
+            title="Inputs"
+            nodes={nodes}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
         </div>
       </Fragment>
     );
