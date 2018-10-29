@@ -37,6 +37,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "electron": "^3.0.6"
+    "electron": "^3.0.6",
+    "node-sass": "^4.9.4"
   }
 }
