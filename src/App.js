@@ -7,6 +7,14 @@ import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addInputOpen: false,
+      addOutputOpen: false
+    };
+  }
+
   render() {
     let nodes = [
       { title: "First", nodeId: "I1"},
@@ -27,6 +35,12 @@ class App extends Component {
     const openAddConnection = () => console.log("opening add connection menu");
     const onGainChange = (nodeId, value) => console.log("setting gain for " + nodeId + " to " + value);
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
+    const toggleAddInput = () => this.setState({
+      addInputOpen: !this.state.addInputOpen
+    });
+    const toggleAddOutput = () => this.setState({
+      addOutputOpen: !this.state.addOutputOpen
+    });
     return (
       <Fragment>
         <CardDeck>
@@ -34,7 +48,7 @@ class App extends Component {
             title="Inputs"
             nodes={nodes}
             onDelete={onDelete}
-            onAdd={openAddEndpoint.bind(null, "input")}
+            onAdd={toggleAddInput}
           />
           <NodeList
             title="Audio Nodes"
@@ -47,7 +61,7 @@ class App extends Component {
             title="Outputs"
             nodes={nodes}
             onDelete={onDelete}
-            onAdd={openAddEndpoint.bind(null, "output")}
+            onAdd={toggleAddOutput}
           />
           <NodeList
             title="Connections"
@@ -56,26 +70,29 @@ class App extends Component {
             onAdd={openAddConnection}
           />
         </CardDeck>
-        <div>
-          <AddEndpoint
-            type="input"
-            deviceList={devices}
-            onCreate={onCreateEndpoint}
-          />
-        </div>
-        <div>
-          <EditGain
-            nodeId="2"
-            value="0.5"
-            onGainChange={onGainChange}
-          />
-        </div>
-        <div>
-          <AddConnection
-            nodesList={nodes}
-            onAddConnection={onAddConnection}
-          />
-        </div>
+        <AddEndpoint
+          type="input"
+          deviceList={devices}
+          onCreate={onCreateEndpoint}
+          toggle={toggleAddInput}
+          isOpen={this.state.addInputOpen}
+        />
+        <AddEndpoint
+          type="output"
+          deviceList={devices}
+          onCreate={onCreateEndpoint}
+          toggle={toggleAddOutput}
+          isOpen={this.state.addOutputOpen}
+        />
+        <EditGain
+          nodeId="2"
+          value="0.5"
+          onGainChange={onGainChange}
+        />
+        <AddConnection
+          nodesList={nodes}
+          onAddConnection={onAddConnection}
+        />
       </Fragment>
     );
   }

@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { OkButton } from './buttons';
+import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 
 const getDeviceById = (deviceList, deviceId) => (
   deviceList.find(d => d.deviceId === deviceId)
 );
+
+const getTitle = (type) => 
+  type === "input"
+    ? "Add an input node"
+    : "Add an output node";
 
 class AddEndpoint extends Component {
   constructor(props) {
@@ -11,7 +17,12 @@ class AddEndpoint extends Component {
     this.state = {
       title: "",
       deviceId: ""
-    }
+    };
+
+    this.onDeviceSelected = this.onDeviceSelected.bind(this);
+    this.onTitleChanged = this.onTitleChanged.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   onDeviceSelected(event) {
@@ -28,6 +39,7 @@ class AddEndpoint extends Component {
   }
 
   onSubmit() {
+    this.toggle();
     this.props.onCreate({
       type: this.props.type,
       title: this.state.title,
@@ -35,27 +47,33 @@ class AddEndpoint extends Component {
     });
   }
 
+  toggle() {
+    this.props.toggle();
+  }
+
   render() {
     const { type, deviceList } = this.props;
-    const onDeviceSelected = this.onDeviceSelected.bind(this);
-    const onTitleChanged = this.onTitleChanged.bind(this);
-    const onSubmit = this.onSubmit.bind(this);
     let options = deviceList.map(device => (
       <option key={device.deviceId} value={device.deviceId}>
         {device.label}
       </option>
     ));
     return (
-      <div>
-        <input value={this.state.title} onChange={onTitleChanged} />
-        <select value={this.state.deviceId} onChange={onDeviceSelected}>
-          <option disabled value="" key="-1">
-            -- select {type === "input" ? "input" : "output"} device --
+      <Modal isOpen={this.props.isOpen} toggle={this.toggle}>
+        <ModalHeader toggle={this.toggle}>{getTitle(type)}</ModalHeader>
+        <ModalBody>
+          <input value={this.state.title} onChange={this.onTitleChanged} />
+          <select value={this.state.deviceId} onChange={this.onDeviceSelected}>
+            <option disabled value="" key="-1">
+              -- select {type === "input" ? "input" : "output"} device --
           </option>
-          {options}
-        </select>
-        <OkButton onClick={onSubmit} />
-      </div>
+            {options}
+          </select>
+        </ModalBody>
+        <ModalFooter>
+          <OkButton onClick={this.onSubmit} />
+        </ModalFooter>
+      </Modal>
     );
   }
 }
