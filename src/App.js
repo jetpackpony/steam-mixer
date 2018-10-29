@@ -13,6 +13,7 @@ class App extends Component {
       addInputOpen: false,
       addOutputOpen: false,
       addConnectionOpen: false,
+      editGainOpen: false
     };
   }
 
@@ -34,7 +35,13 @@ class App extends Component {
     const addGainNode = () => console.log('adding a gain node');
     const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
     const openAddConnection = () => console.log("opening add connection menu");
-    const onGainChange = (nodeId, value) => console.log("setting gain for " + nodeId + " to " + value);
+    const onGainChange = (nodeId, value) => {
+      console.log("setting gain for " + nodeId + " to " + value);
+      this.setState({
+        editingGainId: nodeId,
+        editingGainValue: value
+      });
+    }
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
     const toggleAddInput = () => this.setState({
       addInputOpen: !this.state.addInputOpen
@@ -45,6 +52,16 @@ class App extends Component {
     const toggleAddConnection = () => this.setState({
       addConnectionOpen: !this.state.addConnectionOpen
     });
+    const toggleEditGain = () => this.setState({
+      editGainOpen: !this.state.editGainOpen
+    });
+    const editGainNode = (nodeId) => {
+      toggleEditGain();
+      this.setState({
+        editingGainId: nodeId,
+        editingGainValue: 0
+      });
+    };
     return (
       <Fragment>
         <CardDeck>
@@ -58,7 +75,7 @@ class App extends Component {
             title="Audio Nodes"
             nodes={nodes}
             onDelete={onDelete}
-            onEdit={onEdit}
+            onEdit={editGainNode}
             onAdd={addGainNode}
           />
           <NodeList
@@ -95,9 +112,11 @@ class App extends Component {
           isOpen={this.state.addConnectionOpen}
         />
         <EditGain
-          nodeId="2"
-          value="0.5"
+          nodeId={this.state.editingGainId}
+          value={this.state.editingGainValue}
           onGainChange={onGainChange}
+          isOpen={this.state.editGainOpen}
+          toggle={toggleEditGain}
         />
       </Fragment>
     );
