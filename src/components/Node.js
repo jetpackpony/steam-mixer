@@ -1,5 +1,6 @@
 import React from 'react';
 import { DeleteButton, EditButton } from './buttons';
+import { Row, Col } from 'reactstrap';
 
 const Node = ({ title, nodeId, onDelete, onEdit }) => {
   let edit =
@@ -8,12 +9,14 @@ const Node = ({ title, nodeId, onDelete, onEdit }) => {
       : null;
 
   return (
-    <div id={`node-${nodeId}`}>
-      <DeleteButton onClick={() => onDelete(nodeId)} />
-      {nodeId}
-      {title}
-      {edit}
-    </div>
+    <Row>
+      <Col xs="1">
+        <DeleteButton onClick={() => onDelete(nodeId)} />
+      </Col>
+      <Col xs="2">{nodeId}</Col>
+      <Col xs="6">{title}</Col>
+      {edit ? <Col xs="1">{edit}</Col> : null}
+    </Row>
   );
 };
 

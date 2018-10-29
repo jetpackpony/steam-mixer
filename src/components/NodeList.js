@@ -1,6 +1,7 @@
 import React from 'react';
 import Node from './Node';
 import { AddButton } from './buttons';
+import { Card, CardBody, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
 
 const NodeList = ({ title, nodes, onDelete, onEdit, onAdd }) => {
   let nodesList = nodes.map(({ title, nodeId }) => (
@@ -13,11 +14,19 @@ const NodeList = ({ title, nodes, onDelete, onEdit, onAdd }) => {
     />
   ));
   return (
-    <div className="list">
-      <div className="list-header">{title}</div>
-      {nodesList}
-      <AddButton onClick={onAdd} />
-    </div>
+    <Card>
+      <CardBody>
+        <CardTitle>{title}</CardTitle>
+        <Container>
+          {nodesList}
+          <Row>
+            <Col>
+              <AddButton onClick={onAdd} />
+            </Col>
+          </Row>
+        </Container>
+      </CardBody>
+    </Card>
   )
 };
 

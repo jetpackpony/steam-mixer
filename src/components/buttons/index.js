@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'reactstrap';
 
 const Btn = ({ onClick, children }) => (
-  <Button outline color="primary" onClick={onClick}>
+  <Button outline color="primary" onClick={onClick} size="sm">
     {children}
   </Button>
 );

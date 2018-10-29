@@ -1,14 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {
-  AddButton, DeleteButton, OkButton, EditButton
-} from './components/buttons';
-import Node from './components/Node';
 import NodeList from './components/NodeList';
 import AddEndpoint from './components/AddEndpoint';
 import EditGain from './components/EditGain';
 import AddConnection from './components/AddConnection';
+import { CardDeck } from 'reactstrap';
 
 class App extends Component {
   render() {
@@ -33,37 +29,13 @@ class App extends Component {
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
     return (
       <Fragment>
-        <div>
-          <AddButton onClick={() => console.log("click add button")} />
-          <DeleteButton onClick={() => console.log("click delete button")} />
-          <OkButton onClick={() => console.log("click ok button")} />
-          <EditButton onClick={() => console.log("click edit button")} />
-        </div>
-        <div>
-          <Node
-            title="Test Node"
-            nodeId="I1"
-            onDelete={onDelete}
-            onEdit={onEdit}
-          />
-        </div>
-        <div>
+        <CardDeck>
           <NodeList
             title="Inputs"
             nodes={nodes}
             onDelete={onDelete}
             onAdd={openAddEndpoint.bind(null, "input")}
           />
-        </div>
-        <div>
-          <NodeList
-            title="Outputs"
-            nodes={nodes}
-            onDelete={onDelete}
-            onAdd={openAddEndpoint.bind(null, "output")}
-          />
-        </div>
-        <div>
           <NodeList
             title="Audio Nodes"
             nodes={nodes}
@@ -71,15 +43,19 @@ class App extends Component {
             onEdit={onEdit}
             onAdd={addGainNode}
           />
-        </div>
-        <div>
+          <NodeList
+            title="Outputs"
+            nodes={nodes}
+            onDelete={onDelete}
+            onAdd={openAddEndpoint.bind(null, "output")}
+          />
           <NodeList
             title="Connections"
             nodes={nodes}
             onDelete={onDelete}
             onAdd={openAddConnection}
           />
-        </div>
+        </CardDeck>
         <div>
           <AddEndpoint
             type="input"
@@ -99,7 +75,6 @@ class App extends Component {
             nodesList={nodes}
             onAddConnection={onAddConnection}
           />
-
         </div>
       </Fragment>
     );
