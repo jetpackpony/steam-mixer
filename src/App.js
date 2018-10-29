@@ -6,6 +6,7 @@ import Button, {
 } from './components/buttons';
 import Node from './components/Node';
 import NodeList from './components/NodeList';
+import AddEndpoint from './components/AddEndpoint';
 
 class App extends Component {
   render() {
@@ -17,6 +18,13 @@ class App extends Component {
     ];
     let onDelete = (nodeId) => console.log("deleting node " + nodeId);
     let onEdit = (nodeId) => console.log("editing node " + nodeId);
+    const onCreateEndpoint = (device) => console.log("creating device: ", device);
+    let devices = [
+      { deviceId: "1", label: "Microphone (built-in)"},
+      { deviceId: "2", label: "Microphone (external)"},
+      { deviceId: "3", label: "Soundflower (2ch)"},
+      { deviceId: "4", label: "Soundflower (64ch)"},
+    ];
     return (
       <Fragment>
         <div>
@@ -40,6 +48,13 @@ class App extends Component {
             nodes={nodes}
             onDelete={onDelete}
             onEdit={onEdit}
+          />
+        </div>
+        <div>
+          <AddEndpoint
+            type="input"
+            deviceList={devices}
+            onCreate={onCreateEndpoint}
           />
         </div>
       </Fragment>
