@@ -4,10 +4,12 @@
   "description": "Audio mixer for streaming audio",
   "main": "index.js",
   "dependencies": {
+    "bootstrap": "^4.1.3",
     "ramda": "^0.25.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.0.5"
+    "react-scripts": "2.0.5",
+    "reactstrap": "^6.5.0"
   },
   "homepage": "./",
   "scripts": {

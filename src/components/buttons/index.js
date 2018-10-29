@@ -1,23 +1,20 @@
 import React from 'react';
-
-const Button = ({ text, onClick }) => (
-  <button onClick={onClick}>{text}</button>
-);
+import { Button } from 'reactstrap';
 
 const AddButton = ({ onClick }) => (
-  <Button text="+" onClick={onClick}></Button>
+  <Button onClick={onClick}>+</Button>
 );
 
 const OkButton = ({ onClick }) => (
-  <Button text="Ok" onClick={onClick}></Button>
+  <Button onClick={onClick}>Ok</Button>
 );
 
 const EditButton = ({ onClick }) => (
-  <Button text="Edit" onClick={onClick}></Button>
+  <Button onClick={onClick}>Edit</Button>
 );
 
 const DeleteButton = ({ onClick }) => (
-  <Button text="-" onClick={onClick}></Button>
+  <Button onClick={onClick}>-</Button>
 );
 
 export default Button;
