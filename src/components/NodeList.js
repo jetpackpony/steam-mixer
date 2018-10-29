@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Node from './Node';
 
 const NodeList = ({ title, nodes, onDelete, onEdit }) => {
