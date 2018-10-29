@@ -7,6 +7,7 @@ import Button, {
 import Node from './components/Node';
 import NodeList from './components/NodeList';
 import AddEndpoint from './components/AddEndpoint';
+import EditGain from './components/EditGain';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
     const addGainNode = () => console.log('adding a gain node');
     const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
     const openAddConnection = () => console.log("opening add connection menu");
+    const onGainChange = (nodeId, value) => console.log("setting gain for " + nodeId + " to " + value);
     return (
       <Fragment>
         <div>
@@ -82,6 +84,13 @@ class App extends Component {
             type="input"
             deviceList={devices}
             onCreate={onCreateEndpoint}
+          />
+        </div>
+        <div>
+          <EditGain
+            nodeId="2"
+            value="0.5"
+            onGainChange={onGainChange}
           />
         </div>
       </Fragment>
