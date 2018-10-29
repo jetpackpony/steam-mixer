@@ -1,21 +1,26 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
+const Btn = ({ onClick, children }) => (
+  <Button outline color="primary" onClick={onClick}>
+    {children}
+  </Button>
+);
+
 const AddButton = ({ onClick }) => (
-  <Button onClick={onClick}>+</Button>
+  <Btn onClick={onClick}>+</Btn>
 );
 
 const OkButton = ({ onClick }) => (
-  <Button onClick={onClick}>Ok</Button>
+  <Btn onClick={onClick}>Ok</Btn>
 );
 
 const EditButton = ({ onClick }) => (
-  <Button onClick={onClick}>Edit</Button>
+  <Btn onClick={onClick}>Edit</Btn>
 );
 
 const DeleteButton = ({ onClick }) => (
-  <Button onClick={onClick}>-</Button>
+  <Btn onClick={onClick}>-</Btn>
 );
 
-export default Button;
 export { AddButton, OkButton, EditButton, DeleteButton };
