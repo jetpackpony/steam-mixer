@@ -11,7 +11,8 @@ class App extends Component {
     super(props);
     this.state = {
       addInputOpen: false,
-      addOutputOpen: false
+      addOutputOpen: false,
+      addConnectionOpen: false,
     };
   }
 
@@ -41,6 +42,9 @@ class App extends Component {
     const toggleAddOutput = () => this.setState({
       addOutputOpen: !this.state.addOutputOpen
     });
+    const toggleAddConnection = () => this.setState({
+      addConnectionOpen: !this.state.addConnectionOpen
+    });
     return (
       <Fragment>
         <CardDeck>
@@ -67,7 +71,7 @@ class App extends Component {
             title="Connections"
             nodes={nodes}
             onDelete={onDelete}
-            onAdd={openAddConnection}
+            onAdd={toggleAddConnection}
           />
         </CardDeck>
         <AddEndpoint
@@ -84,14 +88,16 @@ class App extends Component {
           toggle={toggleAddOutput}
           isOpen={this.state.addOutputOpen}
         />
+        <AddConnection
+          nodesList={nodes}
+          onAddConnection={onAddConnection}
+          toggle={toggleAddConnection}
+          isOpen={this.state.addConnectionOpen}
+        />
         <EditGain
           nodeId="2"
           value="0.5"
           onGainChange={onGainChange}
-        />
-        <AddConnection
-          nodesList={nodes}
-          onAddConnection={onAddConnection}
         />
       </Fragment>
     );
