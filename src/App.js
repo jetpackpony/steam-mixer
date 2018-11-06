@@ -10,7 +10,7 @@ import WebAudioEngine from './components/WebAudioEngine';
 import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
 
 let state = {
-  webAudioDevices: [],
+  webAudioDevices: { inputs: [], outputs: [] },
   audioGraph: {},
   ui: {
     addInputOpen: false,
@@ -24,6 +24,23 @@ let state = {
 const getMicId = (devices) => devices.filter(d => d.label === "Internal Microphone (Built-in)" && d.kind === "audioinput")[0].deviceId;
 const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
 const getHDMIId = (devices) => devices.filter(d => d.label === "DELL S2415H (HDMI)" && d.kind === "audiooutput")[0].deviceId;
+
+const isAudioDevice = device => device.kind === "audioinput" || device.kind === "audiooutput";
+const isDefaultDevice = device => device.deviceId !== "default";
+const breakIntoCategories = R.reduce((res, el) => {
+  if (el.kind === "audioinput") {
+    res.inputs.push(el);
+  }
+  if (el.kind === "audiooutput") {
+    res.outputs.push(el);
+  }
+  return res;
+}, { inputs: [], outputs: [] });
+const prepareDevices = R.compose(
+  breakIntoCategories,
+  R.filter(isDefaultDevice),
+  R.filter(isAudioDevice),
+);
 
 class App extends Component {
   constructor(props) {
@@ -61,7 +78,7 @@ class App extends Component {
       }
     };
     this.setState({
-      webAudioDevices: devices,
+      webAudioDevices: prepareDevices(devices),
       audioGraph: audioGraph
     });
   }
@@ -174,14 +191,14 @@ class App extends Component {
         </CardDeck>
         <AddEndpoint
           type="input"
-          deviceList={devices}
+          deviceList={this.state.webAudioDevices['inputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddInput}
           isOpen={this.state.addInputOpen}
         />
         <AddEndpoint
           type="output"
-          deviceList={devices}
+          deviceList={this.state.webAudioDevices['outputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddOutput}
           isOpen={this.state.addOutputOpen}
