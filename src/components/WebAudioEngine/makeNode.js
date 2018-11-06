@@ -30,7 +30,7 @@ const makeNode = (node, id) => {
     case DEVICE_TYPES.DESTINATION:
       return makeDestinationFromDevice(node);
     default:
-      return Promise.resolve(node);
+      return Promise.resolve(null);
   }
 };
 

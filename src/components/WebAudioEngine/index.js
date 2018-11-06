@@ -21,7 +21,6 @@ const createSinkForDestination = async (stream, deviceId) => {
 
 const createAudioSinks = (props, virtualAudioGraph) => {
   let destProps = R.filter(isNodeADeviceDestination, props);
-  console.log(destProps);
   return PromiseAllObj(
     R.mapObjIndexed((dest, destId) => {
       return createSinkForDestination(
@@ -35,6 +34,8 @@ const createAudioSinks = (props, virtualAudioGraph) => {
 const loadDevices = () => {
   return navigator.mediaDevices.enumerateDevices();
 };
+
+const getNotNil = R.filter(R.compose(R.not, R.isNil));
 
 class WebAudioEngine extends Component {
   constructor(props) {
@@ -55,10 +56,10 @@ class WebAudioEngine extends Component {
     console.log("Running VAG with props: ", vagProps);
 
     (async () => {
-      const updateObject = await makeVAGUpdateObject(this.props.audioGraph);
+      const updateObject = getNotNil(await makeVAGUpdateObject(this.props.audioGraph));
       this.state.virtualAudioGraph.update(updateObject);
       let sinks = await createAudioSinks(this.props.audioGraph, this.state.virtualAudioGraph);
-      console.log(sinks);
+      console.log(this.state.virtualAudioGraph);
     })();
   }
 
