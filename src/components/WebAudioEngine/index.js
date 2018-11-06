@@ -19,10 +19,13 @@ const createSinkForDestination = async (stream, deviceId) => {
   return audio;
 };
 
-const createAudioSinks = (props, virtualAudioGraph) => {
+const createAudioSinks = (props, virtualAudioGraph, sinks) => {
   let destProps = R.filter(isNodeADeviceDestination, props);
   return PromiseAllObj(
     R.mapObjIndexed((dest, destId) => {
+      if (R.has(destId, sinks)) {
+        return Promise.resolve(sinks[destId]);
+      }
       return createSinkForDestination(
         virtualAudioGraph.getAudioNodeById(destId).stream,
         dest.deviceId
@@ -40,10 +43,8 @@ const getNotNil = R.filter(R.compose(R.not, R.isNil));
 class WebAudioEngine extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      virtualAudioGraph: createVirtualAudioGraph(),
-      sinks: {}
-    };
+    this.virtualAudioGraph = createVirtualAudioGraph();
+    this.sinks = {};
   }
 
   componentDidMount() {
@@ -57,9 +58,9 @@ class WebAudioEngine extends Component {
 
     (async () => {
       const updateObject = getNotNil(await makeVAGUpdateObject(this.props.audioGraph));
-      this.state.virtualAudioGraph.update(updateObject);
-      let sinks = await createAudioSinks(this.props.audioGraph, this.state.virtualAudioGraph);
-      console.log(this.state.virtualAudioGraph);
+      this.virtualAudioGraph.update(updateObject);
+      this.sinks = await createAudioSinks(this.props.audioGraph, this.virtualAudioGraph, this.sinks);
+      console.log(this.virtualAudioGraph);
     })();
   }
 
