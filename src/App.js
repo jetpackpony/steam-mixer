@@ -5,16 +5,53 @@ import AddEndpoint from './components/AddEndpoint';
 import EditGain from './components/EditGain';
 import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
+import WebAudioEngine from './components/WebAudioEngine';
+import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
+
+let state = {
+  webAudioDevices: [],
+  audioGraph: {},
+  ui: {
+    addInputOpen: false,
+    addOutputOpen: false,
+    addConnectionOpen: false,
+    editGainOpen: false,
+    editGainId: null
+  }
+};
+
+const getMicId = (devices) => devices.filter(d => d.label === "Internal Microphone (Built-in)" && d.kind === "audioinput")[0].deviceId;
+const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
+const getHDMIId = (devices) => devices.filter(d => d.label === "DELL S2415H (HDMI)" && d.kind === "audiooutput")[0].deviceId;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      addInputOpen: false,
-      addOutputOpen: false,
-      addConnectionOpen: false,
-      editGainOpen: false
+    this.state = state;
+    this.onDevicesLoaded = this.onDevicesLoaded.bind(this);
+  }
+
+  onDevicesLoaded(devices) {
+    console.log("devices loaded: ", devices);
+    const audioGraph = {
+      "0": {
+        type: DEVICE_TYPES.SOURCE,
+        output: ["1"],
+        deviceId: getMicId(devices)
+      },
+      "1": {
+        type: DEVICE_TYPES.DESTINATION,
+        deviceId: getHeadphonesId(devices)
+      },
+      "2": {
+        type: DEVICE_TYPES.DESTINATION,
+        deviceId: getHDMIId(devices)
+      }
     };
+    this.setState({
+      webAudioDevices: devices,
+      audioGraph: audioGraph
+    });
   }
 
   render() {
@@ -64,6 +101,11 @@ class App extends Component {
     };
     return (
       <Fragment>
+        <WebAudioEngine
+          onDevicesLoaded={this.onDevicesLoaded}
+          devices={this.state.webAudioDevices}
+          audioGraph={this.state.audioGraph}
+        />
         <CardDeck>
           <NodeList
             title="Inputs"
