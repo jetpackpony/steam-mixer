@@ -1,8 +1,5 @@
 import * as R from 'ramda';
-import {
-  mediaStreamSource,
-  mediaStreamDestination
-} from 'virtual-audio-graph';
+import * as vag from 'virtual-audio-graph';
 import { DEVICE_TYPES } from './constants';
 
 const makeSourceFromDevice = async (node) => {
@@ -16,11 +13,15 @@ const makeSourceFromDevice = async (node) => {
     video: false
   });
 
-  return mediaStreamSource(node.output, { mediaStream: stream });
+  return vag.mediaStreamSource(node.output, { mediaStream: stream });
 };
 
 const makeDestinationFromDevice = async (node) => {
-  return mediaStreamDestination();
+  return vag.mediaStreamDestination();
+};
+
+const makeAudioNode = async (node) => {
+  return vag[node.constructor](node.output, node.props);
 };
 
 const makeNode = (node, id) => {
@@ -29,6 +30,8 @@ const makeNode = (node, id) => {
       return makeSourceFromDevice(node);
     case DEVICE_TYPES.DESTINATION:
       return makeDestinationFromDevice(node);
+    case "node":
+      return makeAudioNode(node);
     default:
       return Promise.resolve(null);
   }

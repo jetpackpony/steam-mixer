@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
+import * as R from 'ramda';
 import NodeList from './components/NodeList';
 import AddEndpoint from './components/AddEndpoint';
 import EditGain from './components/EditGain';
@@ -29,6 +30,9 @@ class App extends Component {
     super(props);
     this.state = state;
     this.onDevicesLoaded = this.onDevicesLoaded.bind(this);
+    this.volumeUp = this.volumeUp.bind(this);
+    this.volumeDown = this.volumeDown.bind(this);
+    this.updateVolume = this.updateVolume.bind(this);
   }
 
   onDevicesLoaded(devices) {
@@ -36,7 +40,7 @@ class App extends Component {
     const audioGraph = {
       "0": {
         type: DEVICE_TYPES.SOURCE,
-        output: ["1"],
+        output: ["3"],
         deviceId: getMicId(devices)
       },
       "1": {
@@ -46,12 +50,45 @@ class App extends Component {
       "2": {
         type: DEVICE_TYPES.DESTINATION,
         deviceId: getHDMIId(devices)
+      },
+      "3": {
+        type: "node",
+        constructor: "gain",
+        output: ["1"],
+        props: {
+          gain: 1
+        }
       }
     };
     this.setState({
       webAudioDevices: devices,
       audioGraph: audioGraph
     });
+  }
+
+  updateVolume(newVolume) {
+    this.setState({
+      audioGraph: R.mergeDeepRight(
+        this.state.audioGraph,
+        {
+          "3": {
+            props: {
+              gain: newVolume
+            }
+          }
+        }
+      )
+    });
+  }
+
+  volumeUp() {
+    let prevGain = this.state.audioGraph["3"].props.gain;
+    this.updateVolume(prevGain + 1);
+  }
+
+  volumeDown() {
+    let prevGain = this.state.audioGraph["3"].props.gain;
+    this.updateVolume(prevGain - 1);
   }
 
   render() {
@@ -105,6 +142,8 @@ class App extends Component {
           onDevicesLoaded={this.onDevicesLoaded}
           devices={this.state.webAudioDevices}
           audioGraph={this.state.audioGraph}
+          volumeUp={this.volumeUp}
+          volumeDown={this.volumeDown}
         />
         <CardDeck>
           <NodeList

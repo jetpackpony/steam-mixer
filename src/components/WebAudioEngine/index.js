@@ -4,6 +4,7 @@ import createVirtualAudioGraph from 'virtual-audio-graph';
 import makeNode from './makeNode';
 import { PromiseAllObj } from '../../utils';
 import { DEVICE_TYPES } from './constants';
+import { AddButton, DeleteButton } from '../buttons';
 
 const isNodeADeviceDestination = (d) => d.type === DEVICE_TYPES.DESTINATION;
 
@@ -65,7 +66,13 @@ class WebAudioEngine extends Component {
   }
 
   render() {
-    return <div>Testme</div>;
+    return (
+      <div>
+        Testme
+        <AddButton onClick={this.props.volumeUp} />
+        <DeleteButton onClick={this.props.volumeDown} />
+      </div>
+    );
   }
 };
 
