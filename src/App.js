@@ -8,6 +8,41 @@ import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
 import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
+import makeStore from './store';
+
+const store = makeStore();
+
+const getNodeTitleById = (state, id) => (
+  R.compose(
+    R.prop("title"),
+    R.find(R.propEq("nodeId", id))
+  )(state.audioGraph)
+);
+
+const selectInputs = (state) => (
+  R.filter((node) => (node.type === DEVICE_TYPES.SOURCE), state.audioGraph)
+);
+
+const selectOutputs = (state) => (
+  R.filter((node) => (node.type === DEVICE_TYPES.DESTINATION), state.audioGraph)
+);
+
+const selectNodes = (state) => (
+  R.filter((node) => (node.type === "node"), state.audioGraph)
+);
+
+const selectConnections = (state) => (
+  R.reduce((agregator, node) => (
+    R.concat(
+      agregator,
+      R.map((out) => ({
+        nodeId: node.nodeId + "-" + out,
+        title: getNodeTitleById(state, node.nodeId) + " -> " + getNodeTitleById(state, out)
+      }), node.output)
+    )
+  ), [], state.audioGraph)
+);
+
 
 let state = {
   webAudioDevices: { inputs: [], outputs: [] },
@@ -115,11 +150,6 @@ class App extends Component {
       { title: "Third", nodeId: "C2"},
       { title: "Fourth", nodeId: "O2"},
     ];
-    let devices = [
-      { deviceId: "1", label: "Microphone (built-in)"},
-      { deviceId: "2", label: "Microphone (external)"},
-      { deviceId: "3", label: "Soundflower (2ch)"},
-    ];
     let onDelete = (nodeId) => console.log("deleting node " + nodeId);
     let onEdit = (nodeId) => console.log("editing node " + nodeId);
     const onCreateEndpoint = (device) => console.log("creating device: ", device);
@@ -155,6 +185,7 @@ class App extends Component {
     };
     return (
       <Fragment>
+        {/*
         <WebAudioEngine
           onDevicesLoaded={this.onDevicesLoaded}
           devices={this.state.webAudioDevices}
@@ -162,43 +193,44 @@ class App extends Component {
           volumeUp={this.volumeUp}
           volumeDown={this.volumeDown}
         />
+        */}
         <CardDeck>
           <NodeList
             title="Inputs"
-            nodes={nodes}
+            nodes={selectInputs(store.getState())}
             onDelete={onDelete}
             onAdd={toggleAddInput}
           />
           <NodeList
             title="Audio Nodes"
-            nodes={nodes}
+            nodes={selectNodes(store.getState())}
             onDelete={onDelete}
             onEdit={editGainNode}
             onAdd={addGainNode}
           />
           <NodeList
             title="Outputs"
-            nodes={nodes}
+            nodes={selectOutputs(store.getState())}
             onDelete={onDelete}
             onAdd={toggleAddOutput}
           />
           <NodeList
             title="Connections"
-            nodes={nodes}
+            nodes={selectConnections(store.getState())}
             onDelete={onDelete}
             onAdd={toggleAddConnection}
           />
         </CardDeck>
         <AddEndpoint
           type="input"
-          deviceList={this.state.webAudioDevices['inputs']}
+          deviceList={store.getState().webAudioDevices['inputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddInput}
           isOpen={this.state.addInputOpen}
         />
         <AddEndpoint
           type="output"
-          deviceList={this.state.webAudioDevices['outputs']}
+          deviceList={store.getState().webAudioDevices['outputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddOutput}
           isOpen={this.state.addOutputOpen}
