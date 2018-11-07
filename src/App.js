@@ -74,6 +74,17 @@ const prepareDevices = R.compose(
   R.filter(isAudioDevice),
 );
 
+const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
+const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
+const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
+const toggleEditGain = (nodeId) => store.dispatch(actions.toggleEditGainModal(nodeId));
+
+const addEndpoint = R.curry(
+  (deviceType, title, device) =>
+    store.dispatch(actions.addEndpoint(deviceType, title, device))
+);
+
+
 class App extends Component {
   componentDidMount() {
     store.subscribe(() => {
@@ -96,17 +107,6 @@ class App extends Component {
       });
     }
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
-
-
-    const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
-    const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
-    const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
-    const toggleEditGain = (nodeId) => store.dispatch(actions.toggleEditGainModal(nodeId));
-
-    const addEndpoint = R.curry(
-      (deviceType, title, device) =>
-        store.dispatch(actions.addEndpoint(deviceType, title, device))
-    );
 
     return (
       <Fragment>
