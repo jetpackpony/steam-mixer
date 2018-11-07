@@ -1,4 +1,5 @@
 import { DEVICE_TYPES } from '../../components/WebAudioEngine/constants';
+import { ACTION_TYPES } from '../actions';
 
 /*
 let initState = {
@@ -45,6 +46,17 @@ let initState = [
 
 const audioGraph = (state = initState, action) => {
   switch (action.type) {
+    case ACTION_TYPES.ADD_ENDPOINT:
+      return [
+        ...state,
+        {
+          "nodeId": action.nodeId,
+          "title": action.title,
+          "type": action.deviceType,
+          "output": [],
+          "deviceId": action.device.deviceId
+        }
+      ];
     default:
       return state;
   }

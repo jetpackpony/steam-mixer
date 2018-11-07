@@ -9,10 +9,7 @@ import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
 import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
 import makeStore from './store';
-import {
-  toggleAddInputModal, toggleAddOutputModal,
-  toggleAddConnectionModal, toggleEditGainModal
-} from './store/actions';
+import * as actions from './store/actions';
 
 const store = makeStore();
 
@@ -88,7 +85,6 @@ class App extends Component {
     console.log("rendering with store: ", store.getState());
     let onDelete = (nodeId) => console.log("deleting node " + nodeId);
     let onEdit = (nodeId) => console.log("editing node " + nodeId);
-    const onCreateEndpoint = (device) => console.log("creating device: ", device);
     const addGainNode = () => console.log('adding a gain node');
     const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
     const openAddConnection = () => console.log("opening add connection menu");
@@ -100,15 +96,18 @@ class App extends Component {
       });
     }
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
-    const toggleAddInput = () => store.dispatch(toggleAddInputModal());
-    const toggleAddOutput = () => store.dispatch(toggleAddOutputModal());
-    const toggleAddConnection = () => store.dispatch(toggleAddConnectionModal());
-    const toggleEditGain = (nodeId) => store.dispatch(toggleEditGainModal(nodeId));
 
-    const editGainNode = (nodeId) => {
-      console.log("editing node: ", nodeId);
-      toggleEditGain(nodeId);
-    };
+
+    const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
+    const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
+    const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
+    const toggleEditGain = (nodeId) => store.dispatch(actions.toggleEditGainModal(nodeId));
+
+    const addEndpoint = R.curry(
+      (deviceType, title, device) =>
+        store.dispatch(actions.addEndpoint(deviceType, title, device))
+    );
+
     return (
       <Fragment>
         {/*
@@ -131,7 +130,7 @@ class App extends Component {
             title="Audio Nodes"
             nodes={selectNodes(store.getState())}
             onDelete={onDelete}
-            onEdit={editGainNode}
+            onEdit={toggleEditGain}
             onAdd={addGainNode}
           />
           <NodeList
@@ -150,14 +149,14 @@ class App extends Component {
         <AddEndpoint
           type="input"
           deviceList={store.getState().webAudioDevices['inputs']}
-          onCreate={onCreateEndpoint}
+          onCreate={addEndpoint.bind(null, DEVICE_TYPES.SOURCE)}
           toggle={toggleAddInput}
           isOpen={store.getState().ui.addInputOpen}
         />
         <AddEndpoint
           type="output"
           deviceList={store.getState().webAudioDevices['outputs']}
-          onCreate={onCreateEndpoint}
+          onCreate={addEndpoint.bind(null, DEVICE_TYPES.DESTINATION)}
           toggle={toggleAddOutput}
           isOpen={store.getState().ui.addOutputOpen}
         />

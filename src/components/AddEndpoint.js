@@ -40,11 +40,10 @@ class AddEndpoint extends Component {
 
   onSubmit() {
     this.toggle();
-    this.props.onCreate({
-      type: this.props.type,
-      title: this.state.title,
-      device: getDeviceById(this.props.deviceList, this.state.deviceId)
-    });
+    this.props.onCreate(
+      this.state.title,
+      getDeviceById(this.props.deviceList, this.state.deviceId)
+    );
   }
 
   toggle() {

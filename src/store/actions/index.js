@@ -1,9 +1,11 @@
+import uuidv4 from 'uuid/v4';
 
 const ACTION_TYPES = {
   TOGGLE_ADD_INPUT_MODAL: "TOGGLE_ADD_INPUT_MODAL",
   TOGGLE_ADD_OUTPUT_MODAL: "TOGGLE_ADD_OUTPUT_MODAL",
   TOGGLE_ADD_CONNECTION_MODAL: "TOGGLE_ADD_CONNECTION_MODAL",
   TOGGLE_EDIT_GAIN_MODAL: "TOGGLE_EDIT_GAIN_MODAL",
+  ADD_ENDPOINT: "ADD_ENDPOINT",
 }
 
 const toggleAddInputModal = () => ({
@@ -23,10 +25,19 @@ const toggleEditGainModal = (id) => ({
   id
 });
 
+const addEndpoint = (deviceType, title, device) => ({
+  type: ACTION_TYPES.ADD_ENDPOINT,
+  deviceType,
+  title,
+  device,
+  nodeId: uuidv4()
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
   toggleAddOutputModal,
   toggleAddConnectionModal,
   toggleEditGainModal,
+  addEndpoint,
 }
