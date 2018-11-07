@@ -84,6 +84,7 @@ const addEndpoint = R.curry(
     store.dispatch(actions.addEndpoint(deviceType, title, device))
 );
 const addGainNode = () => store.dispatch(actions.addGainNode());
+const addConnection = (fromId, toId) => store.dispatch(actions.addConnection(fromId, toId));
 
 class App extends Component {
   componentDidMount() {
@@ -105,7 +106,6 @@ class App extends Component {
         editingGainValue: value
       });
     }
-    const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
 
     return (
       <Fragment>
@@ -161,7 +161,7 @@ class App extends Component {
         />
         <AddConnection
           nodesList={store.getState().audioGraph}
-          onAddConnection={onAddConnection}
+          onAddConnection={addConnection}
           toggle={toggleAddConnection}
           isOpen={store.getState().ui.addConnectionOpen}
         />

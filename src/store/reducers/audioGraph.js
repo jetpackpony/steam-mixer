@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { DEVICE_TYPES } from '../../components/WebAudioEngine/constants';
 import { ACTION_TYPES } from '../actions';
 
@@ -70,6 +71,19 @@ const audioGraph = (state = initState, action) => {
             "gain": 1
           }
         }
+      ];
+    case ACTION_TYPES.ADD_CONNECTION:
+      let fromIndex = R.findIndex(R.propEq("nodeId", action.fromId))(state);
+      return [
+        ...R.slice(0, fromIndex, state),
+        {
+          ...state[fromIndex],
+          output: R.uniq([
+            ...state[fromIndex].output,
+            action.toId
+          ])
+        },
+        ...R.slice(fromIndex + 1, Infinity, state),
       ];
     default:
       return state;

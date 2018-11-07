@@ -21,13 +21,13 @@ class AddConnection extends Component {
 
   onSelectChange(type, event) {
     let tmp = {};
-    tmp[type] = getNodeById(this.props.nodesList, event.target.value);
+    tmp[type] = event.target.value;
     this.setState(tmp);
   }
 
   onSubmit() {
     this.toggle();
-    this.props.onAddConnection(this.state);
+    this.props.onAddConnection(this.state.from, this.state.to);
   }
 
   toggle() {
@@ -44,14 +44,14 @@ class AddConnection extends Component {
         <ModalBody>
           <div>
             <label>From:</label>
-            <select value={this.state.from.nodeId} onChange={this.onFromChange}>
+            <select value={this.state.from} onChange={this.onFromChange}>
               <option value="">-- select from node --</option>
               {nodeOptions}
             </select>
           </div>
           <div>
             <label>To:</label>
-            <select value={this.state.to.nodeId} onChange={this.onToChange}>
+            <select value={this.state.to} onChange={this.onToChange}>
               <option value="">-- select to node --</option>
               {nodeOptions}
             </select>
