@@ -82,7 +82,6 @@ const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
 const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
 const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
 const toggleEditGain = (nodeId) => store.dispatch(actions.toggleEditGainModal(nodeId));
-
 const addEndpoint = R.curry(
   (deviceType, title, device) =>
     store.dispatch(actions.addEndpoint(deviceType, title, device))
@@ -104,15 +103,11 @@ class App extends Component {
     console.log("rendering with store: ", store.getState());
     return (
       <Fragment>
-        {/*
         <WebAudioEngine
-          onDevicesLoaded={this.onDevicesLoaded}
-          devices={this.state.webAudioDevices}
-          audioGraph={this.state.audioGraph}
-          volumeUp={this.volumeUp}
-          volumeDown={this.volumeDown}
+          onDevicesLoaded={() => { console.log("devices loaded") }}
+          devices={store.getState().webAudioDevices}
+          audioGraph={store.getState().audioGraph}
         />
-        */}
         <CardDeck>
           <NodeList
             title="Inputs"

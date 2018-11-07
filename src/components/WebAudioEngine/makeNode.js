@@ -24,7 +24,7 @@ const makeAudioNode = async (node) => {
   return vag[node.constructor](node.output, node.props);
 };
 
-const makeNode = (node, id) => {
+const makeNode = (node) => {
   switch (node.type) {
     case DEVICE_TYPES.SOURCE:
       return makeSourceFromDevice(node);

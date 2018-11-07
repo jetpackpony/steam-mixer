@@ -9,7 +9,12 @@ import { AddButton, DeleteButton } from '../buttons';
 const isNodeADeviceDestination = (d) => d.type === DEVICE_TYPES.DESTINATION;
 
 const makeVAGUpdateObject = (props) => {
-  return PromiseAllObj(R.mapObjIndexed(makeNode, props));
+  return PromiseAllObj(
+    R.zipObj(
+      R.pluck("nodeId", props),
+      R.map(makeNode, props)
+    )
+  );
 };
 
 const createSinkForDestination = async (stream, deviceId) => {
@@ -23,15 +28,19 @@ const createSinkForDestination = async (stream, deviceId) => {
 const createAudioSinks = (props, virtualAudioGraph, sinks) => {
   let destProps = R.filter(isNodeADeviceDestination, props);
   return PromiseAllObj(
-    R.mapObjIndexed((dest, destId) => {
-      if (R.has(destId, sinks)) {
-        return Promise.resolve(sinks[destId]);
-      }
-      return createSinkForDestination(
-        virtualAudioGraph.getAudioNodeById(destId).stream,
-        dest.deviceId
-      );
-    }, destProps)
+    R.zipObj(
+      R.pluck("nodeId", destProps),
+      R.map((dest) => {
+        let destId = dest.nodeId;
+        if (R.has(destId, sinks)) {
+          return Promise.resolve(sinks[destId]);
+        }
+        return createSinkForDestination(
+          virtualAudioGraph.getAudioNodeById(destId).stream,
+          dest.deviceId
+        );
+      }, destProps)
+    )
   );
 };
 
@@ -66,13 +75,7 @@ class WebAudioEngine extends Component {
   }
 
   render() {
-    return (
-      <div>
-        Testme
-        <AddButton onClick={this.props.volumeUp} />
-        <DeleteButton onClick={this.props.volumeDown} />
-      </div>
-    );
+    return null;
   }
 };
 
