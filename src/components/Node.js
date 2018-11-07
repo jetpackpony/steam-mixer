@@ -13,8 +13,7 @@ const Node = ({ title, nodeId, onDelete, onEdit }) => {
       <Col xs="1">
         <DeleteButton onClick={() => onDelete(nodeId)} />
       </Col>
-      <Col xs="2">{nodeId}</Col>
-      <Col xs="6">{title}</Col>
+      <Col xs="8">{title}</Col>
       {edit ? <Col xs="1">{edit}</Col> : null}
     </Row>
   );

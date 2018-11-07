@@ -36,7 +36,7 @@ class AddConnection extends Component {
 
   render() {
     const nodeOptions = this.props.nodesList.map(({ nodeId, title }) => (
-      <option key={nodeId} value={nodeId}>{nodeId} {title}</option>
+      <option key={nodeId} value={nodeId}>{title}</option>
     ));
     return (
       <Modal isOpen={this.props.isOpen} toggle={this.toggle}>
