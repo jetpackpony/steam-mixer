@@ -9,6 +9,10 @@ import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
 import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
 import makeStore from './store';
+import {
+  toggleAddInputModal, toggleAddOutputModal,
+  toggleAddConnectionModal, toggleEditGainModal
+} from './store/actions';
 
 const store = makeStore();
 
@@ -43,18 +47,14 @@ const selectConnections = (state) => (
   ), [], state.audioGraph)
 );
 
-
-let state = {
-  webAudioDevices: { inputs: [], outputs: [] },
-  audioGraph: {},
-  ui: {
-    addInputOpen: false,
-    addOutputOpen: false,
-    addConnectionOpen: false,
-    editGainOpen: false,
-    editGainId: null
-  }
-};
+const getGainValueById = (state, id) => (
+  id !== null
+    ? R.compose(
+        R.path(["props", "gain"]),
+        R.find(R.propEq("nodeId", id))
+      )(state.audioGraph)
+    : null
+);
 
 const getMicId = (devices) => devices.filter(d => d.label === "Internal Microphone (Built-in)" && d.kind === "audioinput")[0].deviceId;
 const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
@@ -78,78 +78,14 @@ const prepareDevices = R.compose(
 );
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = state;
-    this.onDevicesLoaded = this.onDevicesLoaded.bind(this);
-    this.volumeUp = this.volumeUp.bind(this);
-    this.volumeDown = this.volumeDown.bind(this);
-    this.updateVolume = this.updateVolume.bind(this);
-  }
-
-  onDevicesLoaded(devices) {
-    console.log("devices loaded: ", devices);
-    const audioGraph = {
-      "0": {
-        type: DEVICE_TYPES.SOURCE,
-        output: ["3"],
-        deviceId: getMicId(devices)
-      },
-      "1": {
-        type: DEVICE_TYPES.DESTINATION,
-        deviceId: getHeadphonesId(devices)
-      },
-      "2": {
-        type: DEVICE_TYPES.DESTINATION,
-        deviceId: getHDMIId(devices)
-      },
-      "3": {
-        type: "node",
-        constructor: "gain",
-        output: ["1"],
-        props: {
-          gain: 1
-        }
-      }
-    };
-    this.setState({
-      webAudioDevices: prepareDevices(devices),
-      audioGraph: audioGraph
+  componentDidMount() {
+    store.subscribe(() => {
+      this.forceUpdate();
     });
-  }
-
-  updateVolume(newVolume) {
-    this.setState({
-      audioGraph: R.mergeDeepRight(
-        this.state.audioGraph,
-        {
-          "3": {
-            props: {
-              gain: newVolume
-            }
-          }
-        }
-      )
-    });
-  }
-
-  volumeUp() {
-    let prevGain = this.state.audioGraph["3"].props.gain;
-    this.updateVolume(prevGain + 1);
-  }
-
-  volumeDown() {
-    let prevGain = this.state.audioGraph["3"].props.gain;
-    this.updateVolume(prevGain - 1);
   }
 
   render() {
-    let nodes = [
-      { title: "First", nodeId: "I1"},
-      { title: "Second", nodeId: "O1"},
-      { title: "Third", nodeId: "C2"},
-      { title: "Fourth", nodeId: "O2"},
-    ];
+    console.log("rendering with store: ", store.getState());
     let onDelete = (nodeId) => console.log("deleting node " + nodeId);
     let onEdit = (nodeId) => console.log("editing node " + nodeId);
     const onCreateEndpoint = (device) => console.log("creating device: ", device);
@@ -164,24 +100,14 @@ class App extends Component {
       });
     }
     const onAddConnection = ({ from, to }) => console.log("creating connection from " + from.title + " to " + to.title);
-    const toggleAddInput = () => this.setState({
-      addInputOpen: !this.state.addInputOpen
-    });
-    const toggleAddOutput = () => this.setState({
-      addOutputOpen: !this.state.addOutputOpen
-    });
-    const toggleAddConnection = () => this.setState({
-      addConnectionOpen: !this.state.addConnectionOpen
-    });
-    const toggleEditGain = () => this.setState({
-      editGainOpen: !this.state.editGainOpen
-    });
+    const toggleAddInput = () => store.dispatch(toggleAddInputModal());
+    const toggleAddOutput = () => store.dispatch(toggleAddOutputModal());
+    const toggleAddConnection = () => store.dispatch(toggleAddConnectionModal());
+    const toggleEditGain = (nodeId) => store.dispatch(toggleEditGainModal(nodeId));
+
     const editGainNode = (nodeId) => {
-      toggleEditGain();
-      this.setState({
-        editingGainId: nodeId,
-        editingGainValue: 0
-      });
+      console.log("editing node: ", nodeId);
+      toggleEditGain(nodeId);
     };
     return (
       <Fragment>
@@ -226,27 +152,27 @@ class App extends Component {
           deviceList={store.getState().webAudioDevices['inputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddInput}
-          isOpen={this.state.addInputOpen}
+          isOpen={store.getState().ui.addInputOpen}
         />
         <AddEndpoint
           type="output"
           deviceList={store.getState().webAudioDevices['outputs']}
           onCreate={onCreateEndpoint}
           toggle={toggleAddOutput}
-          isOpen={this.state.addOutputOpen}
+          isOpen={store.getState().ui.addOutputOpen}
         />
         <AddConnection
-          nodesList={nodes}
+          nodesList={store.getState().audioGraph}
           onAddConnection={onAddConnection}
           toggle={toggleAddConnection}
-          isOpen={this.state.addConnectionOpen}
+          isOpen={store.getState().ui.addConnectionOpen}
         />
         <EditGain
-          nodeId={this.state.editingGainId}
-          value={this.state.editingGainValue}
+          nodeId={store.getState().ui.editGainId}
+          value={getGainValueById(store.getState(), store.getState().ui.editGainId)}
           onGainChange={onGainChange}
-          isOpen={this.state.editGainOpen}
-          toggle={toggleEditGain}
+          isOpen={store.getState().ui.editGainOpen}
+          toggle={toggleEditGain.bind(null, store.getState().ui.editGainId)}
         />
       </Fragment>
     );
