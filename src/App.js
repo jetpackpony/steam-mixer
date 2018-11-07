@@ -91,6 +91,7 @@ const addGainNode = () => store.dispatch(actions.addGainNode());
 const addConnection = (fromId, toId) => store.dispatch(actions.addConnection(fromId, toId));
 const deleteNode = (nodeId) => store.dispatch(actions.deleteNode(nodeId));
 const deleteConnection = (fromId, toId) => store.dispatch(actions.deleteConnection(fromId, toId));
+const changeGain = (nodeId, value) => store.dispatch(actions.changeGain(nodeId, value));
 
 class App extends Component {
   componentDidMount() {
@@ -101,14 +102,6 @@ class App extends Component {
 
   render() {
     console.log("rendering with store: ", store.getState());
-    const onGainChange = (nodeId, value) => {
-      console.log("setting gain for " + nodeId + " to " + value);
-      this.setState({
-        editingGainId: nodeId,
-        editingGainValue: value
-      });
-    }
-
     return (
       <Fragment>
         {/*
@@ -170,7 +163,7 @@ class App extends Component {
         <EditGain
           nodeId={store.getState().ui.editGainId}
           value={getGainValueById(store.getState(), store.getState().ui.editGainId)}
-          onGainChange={onGainChange}
+          onGainChange={changeGain}
           isOpen={store.getState().ui.editGainOpen}
           toggle={toggleEditGain.bind(null, store.getState().ui.editGainId)}
         />

@@ -89,7 +89,7 @@ const audioGraph = (state = initState, action) => {
         ...R.slice(fromIndex + 1, Infinity, state),
       ];
     case ACTION_TYPES.DELETE_NODE:
-      let nodeIndex = getNodeIndexByID(action.nodeId, state);
+      var nodeIndex = getNodeIndexByID(action.nodeId, state);
       return R.map((node) => ({
         ...node,
         output: R.without([action.nodeId], node.output)
@@ -103,6 +103,19 @@ const audioGraph = (state = initState, action) => {
           output: R.without([action.toId], ...state[fromIndex].output)
         },
         ...R.slice(fromIndex + 1, Infinity, state),
+      ];
+    case ACTION_TYPES.CHANGE_GAIN:
+      var nodeIndex = getNodeIndexByID(action.nodeId, state);
+      return [
+        ...R.slice(0, nodeIndex, state),
+        {
+          ...state[nodeIndex],
+          props: {
+            ...state[nodeIndex].props,
+            gain: action.value
+          }
+        },
+        ...R.slice(nodeIndex + 1, Infinity, state),
       ];
     default:
       return state;

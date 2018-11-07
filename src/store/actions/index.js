@@ -10,6 +10,7 @@ const ACTION_TYPES = {
   ADD_CONNECTION: "ADD_CONNECTION",
   DELETE_NODE: "DELETE_NODE",
   DELETE_CONNECTION: "DELETE_CONNECTION",
+  CHANGE_GAIN: "CHANGE_GAIN",
 }
 
 const toggleAddInputModal = () => ({
@@ -60,6 +61,12 @@ const deleteConnection = (fromId, toId) => ({
   toId
 });
 
+const changeGain = (nodeId, value) => ({
+  type: ACTION_TYPES.CHANGE_GAIN,
+  nodeId,
+  value
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
@@ -71,4 +78,5 @@ export {
   addConnection,
   deleteNode,
   deleteConnection,
+  changeGain,
 }
