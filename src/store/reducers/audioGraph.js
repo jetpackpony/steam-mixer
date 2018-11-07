@@ -57,6 +57,20 @@ const audioGraph = (state = initState, action) => {
           "deviceId": action.device.deviceId
         }
       ];
+    case ACTION_TYPES.ADD_GAIN_NODE:
+      return [
+        ...state,
+        {
+          "nodeId": action.nodeId,
+          "title": action.title,
+          "type": "node",
+          "output": [],
+          "constructor": "gain",
+          "props": {
+            "gain": 1
+          }
+        }
+      ];
     default:
       return state;
   }

@@ -6,6 +6,7 @@ const ACTION_TYPES = {
   TOGGLE_ADD_CONNECTION_MODAL: "TOGGLE_ADD_CONNECTION_MODAL",
   TOGGLE_EDIT_GAIN_MODAL: "TOGGLE_EDIT_GAIN_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
+  ADD_GAIN_NODE: "ADD_GAIN_NODE",
 }
 
 const toggleAddInputModal = () => ({
@@ -33,6 +34,12 @@ const addEndpoint = (deviceType, title, device) => ({
   nodeId: uuidv4()
 });
 
+const addGainNode = () => ({
+  type: ACTION_TYPES.ADD_GAIN_NODE,
+  title: "Gain",
+  nodeId: uuidv4()
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
@@ -40,4 +47,5 @@ export {
   toggleAddConnectionModal,
   toggleEditGainModal,
   addEndpoint,
+  addGainNode,
 }

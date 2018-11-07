@@ -83,7 +83,7 @@ const addEndpoint = R.curry(
   (deviceType, title, device) =>
     store.dispatch(actions.addEndpoint(deviceType, title, device))
 );
-
+const addGainNode = () => store.dispatch(actions.addGainNode());
 
 class App extends Component {
   componentDidMount() {
@@ -96,7 +96,6 @@ class App extends Component {
     console.log("rendering with store: ", store.getState());
     let onDelete = (nodeId) => console.log("deleting node " + nodeId);
     let onEdit = (nodeId) => console.log("editing node " + nodeId);
-    const addGainNode = () => console.log('adding a gain node');
     const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
     const openAddConnection = () => console.log("opening add connection menu");
     const onGainChange = (nodeId, value) => {
