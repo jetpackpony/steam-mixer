@@ -2,6 +2,9 @@ import * as R from 'ramda';
 import { DEVICE_TYPES } from '../../components/WebAudioEngine/constants';
 import { ACTION_TYPES } from '../actions';
 
+const getNodeIndexByID = (id, arr) => (
+  R.findIndex(R.propEq("nodeId", id))(arr)
+);
 /*
 let initState = {
   audioGraph: {},
@@ -73,7 +76,7 @@ const audioGraph = (state = initState, action) => {
         }
       ];
     case ACTION_TYPES.ADD_CONNECTION:
-      let fromIndex = R.findIndex(R.propEq("nodeId", action.fromId))(state);
+      var fromIndex = getNodeIndexByID(action.fromId, state);
       return [
         ...R.slice(0, fromIndex, state),
         {
@@ -82,6 +85,22 @@ const audioGraph = (state = initState, action) => {
             ...state[fromIndex].output,
             action.toId
           ])
+        },
+        ...R.slice(fromIndex + 1, Infinity, state),
+      ];
+    case ACTION_TYPES.DELETE_NODE:
+      let nodeIndex = getNodeIndexByID(action.nodeId, state);
+      return R.map((node) => ({
+        ...node,
+        output: R.without([action.nodeId], node.output)
+      }), R.remove(nodeIndex, 1, state));
+    case ACTION_TYPES.DELETE_CONNECTION:
+      var fromIndex = getNodeIndexByID(action.fromId, state);
+      return [
+        ...R.slice(0, fromIndex, state),
+        {
+          ...state[fromIndex],
+          output: R.without([action.toId], ...state[fromIndex].output)
         },
         ...R.slice(fromIndex + 1, Infinity, state),
       ];

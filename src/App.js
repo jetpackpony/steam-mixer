@@ -10,6 +10,7 @@ import WebAudioEngine from './components/WebAudioEngine';
 import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
 import makeStore from './store';
 import * as actions from './store/actions';
+import ConnectionList from './components/ConnectionList';
 
 const store = makeStore();
 
@@ -38,7 +39,10 @@ const selectConnections = (state) => (
       agregator,
       R.map((out) => ({
         nodeId: node.nodeId + "-" + out,
-        title: getNodeTitleById(state, node.nodeId) + " -> " + getNodeTitleById(state, out)
+        fromTitle: getNodeTitleById(state, node.nodeId),
+        fromId: node.nodeId,
+        toTitle: getNodeTitleById(state, out),
+        toId: out
       }), node.output)
     )
   ), [], state.audioGraph)
@@ -85,6 +89,8 @@ const addEndpoint = R.curry(
 );
 const addGainNode = () => store.dispatch(actions.addGainNode());
 const addConnection = (fromId, toId) => store.dispatch(actions.addConnection(fromId, toId));
+const deleteNode = (nodeId) => store.dispatch(actions.deleteNode(nodeId));
+const deleteConnection = (fromId, toId) => store.dispatch(actions.deleteConnection(fromId, toId));
 
 class App extends Component {
   componentDidMount() {
@@ -95,10 +101,6 @@ class App extends Component {
 
   render() {
     console.log("rendering with store: ", store.getState());
-    let onDelete = (nodeId) => console.log("deleting node " + nodeId);
-    let onEdit = (nodeId) => console.log("editing node " + nodeId);
-    const openAddEndpoint = (type) => console.log("opening add endpoint menu for ", type);
-    const openAddConnection = () => console.log("opening add connection menu");
     const onGainChange = (nodeId, value) => {
       console.log("setting gain for " + nodeId + " to " + value);
       this.setState({
@@ -122,26 +124,26 @@ class App extends Component {
           <NodeList
             title="Inputs"
             nodes={selectInputs(store.getState())}
-            onDelete={onDelete}
+            onDelete={deleteNode}
             onAdd={toggleAddInput}
           />
           <NodeList
             title="Audio Nodes"
             nodes={selectNodes(store.getState())}
-            onDelete={onDelete}
+            onDelete={deleteNode}
             onEdit={toggleEditGain}
             onAdd={addGainNode}
           />
           <NodeList
             title="Outputs"
             nodes={selectOutputs(store.getState())}
-            onDelete={onDelete}
+            onDelete={deleteNode}
             onAdd={toggleAddOutput}
           />
-          <NodeList
+          <ConnectionList
             title="Connections"
             nodes={selectConnections(store.getState())}
-            onDelete={onDelete}
+            onDelete={deleteConnection}
             onAdd={toggleAddConnection}
           />
         </CardDeck>

@@ -8,6 +8,8 @@ const ACTION_TYPES = {
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_GAIN_NODE: "ADD_GAIN_NODE",
   ADD_CONNECTION: "ADD_CONNECTION",
+  DELETE_NODE: "DELETE_NODE",
+  DELETE_CONNECTION: "DELETE_CONNECTION",
 }
 
 const toggleAddInputModal = () => ({
@@ -47,6 +49,17 @@ const addConnection = (fromId, toId) => ({
   toId
 });
 
+const deleteNode = (nodeId) => ({
+  type: ACTION_TYPES.DELETE_NODE,
+  nodeId
+});
+
+const deleteConnection = (fromId, toId) => ({
+  type: ACTION_TYPES.DELETE_CONNECTION,
+  fromId,
+  toId
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
@@ -56,4 +69,6 @@ export {
   addEndpoint,
   addGainNode,
   addConnection,
+  deleteNode,
+  deleteConnection,
 }
