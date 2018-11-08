@@ -32,5 +32,5 @@ export const getConnections = (state) => (
 );
 
 export const getGainValueById = (state, id) => (
-  audioGraphSelectors.getNodeTitleById(state.audioGraph, id)
+  audioGraphSelectors.getGainValueById(state.audioGraph, id)
 );
