@@ -11,6 +11,7 @@ const ACTION_TYPES = {
   DELETE_NODE: "DELETE_NODE",
   DELETE_CONNECTION: "DELETE_CONNECTION",
   CHANGE_GAIN: "CHANGE_GAIN",
+  UPDATE_DEVICE_LIST: "UPDATE_DEVICE_LIST",
 }
 
 const toggleAddInputModal = () => ({
@@ -67,6 +68,11 @@ const changeGain = (nodeId, value) => ({
   value
 });
 
+const updateDeviceList = (devices) => ({
+  type: ACTION_TYPES.UPDATE_DEVICE_LIST,
+  devices
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
@@ -79,4 +85,5 @@ export {
   deleteNode,
   deleteConnection,
   changeGain,
+  updateDeviceList,
 }

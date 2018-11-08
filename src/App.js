@@ -61,23 +61,6 @@ const getMicId = (devices) => devices.filter(d => d.label === "Internal Micropho
 const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
 const getHDMIId = (devices) => devices.filter(d => d.label === "DELL S2415H (HDMI)" && d.kind === "audiooutput")[0].deviceId;
 
-const isAudioDevice = device => device.kind === "audioinput" || device.kind === "audiooutput";
-const isDefaultDevice = device => device.deviceId !== "default";
-const breakIntoCategories = R.reduce((res, el) => {
-  if (el.kind === "audioinput") {
-    res.inputs.push(el);
-  }
-  if (el.kind === "audiooutput") {
-    res.outputs.push(el);
-  }
-  return res;
-}, { inputs: [], outputs: [] });
-const prepareDevices = R.compose(
-  breakIntoCategories,
-  R.filter(isDefaultDevice),
-  R.filter(isAudioDevice),
-);
-
 const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
 const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
 const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
@@ -91,6 +74,7 @@ const addConnection = (fromId, toId) => store.dispatch(actions.addConnection(fro
 const deleteNode = (nodeId) => store.dispatch(actions.deleteNode(nodeId));
 const deleteConnection = (fromId, toId) => store.dispatch(actions.deleteConnection(fromId, toId));
 const changeGain = (nodeId, value) => store.dispatch(actions.changeGain(nodeId, value));
+const updateDeviceList = (devices) => store.dispatch(actions.updateDeviceList(devices));
 
 class App extends Component {
   componentDidMount() {
@@ -104,7 +88,7 @@ class App extends Component {
     return (
       <Fragment>
         <WebAudioEngine
-          onDevicesLoaded={() => { console.log("devices loaded") }}
+          onDevicesLoaded={updateDeviceList}
           devices={store.getState().webAudioDevices}
           audioGraph={store.getState().audioGraph}
         />
