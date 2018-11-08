@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { OkButton } from './buttons';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
-
-const getNodeById = (nodeList, nodeId) => (
-  nodeList.find(n => n.nodeId === nodeId)
-);
+import ModalBox from './ModalBox';
 
 class AddConnection extends Component {
   constructor(props) {
@@ -39,28 +35,32 @@ class AddConnection extends Component {
       <option key={nodeId} value={nodeId}>{title}</option>
     ));
     return (
-      <Modal isOpen={this.props.isOpen} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Adding a connection between 2 nodes</ModalHeader>
-        <ModalBody>
-          <div>
-            <label>From:</label>
-            <select value={this.state.from} onChange={this.onFromChange}>
-              <option value="">-- select from node --</option>
-              {nodeOptions}
-            </select>
-          </div>
-          <div>
-            <label>To:</label>
-            <select value={this.state.to} onChange={this.onToChange}>
-              <option value="">-- select to node --</option>
-              {nodeOptions}
-            </select>
-          </div>
-        </ModalBody>
-        <ModalFooter>
-            <OkButton onClick={this.onSubmit} />
-        </ModalFooter>
-      </Modal>
+      <ModalBox
+        isOpen={this.props.isOpen}
+        toggle={this.toggle}
+        header="Adding a connection between 2 nodes"
+        body={
+          <Fragment>
+            <div>
+              <label>From:</label>
+              <select value={this.state.from} onChange={this.onFromChange}>
+                <option value="">-- select from node --</option>
+                {nodeOptions}
+              </select>
+            </div>
+            <div>
+              <label>To:</label>
+              <select value={this.state.to} onChange={this.onToChange}>
+                <option value="">-- select to node --</option>
+                {nodeOptions}
+              </select>
+            </div>
+          </Fragment>
+        }
+        footer={
+          <OkButton onClick={this.onSubmit} />
+        }
+      />
     );
   }
 

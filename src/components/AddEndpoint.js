@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { OkButton } from './buttons';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import ModalBox from './ModalBox';
 
 const getDeviceById = (deviceList, deviceId) => (
   deviceList.find(d => d.deviceId === deviceId)
@@ -58,21 +58,25 @@ class AddEndpoint extends Component {
       </option>
     ));
     return (
-      <Modal isOpen={this.props.isOpen} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>{getTitle(type)}</ModalHeader>
-        <ModalBody>
-          <input value={this.state.title} onChange={this.onTitleChanged} />
-          <select value={this.state.deviceId} onChange={this.onDeviceSelected}>
-            <option disabled value="" key="-1">
-              -- select {type === "input" ? "input" : "output"} device --
-          </option>
-            {options}
-          </select>
-        </ModalBody>
-        <ModalFooter>
+      <ModalBox
+        isOpen={this.props.isOpen}
+        toggle={this.toggle}
+        header={getTitle(type)}
+        body={
+          <Fragment>
+            <input value={this.state.title} onChange={this.onTitleChanged} />
+            <select value={this.state.deviceId} onChange={this.onDeviceSelected}>
+              <option disabled value="" key="-1">
+                -- select {type === "input" ? "input" : "output"} device --
+              </option>
+              {options}
+            </select>
+          </Fragment>
+        }
+        footer={
           <OkButton onClick={this.onSubmit} />
-        </ModalFooter>
-      </Modal>
+        }
+      />
     );
   }
 }
