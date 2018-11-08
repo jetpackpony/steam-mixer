@@ -11,51 +11,13 @@ import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
 import makeStore from './store';
 import * as actions from './store/actions';
 import ConnectionList from './components/ConnectionList';
+import {
+  getInputNodes, getOutputNodes,
+  getAudioNodes, getConnections,
+  getGainValueById
+} from './store/reducers';
 
 const store = makeStore();
-
-const getNodeTitleById = (state, id) => (
-  R.compose(
-    R.prop("title"),
-    R.find(R.propEq("nodeId", id))
-  )(state.audioGraph)
-);
-
-const selectInputs = (state) => (
-  R.filter((node) => (node.type === DEVICE_TYPES.SOURCE), state.audioGraph)
-);
-
-const selectOutputs = (state) => (
-  R.filter((node) => (node.type === DEVICE_TYPES.DESTINATION), state.audioGraph)
-);
-
-const selectNodes = (state) => (
-  R.filter((node) => (node.type === "node"), state.audioGraph)
-);
-
-const selectConnections = (state) => (
-  R.reduce((agregator, node) => (
-    R.concat(
-      agregator,
-      R.map((out) => ({
-        nodeId: node.nodeId + "-" + out,
-        fromTitle: getNodeTitleById(state, node.nodeId),
-        fromId: node.nodeId,
-        toTitle: getNodeTitleById(state, out),
-        toId: out
-      }), node.output)
-    )
-  ), [], state.audioGraph)
-);
-
-const getGainValueById = (state, id) => (
-  id !== null
-    ? R.compose(
-        R.path(["props", "gain"]),
-        R.find(R.propEq("nodeId", id))
-      )(state.audioGraph)
-    : null
-);
 
 const getMicId = (devices) => devices.filter(d => d.label === "Internal Microphone (Built-in)" && d.kind === "audioinput")[0].deviceId;
 const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
@@ -95,26 +57,26 @@ class App extends Component {
         <CardDeck>
           <NodeList
             title="Inputs"
-            nodes={selectInputs(store.getState())}
+            nodes={getInputNodes(store.getState())}
             onDelete={deleteNode}
             onAdd={toggleAddInput}
           />
           <NodeList
             title="Audio Nodes"
-            nodes={selectNodes(store.getState())}
+            nodes={getAudioNodes(store.getState())}
             onDelete={deleteNode}
             onEdit={toggleEditGain}
             onAdd={addGainNode}
           />
           <NodeList
             title="Outputs"
-            nodes={selectOutputs(store.getState())}
+            nodes={getOutputNodes(store.getState())}
             onDelete={deleteNode}
             onAdd={toggleAddOutput}
           />
           <ConnectionList
             title="Connections"
-            nodes={selectConnections(store.getState())}
+            nodes={getConnections(store.getState())}
             onDelete={deleteConnection}
             onAdd={toggleAddConnection}
           />
