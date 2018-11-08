@@ -19,10 +19,6 @@ import {
 
 const store = makeStore();
 
-const getMicId = (devices) => devices.filter(d => d.label === "Internal Microphone (Built-in)" && d.kind === "audioinput")[0].deviceId;
-const getHeadphonesId = (devices) => devices.filter(d => d.label === "Headphones (Built-in)" && d.kind === "audiooutput")[0].deviceId;
-const getHDMIId = (devices) => devices.filter(d => d.label === "DELL S2415H (HDMI)" && d.kind === "audiooutput")[0].deviceId;
-
 const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
 const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
 const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
@@ -51,7 +47,6 @@ class App extends Component {
       <Fragment>
         <WebAudioEngine
           onDevicesLoaded={updateDeviceList}
-          devices={store.getState().webAudioDevices}
           audioGraph={store.getState().audioGraph}
         />
         <CardDeck>

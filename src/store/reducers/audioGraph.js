@@ -7,7 +7,7 @@ const getNodeIndexByID = (id, arr) => (
 );
 /*
 let initState = {
-  audioGraph: {},
+  audioGraph: []
 };
 */
 let initState = [
@@ -40,7 +40,6 @@ let initState = [
     "type": "node",
     "constructor": "gain",
     "output": [
-      "1"
     ],
     "props": {
       "gain": 1
