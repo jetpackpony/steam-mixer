@@ -17,6 +17,7 @@ import {
 } from './store/reducers';
 import { connect } from 'react-redux';
 import NodeListContainer from './components/NodeListContainer';
+import ConnectionListContainer from './components/ConnectionListContainer';
 
 class App extends Component {
   render() {
@@ -55,11 +56,8 @@ class App extends Component {
             title="Outputs"
             type={NODE_TYPES.DESTINATION}
           />
-          <ConnectionList
+          <ConnectionListContainer
             title="Connections"
-            nodes={getConnections(state)}
-            onDelete={deleteConnection}
-            onAdd={toggleAddConnection}
           />
         </CardDeck>
         <AddEndpoint
