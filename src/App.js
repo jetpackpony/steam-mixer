@@ -8,7 +8,6 @@ import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
 import { NODE_TYPES } from './store/constants';
-import makeStore from './store';
 import * as actions from './store/actions';
 import ConnectionList from './components/ConnectionList';
 import {
@@ -16,96 +15,87 @@ import {
   getAudioNodes, getConnections,
   getGainValueById
 } from './store/reducers';
-
-const store = makeStore();
-
-const toggleAddInput = () => store.dispatch(actions.toggleAddInputModal());
-const toggleAddOutput = () => store.dispatch(actions.toggleAddOutputModal());
-const toggleAddConnection = () => store.dispatch(actions.toggleAddConnectionModal());
-const toggleEditGain = (nodeId) => store.dispatch(actions.toggleEditGainModal(nodeId));
-const addEndpoint = R.curry(
-  (deviceType, title, device) =>
-    store.dispatch(actions.addEndpoint(deviceType, title, device))
-);
-const addGainNode = () => store.dispatch(actions.addGainNode());
-const addConnection = (fromId, toId) => store.dispatch(actions.addConnection(fromId, toId));
-const deleteNode = (nodeId) => store.dispatch(actions.deleteNode(nodeId));
-const deleteConnection = (fromId, toId) => store.dispatch(actions.deleteConnection(fromId, toId));
-const changeGain = (nodeId, value) => store.dispatch(actions.changeGain(nodeId, value));
-const updateDeviceList = (devices) => store.dispatch(actions.updateDeviceList(devices));
+import { connect } from 'react-redux';
+import NodeListContainer from './components/NodeListContainer';
 
 class App extends Component {
-  componentDidMount() {
-    store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
   render() {
-    console.log("rendering with store: ", store.getState());
+    const { state, dispatch } = this.props;
+    console.log("rendering with store: ", state);
+
+    const toggleAddInput = () => dispatch(actions.toggleAddInputModal());
+    const toggleAddOutput = () => dispatch(actions.toggleAddOutputModal());
+    const toggleAddConnection = () => dispatch(actions.toggleAddConnectionModal());
+    const toggleEditGain = (nodeId) => dispatch(actions.toggleEditGainModal(nodeId));
+    const addEndpoint = R.curry(
+      (deviceType, title, device) =>
+        dispatch(actions.addEndpoint(deviceType, title, device))
+    );
+    const addConnection = (fromId, toId) => dispatch(actions.addConnection(fromId, toId));
+    const deleteConnection = (fromId, toId) => dispatch(actions.deleteConnection(fromId, toId));
+    const changeGain = (nodeId, value) => dispatch(actions.changeGain(nodeId, value));
+    const updateDeviceList = (devices) => dispatch(actions.updateDeviceList(devices));
+
     return (
       <Fragment>
         <WebAudioEngine
           onDevicesLoaded={updateDeviceList}
-          audioGraph={store.getState().audioGraph}
+          audioGraph={state.audioGraph}
         />
         <CardDeck>
-          <NodeList
+          <NodeListContainer
             title="Inputs"
-            nodes={getInputNodes(store.getState())}
-            onDelete={deleteNode}
-            onAdd={toggleAddInput}
+            type={NODE_TYPES.SOURCE}
           />
-          <NodeList
+          <NodeListContainer
             title="Audio Nodes"
-            nodes={getAudioNodes(store.getState())}
-            onDelete={deleteNode}
-            onEdit={toggleEditGain}
-            onAdd={addGainNode}
+            type={NODE_TYPES.AUDIONODE}
           />
-          <NodeList
+          <NodeListContainer
             title="Outputs"
-            nodes={getOutputNodes(store.getState())}
-            onDelete={deleteNode}
-            onAdd={toggleAddOutput}
+            type={NODE_TYPES.DESTINATION}
           />
           <ConnectionList
             title="Connections"
-            nodes={getConnections(store.getState())}
+            nodes={getConnections(state)}
             onDelete={deleteConnection}
             onAdd={toggleAddConnection}
           />
         </CardDeck>
         <AddEndpoint
           type="input"
-          deviceList={store.getState().webAudioDevices['inputs']}
+          deviceList={state.webAudioDevices['inputs']}
           onCreate={addEndpoint.bind(null, NODE_TYPES.SOURCE)}
           toggle={toggleAddInput}
-          isOpen={store.getState().ui.addInputOpen}
+          isOpen={state.ui.addInputOpen}
         />
         <AddEndpoint
           type="output"
-          deviceList={store.getState().webAudioDevices['outputs']}
+          deviceList={state.webAudioDevices['outputs']}
           onCreate={addEndpoint.bind(null, NODE_TYPES.DESTINATION)}
           toggle={toggleAddOutput}
-          isOpen={store.getState().ui.addOutputOpen}
+          isOpen={state.ui.addOutputOpen}
         />
         <AddConnection
-          nodesList={store.getState().audioGraph}
+          nodesList={state.audioGraph}
           onAddConnection={addConnection}
           toggle={toggleAddConnection}
-          isOpen={store.getState().ui.addConnectionOpen}
+          isOpen={state.ui.addConnectionOpen}
         />
         <EditGain
-          nodeId={store.getState().ui.editGainId}
-          value={getGainValueById(store.getState(), store.getState().ui.editGainId)}
+          nodeId={state.ui.editGainId}
+          value={getGainValueById(state, state.ui.editGainId)}
           onGainChange={changeGain}
-          isOpen={store.getState().ui.editGainOpen}
-          toggle={toggleEditGain.bind(null, store.getState().ui.editGainId)}
+          isOpen={state.ui.editGainOpen}
+          toggle={toggleEditGain.bind(null, state.ui.editGainId)}
         />
       </Fragment>
     );
   }
 }
 
-export default App;
+const mapState = (state) => ({
+  state
+});
+
+export default connect(mapState)(App);
