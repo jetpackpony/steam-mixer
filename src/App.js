@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import NodeListContainer from './components/NodeListContainer';
 import ConnectionListContainer from './components/ConnectionListContainer';
 import AddEndpointContainer from './components/AddEndpointContainer';
+import AddConnectionContainer from './components/AddConnectionContainer';
 
 class App extends Component {
   render() {
@@ -67,12 +68,7 @@ class App extends Component {
         <AddEndpointContainer
           type={MODAL_TYPES.ADD_OUTPUT}
         />
-        <AddConnection
-          nodesList={state.audioGraph}
-          onAddConnection={addConnection}
-          toggle={toggleAddConnection}
-          isOpen={state.ui.addConnectionOpen}
-        />
+        <AddConnectionContainer />
         <EditGain
           nodeId={state.ui.editGainId}
           value={getGainValueById(state, state.ui.editGainId)}

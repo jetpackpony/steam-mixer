@@ -165,3 +165,5 @@ export const getGainValueById = (state, id) => (
       )(state)
     : null
 );
+
+export const getAllNodes = (state) => state;
