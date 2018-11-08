@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import createVirtualAudioGraph from 'virtual-audio-graph';
 import makeNode from './makeNode';
 import { PromiseAllObj } from '../../utils';
-import { DEVICE_TYPES } from './constants';
+import { NODE_TYPES } from '../../store/constants';
 import { AddButton, DeleteButton } from '../buttons';
 
-const isNodeADeviceDestination = (d) => d.type === DEVICE_TYPES.DESTINATION;
+const isNodeADeviceDestination = (d) => d.type === NODE_TYPES.DESTINATION;
 
 const makeVAGUpdateObject = (props) => {
   return PromiseAllObj(

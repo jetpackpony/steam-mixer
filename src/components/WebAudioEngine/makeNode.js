@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import * as vag from 'virtual-audio-graph';
-import { DEVICE_TYPES } from './constants';
+import { NODE_TYPES } from '../../store/constants';
 
 const makeSourceFromDevice = async (node) => {
   let stream = await navigator.mediaDevices.getUserMedia({
@@ -26,11 +26,11 @@ const makeAudioNode = async (node) => {
 
 const makeNode = (node) => {
   switch (node.type) {
-    case DEVICE_TYPES.SOURCE:
+    case NODE_TYPES.SOURCE:
       return makeSourceFromDevice(node);
-    case DEVICE_TYPES.DESTINATION:
+    case NODE_TYPES.DESTINATION:
       return makeDestinationFromDevice(node);
-    case "node":
+    case NODE_TYPES.AUDIONODE:
       return makeAudioNode(node);
     default:
       return Promise.resolve(null);

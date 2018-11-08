@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { DEVICE_TYPES } from '../../components/WebAudioEngine/constants';
+import { NODE_TYPES } from '../constants';
 import { ACTION_TYPES } from '../actions';
 
 const getNodeIndexByID = (id, arr) => (
@@ -14,7 +14,7 @@ let initState = [
   {
     "nodeId": "0",
     "title": "First input",
-    "type": DEVICE_TYPES.SOURCE,
+    "type": NODE_TYPES.SOURCE,
     "output": [
       "3"
     ],
@@ -23,21 +23,21 @@ let initState = [
   {
     "nodeId": "1",
     "title": "First output",
-    "type": DEVICE_TYPES.DESTINATION,
+    "type": NODE_TYPES.DESTINATION,
     "output": [],
     "deviceId": "905e4745c43eedee796cab78bf6af3f44a76221597987e44e9c39047d8041c36"
   },
   {
     "nodeId": "2",
     "title": "Second output",
-    "type": DEVICE_TYPES.DESTINATION,
+    "type": NODE_TYPES.DESTINATION,
     "output": [],
     "deviceId": "2409773f188cda81b5306105d1817722f9089681a3b2c1b979f843398d3a15eb"
   },
   {
     "nodeId": "3",
     "title": "Gain",
-    "type": "node",
+    "type": NODE_TYPES.AUDIONODE,
     "constructor": "gain",
     "output": [
     ],
@@ -66,7 +66,7 @@ const audioGraph = (state = initState, action) => {
         {
           "nodeId": action.nodeId,
           "title": action.title,
-          "type": "node",
+          "type": NODE_TYPES.AUDIONODE,
           "output": [],
           "constructor": "gain",
           "props": {
@@ -124,15 +124,15 @@ const audioGraph = (state = initState, action) => {
 export default audioGraph;
 
 export const getInputNodes = (state) => (
-  R.filter((node) => (node.type === DEVICE_TYPES.SOURCE), state)
+  R.filter((node) => (node.type === NODE_TYPES.SOURCE), state)
 );
 
 export const getOutputNodes = (state) => (
-  R.filter((node) => (node.type === DEVICE_TYPES.DESTINATION), state)
+  R.filter((node) => (node.type === NODE_TYPES.DESTINATION), state)
 );
 
 export const getAudioNodes = (state) => (
-  R.filter((node) => (node.type === "node"), state)
+  R.filter((node) => (node.type === NODE_TYPES.AUDIONODE), state)
 );
 
 export const getNodeTitleById = (state, id) => (

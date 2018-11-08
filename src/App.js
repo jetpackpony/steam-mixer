@@ -7,7 +7,7 @@ import EditGain from './components/EditGain';
 import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
-import { DEVICE_TYPES } from './components/WebAudioEngine/constants';
+import { NODE_TYPES } from './store/constants';
 import makeStore from './store';
 import * as actions from './store/actions';
 import ConnectionList from './components/ConnectionList';
@@ -79,14 +79,14 @@ class App extends Component {
         <AddEndpoint
           type="input"
           deviceList={store.getState().webAudioDevices['inputs']}
-          onCreate={addEndpoint.bind(null, DEVICE_TYPES.SOURCE)}
+          onCreate={addEndpoint.bind(null, NODE_TYPES.SOURCE)}
           toggle={toggleAddInput}
           isOpen={store.getState().ui.addInputOpen}
         />
         <AddEndpoint
           type="output"
           deviceList={store.getState().webAudioDevices['outputs']}
-          onCreate={addEndpoint.bind(null, DEVICE_TYPES.DESTINATION)}
+          onCreate={addEndpoint.bind(null, NODE_TYPES.DESTINATION)}
           toggle={toggleAddOutput}
           isOpen={store.getState().ui.addOutputOpen}
         />
