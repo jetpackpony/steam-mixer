@@ -82,3 +82,6 @@ const webAudioDevices = (state = initState, action) => {
 };
 
 export default webAudioDevices;
+
+export const getInputDevices = (state) => state.inputs;
+export const getOutputDevices = (state) => state.outputs;

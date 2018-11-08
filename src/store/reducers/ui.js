@@ -1,4 +1,5 @@
 import { ACTION_TYPES } from "../actions";
+import { MODAL_TYPES } from "../constants";
 
 /*
 let initState = {
@@ -48,3 +49,13 @@ const ui = (state = initState, action) => {
 };
 
 export default ui;
+
+const modalsMap = {
+  [MODAL_TYPES.ADD_INPUT]: "addInputOpen",
+  [MODAL_TYPES.ADD_OUTPUT]: "addOutputOpen",
+  [MODAL_TYPES.ADD_CONNECTION]: "addConnectionOpen",
+  [MODAL_TYPES.EDIT_GAIN]: "editGainOpen",
+};
+export const getIsModalOpen = (state, modalType) => {
+  return state[modalsMap[modalType]];
+};

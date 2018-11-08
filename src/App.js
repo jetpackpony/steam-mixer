@@ -7,7 +7,7 @@ import EditGain from './components/EditGain';
 import AddConnection from './components/AddConnection';
 import { CardDeck } from 'reactstrap';
 import WebAudioEngine from './components/WebAudioEngine';
-import { NODE_TYPES } from './store/constants';
+import { NODE_TYPES, MODAL_TYPES } from './store/constants';
 import * as actions from './store/actions';
 import ConnectionList from './components/ConnectionList';
 import {
@@ -18,6 +18,7 @@ import {
 import { connect } from 'react-redux';
 import NodeListContainer from './components/NodeListContainer';
 import ConnectionListContainer from './components/ConnectionListContainer';
+import AddEndpointContainer from './components/AddEndpointContainer';
 
 class App extends Component {
   render() {
@@ -60,19 +61,11 @@ class App extends Component {
             title="Connections"
           />
         </CardDeck>
-        <AddEndpoint
-          type="input"
-          deviceList={state.webAudioDevices['inputs']}
-          onCreate={addEndpoint.bind(null, NODE_TYPES.SOURCE)}
-          toggle={toggleAddInput}
-          isOpen={state.ui.addInputOpen}
+        <AddEndpointContainer
+          type={MODAL_TYPES.ADD_INPUT}
         />
-        <AddEndpoint
-          type="output"
-          deviceList={state.webAudioDevices['outputs']}
-          onCreate={addEndpoint.bind(null, NODE_TYPES.DESTINATION)}
-          toggle={toggleAddOutput}
-          isOpen={state.ui.addOutputOpen}
+        <AddEndpointContainer
+          type={MODAL_TYPES.ADD_OUTPUT}
         />
         <AddConnection
           nodesList={state.audioGraph}

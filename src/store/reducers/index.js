@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import ui from './ui';
-import webAudioDevices from './webAudioDevices';
+import ui, * as uiSelectors from './ui';
+import webAudioDevices, * as webAudioDevicesSelectors from './webAudioDevices';
 import audioGraph, * as audioGraphSelectors from './audioGraph';
 
 const reducer = combineReducers({
@@ -33,4 +33,16 @@ export const getConnections = (state) => (
 
 export const getGainValueById = (state, id) => (
   audioGraphSelectors.getGainValueById(state.audioGraph, id)
+);
+
+export const getIsModalOpen = (state, modalType) => (
+  uiSelectors.getIsModalOpen(state.ui, modalType)
+);
+
+export const getInputDevices = (state) => (
+  webAudioDevicesSelectors.getInputDevices(state.webAudioDevices)
+);
+
+export const getOutputDevices = (state) => (
+  webAudioDevicesSelectors.getOutputDevices(state.webAudioDevices)
 );
