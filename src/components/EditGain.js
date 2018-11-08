@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { OkButton } from './buttons';
 import ModalBox from './ModalBox';
 
 const EditGain = ({ nodeId, value, onGainChange, isOpen, toggle }) => {
-  let onChange = (event) => onGainChange(nodeId, event.target.value);
+  const onChange = (event) => onGainChange(nodeId, event.target.value);
+  const boundToggle = toggle.bind(null, nodeId);
   return (
     <ModalBox
       isOpen={isOpen}
-      toggle={toggle}
+      toggle={boundToggle}
       header="Edit Gain"
       body={
         <input
@@ -18,7 +19,7 @@ const EditGain = ({ nodeId, value, onGainChange, isOpen, toggle }) => {
         />
       }
       footer={
-        <OkButton onClick={toggle} />
+        <OkButton onClick={boundToggle} />
       }
     />
   );

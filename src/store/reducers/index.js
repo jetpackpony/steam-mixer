@@ -50,3 +50,7 @@ export const getOutputDevices = (state) => (
 export const getAllNodes = (state) => (
   audioGraphSelectors.getAllNodes(state.audioGraph)
 );
+
+export const getEditGainId = (state) => (
+  uiSelectors.getEditGainId(state.ui)
+);

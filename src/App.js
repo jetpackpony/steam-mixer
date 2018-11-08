@@ -20,23 +20,13 @@ import NodeListContainer from './components/NodeListContainer';
 import ConnectionListContainer from './components/ConnectionListContainer';
 import AddEndpointContainer from './components/AddEndpointContainer';
 import AddConnectionContainer from './components/AddConnectionContainer';
+import EditGainContainer from './components/EditGainContainer';
 
 class App extends Component {
   render() {
     const { state, dispatch } = this.props;
     console.log("rendering with store: ", state);
 
-    const toggleAddInput = () => dispatch(actions.toggleAddInputModal());
-    const toggleAddOutput = () => dispatch(actions.toggleAddOutputModal());
-    const toggleAddConnection = () => dispatch(actions.toggleAddConnectionModal());
-    const toggleEditGain = (nodeId) => dispatch(actions.toggleEditGainModal(nodeId));
-    const addEndpoint = R.curry(
-      (deviceType, title, device) =>
-        dispatch(actions.addEndpoint(deviceType, title, device))
-    );
-    const addConnection = (fromId, toId) => dispatch(actions.addConnection(fromId, toId));
-    const deleteConnection = (fromId, toId) => dispatch(actions.deleteConnection(fromId, toId));
-    const changeGain = (nodeId, value) => dispatch(actions.changeGain(nodeId, value));
     const updateDeviceList = (devices) => dispatch(actions.updateDeviceList(devices));
 
     return (
@@ -62,20 +52,10 @@ class App extends Component {
             title="Connections"
           />
         </CardDeck>
-        <AddEndpointContainer
-          type={MODAL_TYPES.ADD_INPUT}
-        />
-        <AddEndpointContainer
-          type={MODAL_TYPES.ADD_OUTPUT}
-        />
+        <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
+        <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
         <AddConnectionContainer />
-        <EditGain
-          nodeId={state.ui.editGainId}
-          value={getGainValueById(state, state.ui.editGainId)}
-          onGainChange={changeGain}
-          isOpen={state.ui.editGainOpen}
-          toggle={toggleEditGain.bind(null, state.ui.editGainId)}
-        />
+        <EditGainContainer />
       </Fragment>
     );
   }

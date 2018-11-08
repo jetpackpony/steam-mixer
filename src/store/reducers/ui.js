@@ -59,3 +59,5 @@ const modalsMap = {
 export const getIsModalOpen = (state, modalType) => {
   return state[modalsMap[modalType]];
 };
+
+export const getEditGainId= (state) => state.editGainId;
