@@ -31,10 +31,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <WebAudioEngine
-          onDevicesLoaded={updateDeviceList}
-          audioGraph={state.audioGraph}
-        />
+        <WebAudioEngine />
         <CardDeck>
           <NodeListContainer
             title="Inputs"
