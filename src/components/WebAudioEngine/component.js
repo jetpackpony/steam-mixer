@@ -1,10 +1,9 @@
 import * as R from 'ramda';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import createVirtualAudioGraph from 'virtual-audio-graph';
 import makeNode from './makeNode';
 import { PromiseAllObj } from '../../utils';
 import { NODE_TYPES } from '../../store/constants';
-import { AddButton, DeleteButton } from '../buttons';
 
 const isNodeADeviceDestination = (d) => d.type === NODE_TYPES.DESTINATION;
 

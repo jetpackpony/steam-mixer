@@ -1,5 +1,4 @@
 import React from 'react';
-import { OkButton } from './buttons';
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 
 const ModalBox = ({ isOpen, toggle, header, body, footer }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteButton, EditButton } from './buttons';
+import { DeleteButton } from './buttons';
 import { Row, Col } from 'reactstrap';
 
 const Connection = ({ nodeId, fromTitle, fromId, toTitle, toId, onDelete }) => {

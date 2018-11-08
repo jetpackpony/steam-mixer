@@ -1,6 +1,6 @@
 import React from 'react';
 import { AddButton } from './buttons';
-import { Card, CardBody, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
+import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 import Connection from './Connection';
 
 const ConnectionList = ({ title, nodes, onDelete, onAdd }) => {

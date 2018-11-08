@@ -1,7 +1,7 @@
 import React from 'react';
 import Node from './Node';
 import { AddButton } from './buttons';
-import { Card, CardBody, CardTitle, CardText, Container, Row, Col } from 'reactstrap';
+import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 
 const NodeList = ({ title, nodes, onDelete, onEdit, onAdd }) => {
   let nodesList = nodes.map(({ title, nodeId }) => (

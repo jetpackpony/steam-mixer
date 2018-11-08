@@ -1,4 +1,3 @@
-import * as R from 'ramda';
 import * as vag from 'virtual-audio-graph';
 import { NODE_TYPES } from '../../store/constants';
 
