@@ -22,7 +22,6 @@ class AddEndpoint extends Component {
     this.onDeviceSelected = this.onDeviceSelected.bind(this);
     this.onTitleChanged = this.onTitleChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.toggle = this.toggle.bind(this);
   }
 
   onDeviceSelected(event) {
@@ -39,19 +38,15 @@ class AddEndpoint extends Component {
   }
 
   onSubmit() {
-    this.toggle();
+    this.props.toggle();
     this.props.onCreate(
       this.state.title,
       getDeviceById(this.props.deviceList, this.state.deviceId)
     );
   }
 
-  toggle() {
-    this.props.toggle();
-  }
-
   render() {
-    const { type, deviceList } = this.props;
+    const { type, deviceList, isOpen, toggle } = this.props;
     let options = deviceList.map(device => (
       <option key={device.deviceId} value={device.deviceId}>
         {device.label}
@@ -59,8 +54,8 @@ class AddEndpoint extends Component {
     ));
     return (
       <ModalBox
-        isOpen={this.props.isOpen}
-        toggle={this.toggle}
+        isOpen={isOpen}
+        toggle={toggle}
         header={getTitle(type)}
         body={
           <Fragment>

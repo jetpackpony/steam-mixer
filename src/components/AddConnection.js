@@ -12,7 +12,6 @@ class AddConnection extends Component {
     this.onFromChange = this.onSelectChange.bind(this, "from");
     this.onToChange = this.onSelectChange.bind(this, "to");
     this.onSubmit = this.onSubmit.bind(this);
-    this.toggle = this.toggle.bind(this);
   }
 
   onSelectChange(type, event) {
@@ -22,22 +21,19 @@ class AddConnection extends Component {
   }
 
   onSubmit() {
-    this.toggle();
+    this.props.toggle();
     this.props.onAddConnection(this.state.from, this.state.to);
   }
 
-  toggle() {
-    this.props.toggle();
-  }
-
   render() {
-    const nodeOptions = this.props.nodesList.map(({ nodeId, title }) => (
+    const { nodesList, isOpen, toggle } = this.props;
+    const nodeOptions = nodesList.map(({ nodeId, title }) => (
       <option key={nodeId} value={nodeId}>{title}</option>
     ));
     return (
       <ModalBox
-        isOpen={this.props.isOpen}
-        toggle={this.toggle}
+        isOpen={isOpen}
+        toggle={toggle}
         header="Adding a connection between 2 nodes"
         body={
           <Fragment>
