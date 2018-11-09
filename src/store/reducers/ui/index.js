@@ -1,13 +1,5 @@
-import { ACTION_TYPES } from "../actions";
-import { MODAL_TYPES } from "../constants";
-
-let initState = {
-  "addInputOpen": false,
-  "addOutputOpen": false,
-  "addConnectionOpen": false,
-  "editGainOpen": false,
-  "editGainId": null
-};
+import { ACTION_TYPES } from "../../actions";
+import initState from './initialState';
 
 const ui = (state = initState, action) => {
   switch (action.type) {
@@ -38,15 +30,4 @@ const ui = (state = initState, action) => {
 };
 
 export default ui;
-
-const modalsMap = {
-  [MODAL_TYPES.ADD_INPUT]: "addInputOpen",
-  [MODAL_TYPES.ADD_OUTPUT]: "addOutputOpen",
-  [MODAL_TYPES.ADD_CONNECTION]: "addConnectionOpen",
-  [MODAL_TYPES.EDIT_GAIN]: "editGainOpen",
-};
-export const getIsModalOpen = (state, modalType) => {
-  return state[modalsMap[modalType]];
-};
-
-export const getEditGainId= (state) => state.editGainId;
+export * from './selectors';
