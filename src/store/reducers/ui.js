@@ -1,17 +1,6 @@
 import { ACTION_TYPES } from "../actions";
 import { MODAL_TYPES } from "../constants";
 
-/*
-let initState = {
-  ui: {
-    addInputOpen: false,
-    addOutputOpen: false,
-    addConnectionOpen: false,
-    editGainOpen: false,
-    editGainId: null
-  }
-};
-*/
 let initState = {
   "addInputOpen": false,
   "addOutputOpen": false,

@@ -1,11 +1,11 @@
 import * as R from 'ramda';
 import { ACTION_TYPES } from "../actions";
 
-/*
 let initState = {
-  webAudioDevices: { inputs: [], outputs: [] },
+  inputs: [],
+  outputs: [],
 };
-*/
+/*
 let initState = {
   "inputs": [
     {
@@ -54,6 +54,7 @@ let initState = {
     }
   ]
 };
+*/
 
 const isAudioDevice = device => device.kind === "audioinput" || device.kind === "audiooutput";
 const isDefaultDevice = device => device.deviceId !== "default";

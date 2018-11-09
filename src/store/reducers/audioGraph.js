@@ -5,11 +5,8 @@ import { ACTION_TYPES } from '../actions';
 const getNodeIndexByID = (id, arr) => (
   R.findIndex(R.propEq("nodeId", id))(arr)
 );
+let initState = [];
 /*
-let initState = {
-  audioGraph: []
-};
-*/
 let initState = [
   {
     "nodeId": "0",
@@ -46,6 +43,7 @@ let initState = [
     }
   }
 ];
+*/
 
 const audioGraph = (state = initState, action) => {
   switch (action.type) {
