@@ -12,6 +12,7 @@
     "react-scripts": "2.0.5",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "uuid": "^3.3.2",
     "virtual-audio-graph": "^1.1.0"
@@ -22,6 +23,7 @@
     "start-https": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
     "electron": "ELECTRON_START_URL=http://localhost:3000 electron electron",
     "electron-prod": "electron electron"
