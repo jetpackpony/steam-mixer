@@ -54,6 +54,7 @@ class WebAudioEngine extends Component {
     super(props);
     this.virtualAudioGraph = createVirtualAudioGraph();
     this.sinks = {};
+    this.buildAudioGraph = this.buildAudioGraph.bind(this);
   }
 
   componentDidMount() {
@@ -61,7 +62,7 @@ class WebAudioEngine extends Component {
       .then(this.props.onDevicesLoaded);
   }
 
-  componentDidUpdate() {
+  buildAudioGraph() {
     const vagProps = this.props.audioGraph;
     console.log("Running VAG with props: ", vagProps);
 
@@ -69,8 +70,13 @@ class WebAudioEngine extends Component {
       const updateObject = getNotNil(await makeVAGUpdateObject(this.props.audioGraph));
       this.virtualAudioGraph.update(updateObject);
       this.sinks = await createAudioSinks(this.props.audioGraph, this.virtualAudioGraph, this.sinks);
-      console.log(this.virtualAudioGraph);
+      console.log("New VAG here: ", this.virtualAudioGraph);
+      console.log("Sinks here: ", this.sinks);
     })();
+  }
+
+  componentDidUpdate() {
+    this.buildAudioGraph();
   }
 
   render() {

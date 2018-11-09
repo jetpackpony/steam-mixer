@@ -47,6 +47,10 @@ export const getOutputDevices = (state) => (
   webAudioDevicesSelectors.getOutputDevices(state.webAudioDevices)
 );
 
+export const getAllDevices = (state) => (
+  webAudioDevicesSelectors.getAllDevices(state.webAudioDevices)
+);
+
 export const getAllNodes = (state) => (
   audioGraphSelectors.getAllNodes(state.audioGraph)
 );
