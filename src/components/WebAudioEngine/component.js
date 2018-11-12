@@ -60,11 +60,16 @@ class WebAudioEngine extends Component {
   componentDidMount() {
     loadDevices()
       .then(this.props.onDevicesLoaded);
+    navigator.mediaDevices.addEventListener('devicechange', (...args) => {
+      console.log("devices changed: ", args);
+      loadDevices()
+        .then(this.props.onDevicesLoaded);
+    });
   }
 
   buildAudioGraph() {
     const vagProps = this.props.audioGraph;
-    console.log("Running VAG with props: ", vagProps);
+    console.log("VAG props here: ", vagProps);
 
     (async () => {
       const updateObject = getNotNil(await makeVAGUpdateObject(this.props.audioGraph));
