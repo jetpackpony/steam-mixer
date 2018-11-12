@@ -3,7 +3,8 @@ import { ACTION_TYPES } from '../../actions';
 import initState from './initialState';
 import {
   addEndpoint, addGainNode, addConnection,
-  deleteNode, deleteConnection, changeGain
+  deleteNode, deleteConnection, changeGain,
+  updateDeviceList
 } from './handlers';
 
 const handlersMap = {
@@ -12,7 +13,8 @@ const handlersMap = {
   [ACTION_TYPES.ADD_CONNECTION]: addConnection,
   [ACTION_TYPES.DELETE_NODE]: deleteNode,
   [ACTION_TYPES.DELETE_CONNECTION]: deleteConnection,
-  [ACTION_TYPES.CHANGE_GAIN]: changeGain
+  [ACTION_TYPES.CHANGE_GAIN]: changeGain,
+  [ACTION_TYPES.UPDATE_DEVICE_LIST]: updateDeviceList
 }
 
 const stateIdentity = (state) => state;

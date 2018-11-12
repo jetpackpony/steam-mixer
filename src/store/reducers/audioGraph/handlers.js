@@ -80,3 +80,52 @@ export const changeGain = (state, action) => {
     ...R.slice(nodeIndex + 1, Infinity, state),
   ];
 };
+
+const isIn = R.flip(R.contains);
+/*
+ * [a] -> (a -> Boolean)
+ */
+const isDeviceNilOrActive = (activeDeviceIds) => (
+  R.converge(
+    R.or,
+    [R.isNil, isIn(activeDeviceIds)]
+  )
+);
+const isNodeActive = R.curry((activeDeviceIds, node) =>
+  (isDeviceNilOrActive(activeDeviceIds)(node.deviceId))
+    ? node
+    : null
+);
+
+/*
+ * [String] -> {k:v} -> {k:v}
+ * Removes all the inactive outputs from a single node's object
+ */
+const updateSingleNodeOutputs = (activeNodes) => (
+  R.evolve({
+    output: R.filter(isIn(activeNodes))
+  })
+);
+
+/*
+ * [String] -> [a] -> [a]
+ * Takes a list of active node ids and a list of nodes. Returns a new list of nodes with 
+ * only active nodes remaining in the outputs
+ */
+const updateNodesOutputs = R.useWith(R.map, [updateSingleNodeOutputs]);
+
+const getActiveNodes = R.pluck("nodeId");
+
+/*
+ * [a] -> [a]
+ * Takes a list of nodes. Goes over each node and removes outputs that are not present
+ * in the list of nodes
+ */
+const removeInactiveOutputs = R.converge(updateNodesOutputs, [getActiveNodes, R.identity]);
+export const updateDeviceList = (state, action) => {
+  const isNodeActiveApplied = isNodeActive(R.pluck("deviceId", action.devices));
+  return R.compose(
+    removeInactiveOutputs,
+    R.filter(isNodeActiveApplied)
+  )(state);
+};
