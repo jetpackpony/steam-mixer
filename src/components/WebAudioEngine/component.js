@@ -43,8 +43,8 @@ const createAudioSinks = (props, virtualAudioGraph, sinks) => {
   );
 };
 
-const loadDevices = () => {
-  return navigator.mediaDevices.enumerateDevices();
+const loadDevices = (callback) => {
+  return navigator.mediaDevices.enumerateDevices().then(callback);
 };
 
 const getNotNil = R.filter(R.compose(R.not, R.isNil));
@@ -58,12 +58,9 @@ class WebAudioEngine extends Component {
   }
 
   componentDidMount() {
-    loadDevices()
-      .then(this.props.onDevicesLoaded);
-    navigator.mediaDevices.addEventListener('devicechange', (...args) => {
-      console.log("devices changed: ", args);
-      loadDevices()
-        .then(this.props.onDevicesLoaded);
+    loadDevices(this.props.onDevicesLoaded);
+    navigator.mediaDevices.addEventListener('devicechange', (event) => {
+      loadDevices(this.props.onDevicesLoaded);
     });
   }
 
