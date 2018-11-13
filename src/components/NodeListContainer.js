@@ -14,7 +14,7 @@ const getters = {
 const adders = {
   [NODE_TYPES.SOURCE]: actions.toggleAddInputModal,
   [NODE_TYPES.DESTINATION]: actions.toggleAddOutputModal,
-  [NODE_TYPES.AUDIONODE]: actions.addGainNode,
+  [NODE_TYPES.AUDIONODE]: actions.toggleAddAudioNodeModal,
 };
 
 const mapState = (state, ownProps) => {

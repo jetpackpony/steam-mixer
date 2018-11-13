@@ -24,6 +24,11 @@ const ui = (state = initState, action) => {
         editGainOpen: !state.editGainOpen,
         editGainId: action.id
       };
+    case ACTION_TYPES.TOGGLE_ADD_AUDIO_NODE_MODAL:
+      return {
+        ...state,
+        addAudioNodeOpen: !state.addAudioNodeOpen
+      };
     default:
       return state;
   }
