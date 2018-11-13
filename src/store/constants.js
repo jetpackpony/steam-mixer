@@ -16,5 +16,9 @@ export const AUDIO_NODE_TYPES = [
   {
     id: "GAIN",
     title: "Gain"
+  },
+  {
+    id: "COMPRESSOR",
+    title: "Compressor"
   }
 ];

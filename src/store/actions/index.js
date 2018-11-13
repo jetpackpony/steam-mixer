@@ -9,6 +9,7 @@ const ACTION_TYPES = {
   TOGGLE_EDIT_GAIN_MODAL: "TOGGLE_EDIT_GAIN_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_GAIN_NODE: "ADD_GAIN_NODE",
+  ADD_COMPRESSOR_NODE: "ADD_COMPRESSOR_NODE",
   ADD_CONNECTION: "ADD_CONNECTION",
   DELETE_NODE: "DELETE_NODE",
   DELETE_CONNECTION: "DELETE_CONNECTION",
@@ -51,10 +52,18 @@ const addGainNode = (title) => ({
   nodeId: uuidv4()
 });
 
+const addCompressorNode = (title) => ({
+  type: ACTION_TYPES.ADD_COMPRESSOR_NODE,
+  title,
+  nodeId: uuidv4()
+});
+
 const addAudioNode = (title, type) => {
   switch(type) {
     case "GAIN":
       return addGainNode(title);
+    case "COMPRESSOR":
+      return addCompressorNode(title);
     default:
       return addGainNode(title);
   }
@@ -98,6 +107,7 @@ export {
   toggleEditGainModal,
   addEndpoint,
   addGainNode,
+  addCompressorNode,
   addAudioNode,
   addConnection,
   deleteNode,

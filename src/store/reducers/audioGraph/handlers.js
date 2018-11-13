@@ -31,6 +31,26 @@ export const addGainNode = (state, action) => {
   ];
 };
 
+export const addCompressorNode = (state, action) => {
+  return [
+    ...state,
+    {
+      "nodeId": action.nodeId,
+      "title": action.title,
+      "type": NODE_TYPES.AUDIONODE,
+      "output": [],
+      "constructor": "dynamicsCompressor",
+      "props": {
+        attack: 0,
+        knee: 40,
+        ratio: 12,
+        release: 0.25,
+        threshold: -40
+      }
+    }
+  ];
+};
+
 export const addConnection = (state, action) => {
   var fromIndex = getNodeIndexByID(action.fromId, state);
   return [
