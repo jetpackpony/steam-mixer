@@ -1,15 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import { OkButton } from './buttons';
 import ModalBox from './ModalBox';
+import { MODAL_TYPES } from '../store/constants';
 
 const getDeviceById = (deviceList, deviceId) => (
   deviceList.find(d => d.deviceId === deviceId)
 );
 
-const getTitle = (type) => 
-  type === "input"
+const getTitle = (type) =>
+  type === MODAL_TYPES.ADD_INPUT
     ? "Add an input node"
-    : "Add an output node";
+    : type === MODAL_TYPES.ADD_OUTPUT
+      ? "Add an output node"
+      : "";
+
+const getDefaultOption = (type) =>
+  type === MODAL_TYPES.ADD_INPUT
+    ? "-- select input device --"
+    : type === MODAL_TYPES.ADD_OUTPUT
+      ? "-- select output device --"
+      : "";
+
+                
 
 class AddEndpoint extends Component {
   constructor(props) {
@@ -62,7 +74,7 @@ class AddEndpoint extends Component {
             <input value={this.state.title} onChange={this.onTitleChanged} />
             <select value={this.state.deviceId} onChange={this.onDeviceSelected}>
               <option disabled value="" key="-1">
-                -- select {type === "input" ? "input" : "output"} device --
+                {getDefaultOption(type)}
               </option>
               {options}
             </select>
