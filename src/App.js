@@ -9,6 +9,7 @@ import AddConnectionContainer from './components/AddConnectionContainer';
 import EditGainContainer from './components/EditGainContainer';
 import { NODE_TYPES, MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
+import EditCompressorContainer from './components/EditCompressorContainer';
 
 const App = () => (
   <Fragment>
@@ -24,6 +25,7 @@ const App = () => (
     <AddConnectionContainer />
     <AddAudioNodeContainer />
     <EditGainContainer />
+    <EditCompressorContainer />
   </Fragment>
 );
 

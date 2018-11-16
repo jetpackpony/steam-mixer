@@ -20,6 +20,10 @@ export const getNodeTitleById = (state, id) => (
   )(state)
 );
 
+export const getNodeById = (state, id) => (
+    R.find(R.propEq("nodeId", id))(state)
+);
+
 export const getConnections = (state) => (
   R.reduce((agregator, node) => (
     R.concat(
@@ -45,3 +49,12 @@ export const getGainValueById = (state, id) => (
 );
 
 export const getAllNodes = (state) => state;
+
+export const getCompressorPropsById = (state, id) => (
+  id !== null
+    ? R.compose(
+        R.prop("props"),
+        R.find(R.propEq("nodeId", id))
+      )(state)
+    : null
+);

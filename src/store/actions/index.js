@@ -7,6 +7,7 @@ const ACTION_TYPES = {
   TOGGLE_ADD_CONNECTION_MODAL: "TOGGLE_ADD_CONNECTION_MODAL",
   TOGGLE_ADD_AUDIO_NODE_MODAL: "TOGGLE_ADD_AUDIO_NODE_MODAL",
   TOGGLE_EDIT_GAIN_MODAL: "TOGGLE_EDIT_GAIN_MODAL",
+  TOGGLE_EDIT_COMPRESSOR_MODAL: "TOGGLE_EDIT_COMPRESSOR_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_GAIN_NODE: "ADD_GAIN_NODE",
   ADD_COMPRESSOR_NODE: "ADD_COMPRESSOR_NODE",
@@ -14,6 +15,7 @@ const ACTION_TYPES = {
   DELETE_NODE: "DELETE_NODE",
   DELETE_CONNECTION: "DELETE_CONNECTION",
   CHANGE_GAIN: "CHANGE_GAIN",
+  CHANGE_COMPRESSOR: "CHANGE_COMPRESSOR",
   UPDATE_DEVICE_LIST: "UPDATE_DEVICE_LIST",
 }
 
@@ -35,6 +37,11 @@ const toggleAddAudioNodeModal = () => ({
 
 const toggleEditGainModal = (id) => ({
   type: ACTION_TYPES.TOGGLE_EDIT_GAIN_MODAL,
+  id
+});
+
+const toggleEditCompressorModal = (id) => ({
+  type: ACTION_TYPES.TOGGLE_EDIT_COMPRESSOR_MODAL,
   id
 });
 
@@ -93,6 +100,16 @@ const changeGain = (nodeId, value) => ({
   value
 });
 
+const changeCompressor = (nodeId, props) => ({
+  type: ACTION_TYPES.CHANGE_COMPRESSOR,
+  nodeId,
+  attack: props.attack,
+  knee: props.knee,
+  ratio: props.ratio,
+  release: props.release,
+  threshold: props.threshold
+});
+
 const updateDeviceList = (devices) => ({
   type: ACTION_TYPES.UPDATE_DEVICE_LIST,
   devices
@@ -105,6 +122,7 @@ export {
   toggleAddConnectionModal,
   toggleAddAudioNodeModal,
   toggleEditGainModal,
+  toggleEditCompressorModal,
   addEndpoint,
   addGainNode,
   addCompressorNode,
@@ -113,5 +131,6 @@ export {
   deleteNode,
   deleteConnection,
   changeGain,
+  changeCompressor,
   updateDeviceList,
 }

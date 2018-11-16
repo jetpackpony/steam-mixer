@@ -4,7 +4,8 @@ import initState from './initialState';
 import {
   addEndpoint, addGainNode, addConnection,
   deleteNode, deleteConnection, changeGain,
-  updateDeviceList, addCompressorNode
+  updateDeviceList, addCompressorNode,
+  changeCompressor
 } from './handlers';
 
 const handlersMap = {
@@ -15,6 +16,7 @@ const handlersMap = {
   [ACTION_TYPES.DELETE_NODE]: deleteNode,
   [ACTION_TYPES.DELETE_CONNECTION]: deleteConnection,
   [ACTION_TYPES.CHANGE_GAIN]: changeGain,
+  [ACTION_TYPES.CHANGE_COMPRESSOR]: changeCompressor,
   [ACTION_TYPES.UPDATE_DEVICE_LIST]: updateDeviceList
 }
 

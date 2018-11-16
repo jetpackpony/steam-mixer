@@ -23,7 +23,7 @@ export const addGainNode = (state, action) => {
       "title": action.title,
       "type": NODE_TYPES.AUDIONODE,
       "output": [],
-      "constructor": "gain",
+      "audioConstructor": "gain",
       "props": {
         "gain": 1
       }
@@ -39,7 +39,7 @@ export const addCompressorNode = (state, action) => {
       "title": action.title,
       "type": NODE_TYPES.AUDIONODE,
       "output": [],
-      "constructor": "dynamicsCompressor",
+      "audioConstructor": "dynamicsCompressor",
       "props": {
         attack: 0,
         knee: 40,
@@ -95,6 +95,25 @@ export const changeGain = (state, action) => {
       props: {
         ...state[nodeIndex].props,
         gain: action.value
+      }
+    },
+    ...R.slice(nodeIndex + 1, Infinity, state),
+  ];
+};
+
+export const changeCompressor = (state, action) => {
+  var nodeIndex = getNodeIndexByID(action.nodeId, state);
+  return [
+    ...R.slice(0, nodeIndex, state),
+    {
+      ...state[nodeIndex],
+      props: {
+        ...state[nodeIndex].props,
+        attack: action.attack,
+        knee: action.knee,
+        ratio: action.ratio,
+        release: action.release,
+        threshold: action.threshold
       }
     },
     ...R.slice(nodeIndex + 1, Infinity, state),

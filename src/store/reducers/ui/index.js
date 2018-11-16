@@ -29,6 +29,12 @@ const ui = (state = initState, action) => {
         ...state,
         addAudioNodeOpen: !state.addAudioNodeOpen
       };
+    case ACTION_TYPES.TOGGLE_EDIT_COMPRESSOR_MODAL:
+      return {
+        ...state,
+        editCompressorOpen: !state.editCompressorOpen,
+        editCompressorId: action.id
+      };
     default:
       return state;
   }
