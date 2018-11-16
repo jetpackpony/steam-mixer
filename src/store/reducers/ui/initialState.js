@@ -2,7 +2,10 @@ const initState = {
   "addInputOpen": false,
   "addOutputOpen": false,
   "addConnectionOpen": false,
+  "addAudioNodeOpen": false,
   "editGainOpen": false,
-  "editGainId": null
+  "editGainId": null,
+  "editCompressorOpen": false,
+  "editCompressorId": null
 };
 export default initState;

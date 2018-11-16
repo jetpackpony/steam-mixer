@@ -20,7 +20,7 @@ const makeDestinationFromDevice = async (node) => {
 };
 
 const makeAudioNode = async (node) => {
-  return vag[node.constructor](node.output, node.props);
+  return vag[node.audioConstructor](node.output, node.props);
 };
 
 const makeNode = (node) => {

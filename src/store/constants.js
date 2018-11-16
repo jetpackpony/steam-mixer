@@ -8,5 +8,18 @@ export const MODAL_TYPES = {
   ADD_INPUT: "ADD_INPUT",
   ADD_OUTPUT: "ADD_OUTPUT",
   ADD_CONNECTION: "ADD_CONNECTION",
+  ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
   EDIT_GAIN: "EDIT_GAIN",
+  EDIT_COMPRESSOR: "EDIT_COMPRESSOR",
 };
+
+export const AUDIO_NODE_TYPES = [
+  {
+    id: "GAIN",
+    title: "Gain"
+  },
+  {
+    id: "COMPRESSOR",
+    title: "Compressor"
+  }
+];

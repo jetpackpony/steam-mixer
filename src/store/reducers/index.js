@@ -27,12 +27,20 @@ export const getNodeTitleById = (state, id) => (
   audioGraphSelectors.getNodeTitleById(state.audioGraph, id)
 );
 
+export const getNodeById = (state, id) => (
+  audioGraphSelectors.getNodeById(state.audioGraph, id)
+);
+
 export const getConnections = (state) => (
   audioGraphSelectors.getConnections(state.audioGraph)
 );
 
 export const getGainValueById = (state, id) => (
   audioGraphSelectors.getGainValueById(state.audioGraph, id)
+);
+
+export const getCompressorPropsById = (state, id) => (
+  audioGraphSelectors.getCompressorPropsById(state.audioGraph, id)
 );
 
 export const getIsModalOpen = (state, modalType) => (
@@ -57,4 +65,8 @@ export const getAllNodes = (state) => (
 
 export const getEditGainId = (state) => (
   uiSelectors.getEditGainId(state.ui)
+);
+
+export const getEditCompressorId = (state) => (
+  uiSelectors.getEditCompressorId(state.ui)
 );
