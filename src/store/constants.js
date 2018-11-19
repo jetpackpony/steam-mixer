@@ -1,7 +1,7 @@
 export const NODE_TYPES = {
-  SOURCE: 0,
-  DESTINATION: 1,
-  AUDIONODE: 2
+  SOURCE: "SOURCE",
+  DESTINATION: "DESTINATION",
+  AUDIONODE: "AUDIONODE"
 };
 
 export const MODAL_TYPES = {
