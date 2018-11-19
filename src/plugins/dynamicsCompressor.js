@@ -1,9 +1,22 @@
-const vagCode = (nodeId, props) => {
-  console.log(`Running vagCode for ${nodeId} with props: `, props);
+import { dynamicsCompressor } from 'virtual-audio-graph';
+
+const vagCode = (output, props) => {
+  return dynamicsCompressor(output, props);
 };
 
+/*
+
+      "props": {
+        attack: 0,
+        knee: 40,
+        ratio: 12,
+        release: 0.25,
+        threshold: -40
+      }
+      */
 export default {
   id: "dynamicsCompressor",
+  title: "Compressor",
   props: [
     {
       id: "attack",

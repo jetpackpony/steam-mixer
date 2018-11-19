@@ -2,16 +2,17 @@ import { connect } from 'react-redux';
 import AddAudioNode from './AddAudioNode';
 import { toggleAddAudioNodeModal, addAudioNode } from '../store/actions';
 import { getIsModalOpen } from '../store/reducers';
-import { MODAL_TYPES, AUDIO_NODE_TYPES } from '../store/constants';
+import { MODAL_TYPES } from '../store/constants';
+import { getAudioNodesTypes } from '../utils';
 
-const mapState = (state, ownProps) => {
+const mapState = (state) => {
   return {
     isOpen: getIsModalOpen(state, MODAL_TYPES.ADD_AUDIO_NODE),
-    nodeTypesList: AUDIO_NODE_TYPES
+    nodeTypesList: getAudioNodesTypes()
   };
 };
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = (dispatch) => {
   return {
     onCreate: (title, nodeTypeId) => dispatch(addAudioNode(title, nodeTypeId)),
     toggle: () => dispatch(toggleAddAudioNodeModal())

@@ -1,9 +1,12 @@
-const vagCode = (nodeId, props) => {
-  console.log(`Running vagCode for ${nodeId} with props: `, props);
+import { gain } from 'virtual-audio-graph';
+
+const vagCode = (output, props) => {
+  return gain(output, props);
 };
 
 export default {
   id: "gain",
+  title: "Gain",
   props: [
     {
       id: "gain",

@@ -1,5 +1,4 @@
 import uuidv4 from 'uuid/v4';
-import { AUDIO_NODE_TYPES } from '../constants';
 
 const ACTION_TYPES = {
   TOGGLE_ADD_INPUT_MODAL: "TOGGLE_ADD_INPUT_MODAL",
@@ -9,9 +8,8 @@ const ACTION_TYPES = {
   TOGGLE_EDIT_GAIN_MODAL: "TOGGLE_EDIT_GAIN_MODAL",
   TOGGLE_EDIT_COMPRESSOR_MODAL: "TOGGLE_EDIT_COMPRESSOR_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
-  ADD_GAIN_NODE: "ADD_GAIN_NODE",
-  ADD_COMPRESSOR_NODE: "ADD_COMPRESSOR_NODE",
   ADD_CONNECTION: "ADD_CONNECTION",
+  ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
   DELETE_NODE: "DELETE_NODE",
   DELETE_CONNECTION: "DELETE_CONNECTION",
   CHANGE_GAIN: "CHANGE_GAIN",
@@ -53,29 +51,12 @@ const addEndpoint = (deviceType, title, device) => ({
   nodeId: uuidv4()
 });
 
-const addGainNode = (title) => ({
-  type: ACTION_TYPES.ADD_GAIN_NODE,
+const addAudioNode = (title, typeId) => ({
+  type: ACTION_TYPES.ADD_AUDIO_NODE,
   title,
+  typeId,
   nodeId: uuidv4()
 });
-
-const addCompressorNode = (title) => ({
-  type: ACTION_TYPES.ADD_COMPRESSOR_NODE,
-  title,
-  nodeId: uuidv4()
-});
-
-const addAudioNode = (title, type) => {
-  switch(type) {
-    case "GAIN":
-      return addGainNode(title);
-    case "COMPRESSOR":
-      return addCompressorNode(title);
-    default:
-      return addGainNode(title);
-  }
-
-};
 
 const addConnection = (fromId, toId) => ({
   type: ACTION_TYPES.ADD_CONNECTION,
@@ -124,8 +105,6 @@ export {
   toggleEditGainModal,
   toggleEditCompressorModal,
   addEndpoint,
-  addGainNode,
-  addCompressorNode,
   addAudioNode,
   addConnection,
   deleteNode,

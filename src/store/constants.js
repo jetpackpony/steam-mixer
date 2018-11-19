@@ -12,14 +12,3 @@ export const MODAL_TYPES = {
   EDIT_GAIN: "EDIT_GAIN",
   EDIT_COMPRESSOR: "EDIT_COMPRESSOR",
 };
-
-export const AUDIO_NODE_TYPES = [
-  {
-    id: "GAIN",
-    title: "Gain"
-  },
-  {
-    id: "COMPRESSOR",
-    title: "Compressor"
-  }
-];
