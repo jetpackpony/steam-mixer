@@ -1,5 +1,8 @@
 import * as vag from 'virtual-audio-graph';
 import { NODE_TYPES } from '../../store/constants';
+import { bindPluginUtils } from '../../utils';
+import plugins from '../../plugins';
+const pluginUtils = bindPluginUtils(plugins);
 
 const makeSourceFromDevice = async (node) => {
   let stream = await navigator.mediaDevices.getUserMedia({
@@ -20,7 +23,7 @@ const makeDestinationFromDevice = async (node) => {
 };
 
 const makeAudioNode = async (node) => {
-  return vag[node.audioConstructor](node.output, node.props);
+  return pluginUtils.getPluginsVagCode(node.nodeTypeId)(node.output, node.props);
 };
 
 const makeNode = (node) => {

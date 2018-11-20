@@ -28,9 +28,9 @@ const initState = [
     "nodeId": "3",
     "title": "Gain",
     "type": NODE_TYPES.AUDIONODE,
-    "audioConstructor": "gain",
     "output": [
     ],
+    "nodeTypeId": "gain", // plugin type
     "props": {
       "gain": 1
     }

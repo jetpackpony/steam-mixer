@@ -1,6 +1,9 @@
 import * as R from 'ramda';
 import { NODE_TYPES } from '../../constants';
 import { getNodeIndexByID } from './utils';
+import { bindPluginUtils } from '../../../utils';
+import plugins from '../../../plugins';
+const pluginUtils = bindPluginUtils(plugins);
 
 export const addEndpoint = (state, action) => {
   return [
@@ -15,7 +18,7 @@ export const addEndpoint = (state, action) => {
   ];
 };
 
-export const addGainNode = (state, action) => {
+export const addAudioNode = (state, action) => {
   return [
     ...state,
     {
@@ -23,30 +26,8 @@ export const addGainNode = (state, action) => {
       "title": action.title,
       "type": NODE_TYPES.AUDIONODE,
       "output": [],
-      "audioConstructor": "gain",
-      "props": {
-        "gain": 1
-      }
-    }
-  ];
-};
-
-export const addCompressorNode = (state, action) => {
-  return [
-    ...state,
-    {
-      "nodeId": action.nodeId,
-      "title": action.title,
-      "type": NODE_TYPES.AUDIONODE,
-      "output": [],
-      "audioConstructor": "dynamicsCompressor",
-      "props": {
-        attack: 0,
-        knee: 40,
-        ratio: 12,
-        release: 0.25,
-        threshold: -40
-      }
+      "nodeTypeId": action.typeId,
+      "props": pluginUtils.getDefaultPropsForPlugin(action.typeId)
     }
   ];
 };
@@ -86,39 +67,18 @@ export const deleteConnection = (state, action) => {
   ];
 };
 
-export const changeGain = (state, action) => {
-  var nodeIndex = getNodeIndexByID(action.nodeId, state);
+export const editAudioNode = (state, action) => {
+  const nodeIndex = getNodeIndexByID(action.nodeId, state);
   return [
     ...R.slice(0, nodeIndex, state),
     {
       ...state[nodeIndex],
-      props: {
-        ...state[nodeIndex].props,
-        gain: action.value
-      }
+      props: action.props
     },
     ...R.slice(nodeIndex + 1, Infinity, state),
   ];
 };
 
-export const changeCompressor = (state, action) => {
-  var nodeIndex = getNodeIndexByID(action.nodeId, state);
-  return [
-    ...R.slice(0, nodeIndex, state),
-    {
-      ...state[nodeIndex],
-      props: {
-        ...state[nodeIndex].props,
-        attack: action.attack,
-        knee: action.knee,
-        ratio: action.ratio,
-        release: action.release,
-        threshold: action.threshold
-      }
-    },
-    ...R.slice(nodeIndex + 1, Infinity, state),
-  ];
-};
 
 const isIn = R.flip(R.contains);
 /*

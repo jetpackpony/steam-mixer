@@ -1,7 +1,7 @@
 export const NODE_TYPES = {
-  SOURCE: 0,
-  DESTINATION: 1,
-  AUDIONODE: 2
+  SOURCE: "SOURCE",
+  DESTINATION: "DESTINATION",
+  AUDIONODE: "AUDIONODE"
 };
 
 export const MODAL_TYPES = {
@@ -9,17 +9,5 @@ export const MODAL_TYPES = {
   ADD_OUTPUT: "ADD_OUTPUT",
   ADD_CONNECTION: "ADD_CONNECTION",
   ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
-  EDIT_GAIN: "EDIT_GAIN",
-  EDIT_COMPRESSOR: "EDIT_COMPRESSOR",
+  EDIT_AUDIO_NODE: "EDIT_AUDIO_NODE",
 };
-
-export const AUDIO_NODE_TYPES = [
-  {
-    id: "GAIN",
-    title: "Gain"
-  },
-  {
-    id: "COMPRESSOR",
-    title: "Compressor"
-  }
-];

@@ -18,22 +18,16 @@ const ui = (state = initState, action) => {
         ...state,
         addConnectionOpen: !state.addConnectionOpen
       };
-    case ACTION_TYPES.TOGGLE_EDIT_GAIN_MODAL:
-      return {
-        ...state,
-        editGainOpen: !state.editGainOpen,
-        editGainId: action.id
-      };
     case ACTION_TYPES.TOGGLE_ADD_AUDIO_NODE_MODAL:
       return {
         ...state,
         addAudioNodeOpen: !state.addAudioNodeOpen
       };
-    case ACTION_TYPES.TOGGLE_EDIT_COMPRESSOR_MODAL:
+    case ACTION_TYPES.TOGGLE_EDIT_AUDIO_NODE_MODAL:
       return {
         ...state,
-        editCompressorOpen: !state.editCompressorOpen,
-        editCompressorId: action.id
+        editAudioNodeOpen: !state.editAudioNodeOpen,
+        editAudioNodeId: action.id
       };
     default:
       return state;
