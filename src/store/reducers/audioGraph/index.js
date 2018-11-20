@@ -3,9 +3,9 @@ import { ACTION_TYPES } from '../../actions';
 import initState from './initialState';
 import {
   addEndpoint, addConnection,
-  deleteNode, deleteConnection, changeGain,
+  deleteNode, deleteConnection,
   updateDeviceList,
-  changeCompressor, addAudioNode
+  addAudioNode, editAudioNode
 } from './handlers';
 
 const handlersMap = {
@@ -14,8 +14,7 @@ const handlersMap = {
   [ACTION_TYPES.ADD_CONNECTION]: addConnection,
   [ACTION_TYPES.DELETE_NODE]: deleteNode,
   [ACTION_TYPES.DELETE_CONNECTION]: deleteConnection,
-  [ACTION_TYPES.CHANGE_GAIN]: changeGain,
-  [ACTION_TYPES.CHANGE_COMPRESSOR]: changeCompressor,
+  [ACTION_TYPES.EDIT_AUDIO_NODE]: editAudioNode,
   [ACTION_TYPES.UPDATE_DEVICE_LIST]: updateDeviceList
 }
 

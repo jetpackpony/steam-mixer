@@ -67,39 +67,18 @@ export const deleteConnection = (state, action) => {
   ];
 };
 
-export const changeGain = (state, action) => {
-  var nodeIndex = getNodeIndexByID(action.nodeId, state);
+export const editAudioNode = (state, action) => {
+  const nodeIndex = getNodeIndexByID(action.nodeId, state);
   return [
     ...R.slice(0, nodeIndex, state),
     {
       ...state[nodeIndex],
-      props: {
-        ...state[nodeIndex].props,
-        gain: action.value
-      }
+      props: action.props
     },
     ...R.slice(nodeIndex + 1, Infinity, state),
   ];
 };
 
-export const changeCompressor = (state, action) => {
-  var nodeIndex = getNodeIndexByID(action.nodeId, state);
-  return [
-    ...R.slice(0, nodeIndex, state),
-    {
-      ...state[nodeIndex],
-      props: {
-        ...state[nodeIndex].props,
-        attack: action.attack,
-        knee: action.knee,
-        ratio: action.ratio,
-        release: action.release,
-        threshold: action.threshold
-      }
-    },
-    ...R.slice(nodeIndex + 1, Infinity, state),
-  ];
-};
 
 const isIn = R.flip(R.contains);
 /*

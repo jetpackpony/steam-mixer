@@ -10,11 +10,14 @@ export default {
   props: [
     {
       id: "gain",
-      type: "number",
-      min: 0,
-      max: 10,
-      step: 0.05,
-      default: 1
+      title: "Gain",
+      default: 1,
+      fieldProps: {
+        type: "number",
+        min: 0,
+        max: 10,
+        step: 0.05,
+      },
     }
   ],
   vagCode

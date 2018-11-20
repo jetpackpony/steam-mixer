@@ -6,19 +6,25 @@ const plugins = [{
   props: [
     {
       id: "attack",
-      type: "number",
-      min: 0,
-      max: 1,
-      step: 0.01,
-      default: 0
+      title: "Attack",
+      default: 0,
+      fieldProps: {
+        type: "number",
+        min: 0,
+        max: 1,
+        step: 0.01,
+      }
     },
     {
       id: "threshold",
-      type: "number",
-      min: 0,
-      max: 50,
-      step: 0.05,
-      default: 10
+      title: "Threshold",
+      default: 10,
+      fieldProps: {
+        type: "number",
+        min: -100,
+        max: 100,
+        step: 1,
+      }
     }
   ],
   vagCode: () => {}
@@ -28,11 +34,14 @@ const plugins = [{
   props: [
     {
       id: "gain",
-      type: "number",
-      min: 0,
-      max: 10,
-      step: 0.05,
-      default: 1
+      title: "Gain",
+      default: 1,
+      fieldProps: {
+        type: "number",
+        min: 0,
+        max: 10,
+        step: 0.05,
+      },
     }
   ],
   vagCode: () => {}

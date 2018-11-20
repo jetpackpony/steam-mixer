@@ -6,10 +6,9 @@ import NodeListContainer from './components/NodeListContainer';
 import ConnectionListContainer from './components/ConnectionListContainer';
 import AddEndpointContainer from './components/AddEndpointContainer';
 import AddConnectionContainer from './components/AddConnectionContainer';
-import EditGainContainer from './components/EditGainContainer';
 import { NODE_TYPES, MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
-import EditCompressorContainer from './components/EditCompressorContainer';
+import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 
 const App = () => (
   <Fragment>
@@ -24,8 +23,7 @@ const App = () => (
     <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
     <AddConnectionContainer />
     <AddAudioNodeContainer />
-    <EditGainContainer />
-    <EditCompressorContainer />
+    <EditAudioNodeContainer />
   </Fragment>
 );
 

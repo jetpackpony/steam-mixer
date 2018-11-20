@@ -39,21 +39,21 @@ export const getConnections = (state) => (
   ), [], state)
 );
 
-export const getGainValueById = (state, id) => (
+export const getAllNodes = (state) => state;
+
+export const getAudioNodePropsById = (state, id) => (
   id !== null
     ? R.compose(
-        R.path(["props", "gain"]),
+        R.prop("props"),
         R.find(R.propEq("nodeId", id))
       )(state)
     : null
 );
 
-export const getAllNodes = (state) => state;
-
-export const getCompressorPropsById = (state, id) => (
+export const getAudioNodePluginIdById = (state, id) => (
   id !== null
     ? R.compose(
-        R.prop("props"),
+        R.prop("nodeTypeId"),
         R.find(R.propEq("nodeId", id))
       )(state)
     : null
