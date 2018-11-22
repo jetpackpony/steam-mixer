@@ -1,31 +1,19 @@
-import * as R from 'ramda';
 import { connect } from 'react-redux';
 import NodeList from './NodeList';
-import { NODE_TYPES } from '../store/constants';
-import { getInputNodes, getOutputNodes, getAudioNodes } from '../store/reducers';
+import { getAllNodes } from '../store/reducers';
 import * as actions from '../store/actions';
 
-const getters = {
-  [NODE_TYPES.SOURCE]: getInputNodes,
-  [NODE_TYPES.DESTINATION]: getOutputNodes,
-  [NODE_TYPES.AUDIONODE]: getAudioNodes,
-};
-
-const mapState = (state, ownProps) => {
+const mapState = (state) => {
   return {
-    state,
-    nodes: getters[ownProps.type](state)
+    nodes: getAllNodes(state)
   };
 };
 
-const mapDispatch = (dispatch, ownProps) => {
-  let props = {
+const mapDispatch = (dispatch) => {
+  return {
     onDelete: (nodeId) => dispatch(actions.deleteNode(nodeId)),
     onEdit: (nodeId) => dispatch(actions.toggleEditAudioNodeModal(nodeId)),
   };
-  return (ownProps.type === NODE_TYPES.AUDIONODE)
-    ? props
-    : R.omit(["onEdit"], props);
 };
 
 const NodeListContainer = connect(mapState, mapDispatch)(NodeList);

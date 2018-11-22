@@ -5,7 +5,7 @@ import NodeListContainer from './components/NodeListContainer';
 import ConnectionListContainer from './components/ConnectionListContainer';
 import AddEndpointContainer from './components/AddEndpointContainer';
 import AddConnectionContainer from './components/AddConnectionContainer';
-import { NODE_TYPES, MODAL_TYPES } from './store/constants';
+import { MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import { Stage, Layer } from 'react-konva';
@@ -17,9 +17,7 @@ const App = () => (
     <MenuContainer/>
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-        <NodeListContainer title="Inputs" type={NODE_TYPES.SOURCE} />
-        <NodeListContainer title="Audio Nodes" type={NODE_TYPES.AUDIONODE} />
-        <NodeListContainer title="Outputs" type={NODE_TYPES.DESTINATION} />
+        <NodeListContainer/>
         <ConnectionListContainer title="Connections" />
       </Layer>
     </Stage>
