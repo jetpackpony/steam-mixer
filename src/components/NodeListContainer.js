@@ -13,6 +13,7 @@ const mapDispatch = (dispatch) => {
   return {
     onDelete: (nodeId) => dispatch(actions.deleteNode(nodeId)),
     onEdit: (nodeId) => dispatch(actions.toggleEditAudioNodeModal(nodeId)),
+    onNodeClick: (nodeId, pointerCoords) => dispatch(actions.toggleNodeContextMenu(nodeId, pointerCoords))
   };
 };
 

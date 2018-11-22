@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import { NODE_TYPES } from '../../constants';
+import { deleteNode, toggleEditAudioNodeModal } from '../../actions';
 
 export const getInputNodes = (state) => (
   R.filter((node) => (node.type === NODE_TYPES.SOURCE), state)
@@ -67,3 +68,19 @@ export const getAudioNodePluginIdById = (state, id) => (
       )(state)
     : null
 );
+
+export const makeActionListForNode = (node, dispatch) => {
+  let res = [
+    {
+      title: "Delete",
+      onClick: () => dispatch(deleteNode(node.nodeId))
+    }
+  ];
+  if (node.type === NODE_TYPES.AUDIONODE) {
+    res.push({
+      title: "Edit",
+      onClick: () => dispatch(toggleEditAudioNodeModal(node.nodeId))
+    })
+  }
+  return res;
+};

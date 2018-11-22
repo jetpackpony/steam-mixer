@@ -1,9 +1,15 @@
 import React from 'react';
 import { Rect, Text, Group } from 'react-konva';
 
-const Node = ({ title, nodeId, coords }) => {
+const Node = ({ title, nodeId, coords, onClick }) => {
   return (
-    <Group x={coords.x} y={coords.y}>
+    <Group
+      x={coords.x}
+      y={coords.y}
+      onClick={(event) => { 
+        onClick(nodeId, { x: event.evt.pageX, y: event.evt.pageY })
+      }}
+    >
       <Rect
         x={10}
         y={0}
@@ -11,7 +17,6 @@ const Node = ({ title, nodeId, coords }) => {
         height={30}
         fill="red"
         shadowBlur={3}
-        onClick={(e) => console.log("click:", nodeId)}
       />
       <Text
         text={title}

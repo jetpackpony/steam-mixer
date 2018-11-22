@@ -43,6 +43,10 @@ export const getAudioNodePluginIdById = (state, id) => (
   audioGraphSelectors.getAudioNodePluginIdById(state.audioGraph, id)
 );
 
+export const makeActionListForNode = (node, dispatch) => (
+  audioGraphSelectors.makeActionListForNode(node, dispatch)
+);
+
 export const getIsModalOpen = (state, modalType) => (
   uiSelectors.getIsModalOpen(state.ui, modalType)
 );
@@ -65,4 +69,12 @@ export const getAllNodes = (state) => (
 
 export const getEditAudioNodeId = (state) => (
   uiSelectors.getEditAudioNodeId(state.ui)
+);
+
+export const getPointerCoords = (state) => (
+  uiSelectors.getPointerCoords(state.ui)
+);
+
+export const getNodeContextMenuId = (state) => (
+  uiSelectors.getNodeContextMenuId(state.ui)
 );
