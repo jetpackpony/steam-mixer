@@ -11,12 +11,6 @@ const getters = {
   [NODE_TYPES.AUDIONODE]: getAudioNodes,
 };
 
-const adders = {
-  [NODE_TYPES.SOURCE]: actions.toggleAddInputModal,
-  [NODE_TYPES.DESTINATION]: actions.toggleAddOutputModal,
-  [NODE_TYPES.AUDIONODE]: actions.toggleAddAudioNodeModal,
-};
-
 const mapState = (state, ownProps) => {
   return {
     state,
@@ -27,7 +21,6 @@ const mapState = (state, ownProps) => {
 const mapDispatch = (dispatch, ownProps) => {
   let props = {
     onDelete: (nodeId) => dispatch(actions.deleteNode(nodeId)),
-    onAdd: () => dispatch(adders[ownProps.type]()),
     onEdit: (nodeId) => dispatch(actions.toggleEditAudioNodeModal(nodeId)),
   };
   return (ownProps.type === NODE_TYPES.AUDIONODE)

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Node from './Node';
 
-const NodeList = ({ title, nodes, onDelete, onEdit, onAdd }) => {
+const NodeList = ({ nodes, onDelete, onEdit }) => {
   let nodesList = nodes.map(({ title, nodeId }) => (
     <Node
       key={nodeId}

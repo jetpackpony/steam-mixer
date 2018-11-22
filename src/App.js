@@ -9,10 +9,12 @@ import { NODE_TYPES, MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import { Stage, Layer } from 'react-konva';
+import MenuContainer from './components/MenuContainer';
 
 const App = () => (
   <Fragment>
     <WebAudioEngine />
+    <MenuContainer/>
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         <NodeListContainer title="Inputs" type={NODE_TYPES.SOURCE} />
