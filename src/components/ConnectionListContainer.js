@@ -4,7 +4,7 @@ import { getConnections } from '../store/reducers';
 import { deleteConnection, toggleAddConnectionModal } from '../store/actions';
 
 const mapState = (state) => ({
-  nodes: getConnections(state)
+  connections: getConnections(state)
 });
 
 const mapDispatch = {

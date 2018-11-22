@@ -1,21 +1,17 @@
 import React, { Fragment } from 'react';
 import Connection from './Connection';
 
-const ConnectionList = ({ title, nodes, onDelete, onAdd }) => {
-  let nodesList = nodes.map(({ nodeId, fromTitle, fromId, toTitle, toId }) => (
+const ConnectionList = ({ title, connections, onDelete, onAdd }) => {
+  const connectionList = connections.map(({ nodeId, fromCoords, toCoords }) => (
     <Connection
       key={nodeId}
-      fromTitle={fromTitle}
-      fromId={fromId}
-      toTitle={toTitle}
-      toId={toId}
-      nodeId={nodeId}
-      onDelete={onDelete}
+      fromCoords={fromCoords}
+      toCoords={toCoords}
     />
   ));
   return (
     <Fragment>
-      {nodesList}
+      {connectionList}
     </Fragment>
   );
 };

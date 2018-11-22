@@ -20,6 +20,13 @@ export const getNodeTitleById = (state, id) => (
   )(state)
 );
 
+export const getNodeCoordsById = (state, id) => (
+  R.compose(
+    R.prop("coords"),
+    R.find(R.propEq("nodeId", id))
+  )(state)
+);
+
 export const getNodeById = (state, id) => (
     R.find(R.propEq("nodeId", id))(state)
 );
@@ -30,6 +37,8 @@ export const getConnections = (state) => (
       agregator,
       R.map((out) => ({
         nodeId: node.nodeId + "-" + out,
+        fromCoords: getNodeCoordsById(state, node.nodeId),
+        toCoords: getNodeCoordsById(state, out),
         fromTitle: getNodeTitleById(state, node.nodeId),
         fromId: node.nodeId,
         toTitle: getNodeTitleById(state, out),
