@@ -13,7 +13,8 @@ export const addEndpoint = (state, action) => {
       "title": action.title,
       "type": action.deviceType,
       "output": [],
-      "deviceId": action.device.deviceId
+      "deviceId": action.device.deviceId,
+      coords: action.coords
     }
   ];
 };
@@ -27,7 +28,8 @@ export const addAudioNode = (state, action) => {
       "type": NODE_TYPES.AUDIONODE,
       "output": [],
       "nodeTypeId": action.typeId,
-      "props": pluginUtils.getDefaultPropsForPlugin(action.typeId)
+      "props": pluginUtils.getDefaultPropsForPlugin(action.typeId),
+      coords: action.coords
     }
   ];
 };

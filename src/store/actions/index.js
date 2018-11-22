@@ -41,14 +41,22 @@ const addEndpoint = (deviceType, title, device) => ({
   deviceType,
   title,
   device,
-  nodeId: uuidv4()
+  nodeId: uuidv4(),
+  coords: {
+    x: Math.random() * (window.innerWidth - 50),
+    y: Math.random() * (window.innerHeight - 50)
+  }
 });
 
 const addAudioNode = (title, typeId) => ({
   type: ACTION_TYPES.ADD_AUDIO_NODE,
   title,
   typeId,
-  nodeId: uuidv4()
+  nodeId: uuidv4(),
+  coords: {
+    x: Math.random() * (window.innerWidth - 50),
+    y: Math.random() * (window.innerHeight - 50)
+  }
 });
 
 const addConnection = (fromId, toId) => ({

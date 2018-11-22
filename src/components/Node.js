@@ -1,13 +1,9 @@
 import React from 'react';
-import { EditButton } from './buttons';
 import { Rect, Text, Group } from 'react-konva';
 
-const Node = ({ title, nodeId, onDelete, onEdit, coords }) => {
-  const x = Math.random() * (window.innerWidth - 50);
-  const y = Math.random() * (window.innerHeight - 50);
-
+const Node = ({ title, nodeId, coords }) => {
   return (
-    <Group x={x} y={y}>
+    <Group x={coords.x} y={coords.y}>
       <Rect
         x={10}
         y={0}
