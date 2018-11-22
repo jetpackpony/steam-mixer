@@ -1,6 +1,4 @@
-import React from 'react';
-import { AddButton } from './buttons';
-import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
+import React, { Fragment } from 'react';
 import Connection from './Connection';
 
 const ConnectionList = ({ title, nodes, onDelete, onAdd }) => {
@@ -16,20 +14,10 @@ const ConnectionList = ({ title, nodes, onDelete, onAdd }) => {
     />
   ));
   return (
-    <Card>
-      <CardBody>
-        <CardTitle>{title}</CardTitle>
-        <Container>
-          {nodesList}
-          <Row>
-            <Col>
-              <AddButton onClick={onAdd} />
-            </Col>
-          </Row>
-        </Container>
-      </CardBody>
-    </Card>
-  )
+    <Fragment>
+      {nodesList}
+    </Fragment>
+  );
 };
 
 export default ConnectionList;
