@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import Node from './Node';
 
-const NodeList = ({ nodes, onNodeClick }) => {
-  let nodesList = nodes.map(({ title, nodeId, coords }) => (
+const NodeList = ({ nodes }) => {
+  const nodesList = nodes.map(({ title, nodeId, coords, contextActions }) => (
     <Node
       key={nodeId}
       title={title}
       nodeId={nodeId}
       coords={coords}
-      onClick={onNodeClick}
+      contextActions={contextActions}
     />
   ));
   return (

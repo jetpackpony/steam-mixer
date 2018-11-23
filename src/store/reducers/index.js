@@ -74,11 +74,3 @@ export const getEditAudioNodeId = (state) => (
 export const getPointerCoords = (state) => (
   uiSelectors.getPointerCoords(state.ui)
 );
-
-export const getNodeContextMenuId = (state) => (
-  uiSelectors.getNodeContextMenuId(state.ui)
-);
-
-export const getConnectionContextMenuIds = (state) => (
-  uiSelectors.getConnectionContextMenuIds(state.ui)
-);

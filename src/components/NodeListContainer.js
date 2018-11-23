@@ -1,7 +1,7 @@
+import * as R from 'ramda';
 import { connect } from 'react-redux';
 import NodeList from './NodeList';
-import { getAllNodes } from '../store/reducers';
-import * as actions from '../store/actions';
+import { getAllNodes, makeActionListForNode } from '../store/reducers';
 
 const mapState = (state) => {
   return {
@@ -11,12 +11,21 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    onDelete: (nodeId) => dispatch(actions.deleteNode(nodeId)),
-    onEdit: (nodeId) => dispatch(actions.toggleEditAudioNodeModal(nodeId)),
-    onNodeClick: (nodeId, pointerCoords) => dispatch(actions.toggleNodeContextMenu(nodeId, pointerCoords))
+    dispatch,
   };
 };
 
-const NodeListContainer = connect(mapState, mapDispatch)(NodeList);
+const mergeProps = (stateProps, dispatchProps) => {
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    nodes: R.map((node) => ({
+      ...node,
+      contextActions: makeActionListForNode(node, dispatchProps.dispatch)
+    }), stateProps.nodes)
+  };
+};
+
+const NodeListContainer = connect(mapState, mapDispatch, mergeProps)(NodeList);
 
 export default NodeListContainer;

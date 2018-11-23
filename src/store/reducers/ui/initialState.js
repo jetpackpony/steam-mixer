@@ -5,10 +5,5 @@ const initState = {
   "addAudioNodeOpen": false,
   "editAudioNodeOpen": false,
   "editAudioNodeId": null,
-  "nodeContextMenuOpen": false,
-  "nodeContextMenuNodeId": null,
-  "connectionContextMenuOpen": false,
-  "connectionContextMenuNodesId": { fromId: null, toId: null },
-  "pointerCoords": { x: 0, y: 0 }
 };
 export default initState;

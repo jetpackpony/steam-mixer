@@ -6,8 +6,6 @@ const ACTION_TYPES = {
   TOGGLE_ADD_CONNECTION_MODAL: "TOGGLE_ADD_CONNECTION_MODAL",
   TOGGLE_ADD_AUDIO_NODE_MODAL: "TOGGLE_ADD_AUDIO_NODE_MODAL",
   TOGGLE_EDIT_AUDIO_NODE_MODAL: "TOGGLE_EDIT_AUDIO_NODE_MODAL",
-  TOGGLE_NODE_CONTEXT_MENU: "TOGGLE_NODE_CONTEXT_MENU",
-  TOGGLE_CONNECTION_CONTEXT_MENU: "TOGGLE_CONNECTION_CONTEXT_MENU",
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_CONNECTION: "ADD_CONNECTION",
   ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
@@ -37,19 +35,6 @@ const toggleEditAudioNodeModal = (id) => ({
   type: ACTION_TYPES.TOGGLE_EDIT_AUDIO_NODE_MODAL,
   id
 });
-
-const toggleNodeContextMenu = (id = null, pointerCoords = { x: 0, y: 0 }) => ({
-  type: ACTION_TYPES.TOGGLE_NODE_CONTEXT_MENU,
-  id,
-  pointerCoords
-});
-
-const toggleConnectionContextMenu =
-  (nodeIds = { fromId: null, toId: null }, pointerCoords = { x: 0, y: 0 }) => ({
-    type: ACTION_TYPES.TOGGLE_CONNECTION_CONTEXT_MENU,
-    nodeIds,
-    pointerCoords
-  });
 
 const addEndpoint = (deviceType, title, device) => ({
   type: ACTION_TYPES.ADD_ENDPOINT,
@@ -110,8 +95,6 @@ export {
   toggleAddConnectionModal,
   toggleAddAudioNodeModal,
   toggleEditAudioNodeModal,
-  toggleNodeContextMenu,
-  toggleConnectionContextMenu,
   addEndpoint,
   addAudioNode,
   addConnection,

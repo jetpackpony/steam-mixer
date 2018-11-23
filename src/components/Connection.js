@@ -1,16 +1,15 @@
 import React from 'react';
-import { Arrow, Text, Group } from 'react-konva';
+import { Arrow } from 'react-konva';
+import withContextMenu from './withContextMenu';
 
-const Connection = ({ fromCoords, toCoords, fromId, toId, onClick }) => {
+const Connection = ({ fromCoords, toCoords, onClick }) => {
   return (
     <Arrow
       points={[fromCoords.x, fromCoords.y, toCoords.x, toCoords.y]}
       stroke="white"
-      onClick={(event) => { 
-        onClick({ fromId, toId }, { x: event.evt.pageX, y: event.evt.pageY })
-      }}
+      onClick={onClick}
     />
   );
 };
 
-export default Connection;
+export default withContextMenu(Connection);
