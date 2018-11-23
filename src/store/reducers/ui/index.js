@@ -29,20 +29,6 @@ const ui = (state = initState, action) => {
         editAudioNodeOpen: !state.editAudioNodeOpen,
         editAudioNodeId: action.id
       };
-    case ACTION_TYPES.TOGGLE_NODE_CONTEXT_MENU:
-      return {
-        ...state,
-        nodeContextMenuOpen: !state.nodeContextMenuOpen,
-        nodeContextMenuNodeId: action.id,
-        pointerCoords: action.pointerCoords
-      };
-    case ACTION_TYPES.TOGGLE_CONNECTION_CONTEXT_MENU:
-      return {
-        ...state,
-        connectionContextMenuOpen: !state.connectionContextMenuOpen,
-        connectionContextMenuNodesId: action.nodeIds,
-        pointerCoords: action.pointerCoords
-      };
     default:
       return state;
   }
