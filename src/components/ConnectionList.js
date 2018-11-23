@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 import Connection from './Connection';
 
-const ConnectionList = ({ connections, onConnectionClick }) => {
+const ConnectionList = ({ connections }) => {
   const connectionList = connections.map(
-    ({ nodeId, fromCoords, toCoords, fromId, toId }) => (
+    ({ nodeId, fromCoords, toCoords, contextActions }) => (
       <Connection
         key={nodeId}
         fromCoords={fromCoords}
         toCoords={toCoords}
-        fromId={fromId}
-        toId={toId}
-        onClick={onConnectionClick}
+        contextActions={contextActions}
       />
     )
   );
