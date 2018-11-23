@@ -78,3 +78,7 @@ export const getPointerCoords = (state) => (
 export const getNodeContextMenuId = (state) => (
   uiSelectors.getNodeContextMenuId(state.ui)
 );
+
+export const getConnectionContextMenuIds = (state) => (
+  uiSelectors.getConnectionContextMenuIds(state.ui)
+);

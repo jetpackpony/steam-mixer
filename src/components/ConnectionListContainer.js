@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 import ConnectionList from './ConnectionList';
 import { getConnections } from '../store/reducers';
-import { deleteConnection, toggleAddConnectionModal } from '../store/actions';
+import { toggleConnectionContextMenu } from '../store/actions';
 
 const mapState = (state) => ({
   connections: getConnections(state)
 });
 
 const mapDispatch = {
-  onDelete: deleteConnection,
-  onAdd: toggleAddConnectionModal
+  onConnectionClick: toggleConnectionContextMenu
 };
 
 export default connect(mapState, mapDispatch)(ConnectionList);

@@ -36,6 +36,13 @@ const ui = (state = initState, action) => {
         nodeContextMenuNodeId: action.id,
         pointerCoords: action.pointerCoords
       };
+    case ACTION_TYPES.TOGGLE_CONNECTION_CONTEXT_MENU:
+      return {
+        ...state,
+        connectionContextMenuOpen: !state.connectionContextMenuOpen,
+        connectionContextMenuNodesId: action.nodeIds,
+        pointerCoords: action.pointerCoords
+      };
     default:
       return state;
   }

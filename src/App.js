@@ -10,7 +10,8 @@ import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import { Stage, Layer } from 'react-konva';
 import MenuContainer from './components/MenuContainer';
-import ContextMenuContainer from './components/ContextMenuContainer';
+import NodeContextMenuContainer from './components/NodeContextMenuContainer';
+import ConnectionContextMenuContainer from './components/ConnectionContextMenuContainer';
 
 const App = () => (
   <Fragment>
@@ -27,7 +28,8 @@ const App = () => (
     <AddConnectionContainer />
     <AddAudioNodeContainer />
     <EditAudioNodeContainer />
-    <ContextMenuContainer/>
+    <NodeContextMenuContainer/>
+    <ConnectionContextMenuContainer/>
   </Fragment>
 );
 
