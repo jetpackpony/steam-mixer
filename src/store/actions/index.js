@@ -13,6 +13,7 @@ const ACTION_TYPES = {
   DELETE_CONNECTION: "DELETE_CONNECTION",
   EDIT_AUDIO_NODE: "EDIT_AUDIO_NODE",
   UPDATE_DEVICE_LIST: "UPDATE_DEVICE_LIST",
+  MOVE_NODE: "MOVE_NODE",
 }
 
 const toggleAddInputModal = () => ({
@@ -82,10 +83,15 @@ const editAudioNode = (nodeId, props) => ({
   props
 });
 
-
 const updateDeviceList = (devices) => ({
   type: ACTION_TYPES.UPDATE_DEVICE_LIST,
   devices
+});
+
+const moveNode = (nodeId, newCoords) => ({
+  type: ACTION_TYPES.MOVE_NODE,
+  nodeId,
+  newCoords
 });
 
 export {
@@ -102,4 +108,5 @@ export {
   deleteConnection,
   editAudioNode,
   updateDeviceList,
+  moveNode,
 }

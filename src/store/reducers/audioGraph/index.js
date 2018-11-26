@@ -5,7 +5,8 @@ import {
   addEndpoint, addConnection,
   deleteNode, deleteConnection,
   updateDeviceList,
-  addAudioNode, editAudioNode
+  addAudioNode, editAudioNode,
+  moveNode
 } from './handlers';
 
 const handlersMap = {
@@ -15,7 +16,8 @@ const handlersMap = {
   [ACTION_TYPES.DELETE_NODE]: deleteNode,
   [ACTION_TYPES.DELETE_CONNECTION]: deleteConnection,
   [ACTION_TYPES.EDIT_AUDIO_NODE]: editAudioNode,
-  [ACTION_TYPES.UPDATE_DEVICE_LIST]: updateDeviceList
+  [ACTION_TYPES.UPDATE_DEVICE_LIST]: updateDeviceList,
+  [ACTION_TYPES.MOVE_NODE]: moveNode,
 }
 
 const stateIdentity = (state) => state;

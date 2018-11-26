@@ -130,3 +130,15 @@ export const updateDeviceList = (state, action) => {
     R.filter(isNodeActiveApplied)
   )(state);
 };
+
+export const moveNode = (state, action) => {
+  const nodeIndex = getNodeIndexByID(action.nodeId, state);
+  return [
+    ...R.slice(0, nodeIndex, state),
+    {
+      ...state[nodeIndex],
+      coords: action.newCoords
+    },
+    ...R.slice(nodeIndex + 1, Infinity, state),
+  ];
+};

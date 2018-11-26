@@ -2,12 +2,20 @@ import React from 'react';
 import { Rect, Text, Group } from 'react-konva';
 import withContextMenu from './withContextMenu';
 
-const Node = ({ title, coords, onClick }) => {
+const Node = ({ nodeId, title, coords, onClick, onMove }) => {
   return (
       <Group
         x={coords.x}
         y={coords.y}
         onClick={onClick}
+        draggable
+        onDragMove={(event) => {
+          const coords = {
+            x: event.target.attrs.x,
+            y: event.target.attrs.y,
+          };
+          onMove(nodeId, coords);
+        }}
       >
         <Rect
           x={10}

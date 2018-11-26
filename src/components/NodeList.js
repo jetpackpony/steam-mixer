@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Node from './Node';
 
-const NodeList = ({ nodes }) => {
+const NodeList = ({ nodes, onNodeMove }) => {
   const nodesList = nodes.map(({ title, nodeId, coords, contextActions }) => (
     <Node
       key={nodeId}
@@ -9,6 +9,7 @@ const NodeList = ({ nodes }) => {
       nodeId={nodeId}
       coords={coords}
       contextActions={contextActions}
+      onMove={onNodeMove}
     />
   ));
   return (
