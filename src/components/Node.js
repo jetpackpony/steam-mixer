@@ -1,22 +1,38 @@
 import React from 'react';
-import { DeleteButton, EditButton } from './buttons';
-import { Row, Col } from 'reactstrap';
+import { Rect, Text, Group } from 'react-konva';
+import withContextMenu from './withContextMenu';
 
-const Node = ({ title, nodeId, onDelete, onEdit }) => {
-  let edit =
-    typeof onEdit === "function"
-      ? <EditButton onClick={() => onEdit(nodeId)} />
-      : null;
-
+const Node = ({ nodeId, title, coords, onClick, onMove }) => {
   return (
-    <Row>
-      <Col xs="1">
-        <DeleteButton onClick={() => onDelete(nodeId)} />
-      </Col>
-      <Col xs="8">{title}</Col>
-      {edit ? <Col xs="1">{edit}</Col> : null}
-    </Row>
+      <Group
+        x={coords.x}
+        y={coords.y}
+        onClick={onClick}
+        draggable
+        onDragMove={(event) => {
+          const coords = {
+            x: event.target.attrs.x,
+            y: event.target.attrs.y,
+          };
+          onMove(nodeId, coords);
+        }}
+      >
+        <Rect
+          x={10}
+          y={0}
+          width={30}
+          height={30}
+          fill="red"
+          shadowBlur={3}
+        />
+        <Text
+          text={title}
+          fill="white"
+          x={0}
+          y={40}
+        />
+      </Group>
   );
 };
 
-export default Node;
+export default withContextMenu(Node);

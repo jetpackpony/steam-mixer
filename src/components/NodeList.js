@@ -1,32 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Node from './Node';
-import { AddButton } from './buttons';
-import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 
-const NodeList = ({ title, nodes, onDelete, onEdit, onAdd }) => {
-  let nodesList = nodes.map(({ title, nodeId }) => (
+const NodeList = ({ nodes, onNodeMove }) => {
+  const nodesList = nodes.map(({ title, nodeId, coords, contextActions }) => (
     <Node
       key={nodeId}
       title={title}
       nodeId={nodeId}
-      onDelete={onDelete}
-      onEdit={onEdit}
+      coords={coords}
+      contextActions={contextActions}
+      onMove={onNodeMove}
     />
   ));
   return (
-    <Card>
-      <CardBody>
-        <CardTitle>{title}</CardTitle>
-        <Container>
-          {nodesList}
-          <Row>
-            <Col>
-              <AddButton onClick={onAdd} />
-            </Col>
-          </Row>
-        </Container>
-      </CardBody>
-    </Card>
+    <Fragment>
+      {nodesList}
+    </Fragment>
   )
 };
 

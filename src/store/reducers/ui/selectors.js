@@ -12,3 +12,5 @@ export const getIsModalOpen = (state, modalType) => {
 };
 
 export const getEditAudioNodeId = (state) => state.editAudioNodeId;
+
+export const getPointerCoords = (state) => state.pointerCoords;

@@ -1,15 +1,31 @@
+import * as R from 'ramda';
 import { connect } from 'react-redux';
 import ConnectionList from './ConnectionList';
 import { getConnections } from '../store/reducers';
-import { deleteConnection, toggleAddConnectionModal } from '../store/actions';
+import { deleteConnection } from '../store/actions';
 
 const mapState = (state) => ({
-  nodes: getConnections(state)
+  connections: getConnections(state)
 });
 
-const mapDispatch = {
-  onDelete: deleteConnection,
-  onAdd: toggleAddConnectionModal
+const mapDispatch = (dispatch) => {
+  return {
+    dispatch,
+  };
 };
 
-export default connect(mapState, mapDispatch)(ConnectionList);
+const mergeProps = (stateProps, dispatchProps) => {
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    connections: R.map((connection) => ({
+      ...connection,
+      contextActions: [{
+        title: "Delete Connection",
+        onClick: () => dispatchProps.dispatch(deleteConnection(connection.fromId, connection.toId))
+      }]
+    }), stateProps.connections)
+  };
+};
+
+export default connect(mapState, mapDispatch, mergeProps)(ConnectionList);

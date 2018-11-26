@@ -1,35 +1,22 @@
-import React from 'react';
-import { AddButton } from './buttons';
-import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
+import React, { Fragment } from 'react';
 import Connection from './Connection';
 
-const ConnectionList = ({ title, nodes, onDelete, onAdd }) => {
-  let nodesList = nodes.map(({ nodeId, fromTitle, fromId, toTitle, toId }) => (
-    <Connection
-      key={nodeId}
-      fromTitle={fromTitle}
-      fromId={fromId}
-      toTitle={toTitle}
-      toId={toId}
-      nodeId={nodeId}
-      onDelete={onDelete}
-    />
-  ));
+const ConnectionList = ({ connections }) => {
+  const connectionList = connections.map(
+    ({ nodeId, fromCoords, toCoords, contextActions }) => (
+      <Connection
+        key={nodeId}
+        fromCoords={fromCoords}
+        toCoords={toCoords}
+        contextActions={contextActions}
+      />
+    )
+  );
   return (
-    <Card>
-      <CardBody>
-        <CardTitle>{title}</CardTitle>
-        <Container>
-          {nodesList}
-          <Row>
-            <Col>
-              <AddButton onClick={onAdd} />
-            </Col>
-          </Row>
-        </Container>
-      </CardBody>
-    </Card>
-  )
+    <Fragment>
+      {connectionList}
+    </Fragment>
+  );
 };
 
 export default ConnectionList;

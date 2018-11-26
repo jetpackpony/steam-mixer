@@ -1,40 +1,33 @@
 import * as R from 'ramda';
 import { connect } from 'react-redux';
 import NodeList from './NodeList';
-import { NODE_TYPES } from '../store/constants';
-import { getInputNodes, getOutputNodes, getAudioNodes } from '../store/reducers';
-import * as actions from '../store/actions';
+import { getAllNodes, makeActionListForNode } from '../store/reducers';
+import { moveNode } from '../store/actions';
 
-const getters = {
-  [NODE_TYPES.SOURCE]: getInputNodes,
-  [NODE_TYPES.DESTINATION]: getOutputNodes,
-  [NODE_TYPES.AUDIONODE]: getAudioNodes,
-};
-
-const adders = {
-  [NODE_TYPES.SOURCE]: actions.toggleAddInputModal,
-  [NODE_TYPES.DESTINATION]: actions.toggleAddOutputModal,
-  [NODE_TYPES.AUDIONODE]: actions.toggleAddAudioNodeModal,
-};
-
-const mapState = (state, ownProps) => {
+const mapState = (state) => {
   return {
-    state,
-    nodes: getters[ownProps.type](state)
+    nodes: getAllNodes(state)
   };
 };
 
-const mapDispatch = (dispatch, ownProps) => {
-  let props = {
-    onDelete: (nodeId) => dispatch(actions.deleteNode(nodeId)),
-    onAdd: () => dispatch(adders[ownProps.type]()),
-    onEdit: (nodeId) => dispatch(actions.toggleEditAudioNodeModal(nodeId)),
+const mapDispatch = (dispatch) => {
+  return {
+    dispatch,
+    onNodeMove: (nodeId, newCoords) => dispatch(moveNode(nodeId, newCoords))
   };
-  return (ownProps.type === NODE_TYPES.AUDIONODE)
-    ? props
-    : R.omit(["onEdit"], props);
 };
 
-const NodeListContainer = connect(mapState, mapDispatch)(NodeList);
+const mergeProps = (stateProps, dispatchProps) => {
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    nodes: R.map((node) => ({
+      ...node,
+      contextActions: makeActionListForNode(node, dispatchProps.dispatch)
+    }), stateProps.nodes)
+  };
+};
+
+const NodeListContainer = connect(mapState, mapDispatch, mergeProps)(NodeList);
 
 export default NodeListContainer;

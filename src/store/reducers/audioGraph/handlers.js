@@ -13,7 +13,8 @@ export const addEndpoint = (state, action) => {
       "title": action.title,
       "type": action.deviceType,
       "output": [],
-      "deviceId": action.device.deviceId
+      "deviceId": action.device.deviceId,
+      coords: action.coords
     }
   ];
 };
@@ -27,7 +28,8 @@ export const addAudioNode = (state, action) => {
       "type": NODE_TYPES.AUDIONODE,
       "output": [],
       "nodeTypeId": action.typeId,
-      "props": pluginUtils.getDefaultPropsForPlugin(action.typeId)
+      "props": pluginUtils.getDefaultPropsForPlugin(action.typeId),
+      coords: action.coords
     }
   ];
 };
@@ -127,4 +129,16 @@ export const updateDeviceList = (state, action) => {
     removeInactiveOutputs,
     R.filter(isNodeActiveApplied)
   )(state);
+};
+
+export const moveNode = (state, action) => {
+  const nodeIndex = getNodeIndexByID(action.nodeId, state);
+  return [
+    ...R.slice(0, nodeIndex, state),
+    {
+      ...state[nodeIndex],
+      coords: action.newCoords
+    },
+    ...R.slice(nodeIndex + 1, Infinity, state),
+  ];
 };

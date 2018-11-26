@@ -1,16 +1,15 @@
 import React from 'react';
-import { DeleteButton } from './buttons';
-import { Row, Col } from 'reactstrap';
+import { Arrow } from 'react-konva';
+import withContextMenu from './withContextMenu';
 
-const Connection = ({ nodeId, fromTitle, fromId, toTitle, toId, onDelete }) => {
+const Connection = ({ fromCoords, toCoords, onClick }) => {
   return (
-    <Row>
-      <Col xs="1">
-        <DeleteButton onClick={() => onDelete(fromId, toId)} />
-      </Col>
-      <Col xs="8">{fromTitle} -> {toTitle}</Col>
-    </Row>
+    <Arrow
+      points={[fromCoords.x, fromCoords.y, toCoords.x, toCoords.y]}
+      stroke="white"
+      onClick={onClick}
+    />
   );
 };
 
-export default Connection;
+export default withContextMenu(Connection);
