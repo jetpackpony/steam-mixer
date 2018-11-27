@@ -9,12 +9,12 @@ import { MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import { Stage, Layer } from 'react-konva';
-import MenuContainer from './components/MenuContainer';
+import Topbar from './components/Topbar';
 
 const App = () => (
   <Fragment>
     <WebAudioEngine />
-    <MenuContainer/>
+    <Topbar/>
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
         <NodeListContainer/>
