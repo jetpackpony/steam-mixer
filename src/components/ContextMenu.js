@@ -1,30 +1,29 @@
 import React from 'react';
-import styles from './ContextMenu.module.scss';
+import { Menu, MenuItem } from '@material-ui/core';
+import { compose } from 'ramda';
 
 const ContextMenu = ({ coords, actions, isOpen, toggle }) => {
   return (
-    <div
-      className={styles.menu}
-      style={{
+    <Menu
+      anchorReference="anchorPosition"
+      anchorPosition={{
         left: coords.x,
         top: coords.y,
-        display: (isOpen) ? "block" : "none"
       }}
-      onBlur={toggle}
+      open={isOpen}
+      onClose={toggle}
     >
       {
         actions.map(({ title, onClick }) => (
-          <button
+          <MenuItem
             key={title}
-            className={styles.item}
-            type="button"
-            onClick={onClick}
+            onClick={compose(onClick, toggle)}
           >
             {title}
-          </button>
+          </MenuItem>
         ))
       }
-    </div>
+    </Menu>
   );
 };
 
