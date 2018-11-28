@@ -59,8 +59,9 @@ class AddAudioNode extends Component {
             />
             <FormControl
               style={{ minWidth: 150 }}
+              margin="normal"
             >
-              <InputLabel htmlFor="node-device">Node Type</InputLabel>
+              <InputLabel htmlFor="node-type">Node Type</InputLabel>
               <Select
                 value={this.state.nodeTypeId}
                 onChange={this.onNodeTypeSelected}

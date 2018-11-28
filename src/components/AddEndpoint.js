@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ModalBox from './ModalBox';
 import { MODAL_TYPES } from '../store/constants';
 import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
@@ -86,6 +86,7 @@ class AddEndpoint extends Component {
             />
             <FormControl
               style={{ minWidth: 150 }}
+              margin="normal"
             >
               <InputLabel htmlFor="node-device">Device</InputLabel>
               <Select
