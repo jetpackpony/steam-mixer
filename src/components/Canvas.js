@@ -35,7 +35,11 @@ class Canvas extends Component {
   render() {
     return (
       <section className={classes.container} ref={this.container}>
-        <Stage width={this.state.stageWidth} height={this.state.stageHeight}>
+        <Stage
+          width={this.state.stageWidth}
+          height={this.state.stageHeight}
+          draggable={true}
+        >
           <Layer>
             <NodeListContainer />
             <ConnectionListContainer title="Connections" />
