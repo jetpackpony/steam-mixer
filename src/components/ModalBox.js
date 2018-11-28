@@ -1,13 +1,21 @@
 import React from 'react';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
 const ModalBox = ({ isOpen, toggle, header, body, footer }) => {
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>{header}</ModalHeader>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <Dialog
+      open={isOpen}
+      onClose={toggle}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">{header}</DialogTitle>
+      <DialogContent>
+        {body}
+      </DialogContent>
+      <DialogActions>
+        {footer}
+      </DialogActions>
+    </Dialog>
   );
 };
 
