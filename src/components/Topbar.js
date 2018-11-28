@@ -25,20 +25,18 @@ class Topbar extends Component {
   render() {
     return (
       <Fragment>
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <div className={classes.menuButton}>
-                <IconButton color="inherit" aria-label="Menu" onClick={this.toggleMenu}>
-                  <MenuIcon />
-                </IconButton>
-              </div>
-              <Typography variant="title" color="inherit" className={classes.grow}>
-                Stream Mixer
+        <AppBar position="fixed">
+          <Toolbar variant="dense">
+            <div className={classes.menuButton}>
+              <IconButton color="inherit" aria-label="Menu" onClick={this.toggleMenu}>
+                <MenuIcon />
+              </IconButton>
+            </div>
+            <Typography variant="title" color="inherit" className={classes.grow}>
+              Stream Mixer
               </Typography>
-            </Toolbar>
-          </AppBar>
-        </div>
+          </Toolbar>
+        </AppBar>
         <MenuContainer
           isOpen={this.state.isMenuOpen}
           toggle={this.toggleMenu}
