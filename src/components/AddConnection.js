@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { OkButton } from './buttons';
+import React, { Component } from 'react';
+import { Button, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
 import ModalBox from './ModalBox';
 
 class AddConnection extends Component {
@@ -28,7 +28,7 @@ class AddConnection extends Component {
   render() {
     const { nodesList, isOpen, toggle } = this.props;
     const nodeOptions = nodesList.map(({ nodeId, title }) => (
-      <option key={nodeId} value={nodeId}>{title}</option>
+      <MenuItem key={nodeId} value={nodeId}>{title}</MenuItem>
     ));
     return (
       <ModalBox
@@ -36,25 +36,53 @@ class AddConnection extends Component {
         toggle={toggle}
         header="Adding a connection between 2 nodes"
         body={
-          <Fragment>
-            <div>
-              <label>From:</label>
-              <select value={this.state.from} onChange={this.onFromChange}>
-                <option value="">-- select from node --</option>
+          <form
+            style={{ display: 'flex', flexDirection: 'column', }}
+            autoComplete="off"
+            onSubmit={this.onSubmit}
+          >
+            <FormControl
+              style={{ minWidth: 150 }}
+              margin="normal"
+            >
+              <InputLabel htmlFor="node-device">From Node</InputLabel>
+              <Select
+                value={this.state.from}
+                onChange={this.onFromChange}
+                inputProps={{
+                  name: 'from-node',
+                  id: 'from-node',
+                }}
+              >
+                <MenuItem value="" disabled key="-1">
+                  <em>-- select from node --</em>
+                </MenuItem>
                 {nodeOptions}
-              </select>
-            </div>
-            <div>
-              <label>To:</label>
-              <select value={this.state.to} onChange={this.onToChange}>
-                <option value="">-- select to node --</option>
+              </Select>
+            </FormControl>
+            <FormControl
+              style={{ minWidth: 150 }}
+              margin="normal"
+            >
+              <InputLabel htmlFor="to-node">To Node</InputLabel>
+              <Select
+                value={this.state.to}
+                onChange={this.onToChange}
+                inputProps={{
+                  name: 'to-node',
+                  id: 'to-node',
+                }}
+              >
+                <MenuItem value="" disabled key="-1">
+                  <em>-- select to node --</em>
+                </MenuItem>
                 {nodeOptions}
-              </select>
-            </div>
-          </Fragment>
+              </Select>
+            </FormControl>
+          </form>
         }
         footer={
-          <OkButton onClick={this.onSubmit} />
+          <Button color="primary" onClick={this.onSubmit}>Add</Button>
         }
       />
     );
