@@ -1,12 +1,16 @@
 import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, withMobileDialog } from '@material-ui/core';
 
-const ModalBox = ({ isOpen, toggle, header, body, footer }) => {
+
+const ModalBox = ({ isOpen, toggle, header, body, footer, fullScreen }) => {
   return (
     <Dialog
+      fullScreen={fullScreen}
       open={isOpen}
       onClose={toggle}
       aria-labelledby="form-dialog-title"
+      fullWidth={true}
+      maxWidth="sm"
     >
       <DialogTitle id="form-dialog-title">{header}</DialogTitle>
       <DialogContent>
@@ -19,4 +23,4 @@ const ModalBox = ({ isOpen, toggle, header, body, footer }) => {
   );
 };
 
-export default ModalBox;
+export default withMobileDialog({ breakpoint: 'xs'})(ModalBox);
