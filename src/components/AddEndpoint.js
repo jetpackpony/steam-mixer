@@ -106,7 +106,7 @@ class AddEndpoint extends Component {
           </form>
         }
         footer={
-          <Button color="primary" onClick={this.onSubmit}>Add</Button>
+          <Button onClick={this.onSubmit}>Add</Button>
         }
       />
     );

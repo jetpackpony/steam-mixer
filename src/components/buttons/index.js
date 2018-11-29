@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 
 const Btn = ({ onClick, children }) => (
-  <Button color="primary" onClick={onClick}>
+  <Button onClick={onClick}>
     {children}
   </Button>
 );

@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import './App.css';
+import React from 'react';
 import WebAudioEngine from './components/WebAudioEngine';
 import AddEndpointContainer from './components/AddEndpointContainer';
 import AddConnectionContainer from './components/AddConnectionContainer';
@@ -8,9 +7,21 @@ import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import Topbar from './components/Topbar';
 import Canvas from './components/Canvas';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 const App = () => (
-  <Fragment>
+  <MuiThemeProvider theme={theme}>
+    <CssBaseline />
     <WebAudioEngine />
     <Topbar/>
     <Canvas/>
@@ -19,7 +30,7 @@ const App = () => (
     <AddConnectionContainer />
     <AddAudioNodeContainer />
     <EditAudioNodeContainer />
-  </Fragment>
+  </MuiThemeProvider>
 );
 
 export default App;

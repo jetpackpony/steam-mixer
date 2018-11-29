@@ -1,8 +1,9 @@
 import React from 'react';
 import { Rect, Text, Group } from 'react-konva';
 import withContextMenu from './withContextMenu';
+import { withTheme } from '@material-ui/core/styles';
 
-const Node = ({ nodeId, title, coords, onClick, onMove }) => {
+const Node = ({ nodeId, title, coords, onClick, onMove, theme }) => {
   return (
       <Group
         x={coords.x}
@@ -27,7 +28,9 @@ const Node = ({ nodeId, title, coords, onClick, onMove }) => {
         />
         <Text
           text={title}
-          fill="white"
+          fill={theme.typography.body1.color}
+          fontFamily={theme.typography.fontFamily}
+          fontSize={theme.typography.fontSize}
           x={0}
           y={40}
         />
@@ -35,4 +38,4 @@ const Node = ({ nodeId, title, coords, onClick, onMove }) => {
   );
 };
 
-export default withContextMenu(Node);
+export default withContextMenu(withTheme()(Node));

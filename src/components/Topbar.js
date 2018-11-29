@@ -25,7 +25,7 @@ class Topbar extends Component {
   render() {
     return (
       <Fragment>
-        <AppBar position="fixed">
+        <AppBar position="fixed" color="default">
           <Toolbar variant="dense">
             <div className={classes.menuButton}>
               <IconButton color="inherit" aria-label="Menu" onClick={this.toggleMenu}>

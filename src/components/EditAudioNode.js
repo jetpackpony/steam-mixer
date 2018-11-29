@@ -47,7 +47,7 @@ const EditAudioNode = ({
         </form>
       }
       footer={
-        <Button color="primary" onClick={boundToggle}>Done</Button>
+        <Button onClick={boundToggle}>Done</Button>
       }
     />
   );
