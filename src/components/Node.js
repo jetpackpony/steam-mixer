@@ -3,13 +3,22 @@ import { Circle, Text, Group } from 'react-konva';
 import withContextMenu from './withContextMenu';
 import { withTheme } from '@material-ui/core/styles';
 
-const Node = ({ nodeId, title, coords, onClick, onMove, theme }) => {
+const getNodeIconName = (nodeType) => (
+  {
+    SOURCE: "mic",
+    DESTINATION: "headset",
+    AUDIONODE: "equalizer"
+  }[nodeType]
+);
+
+const Node = ({ nodeId, nodeType, title, coords, onClick, onMove, theme }) => {
   const secondaryColor = theme.palette.secondary[theme.palette.type];
   const fontColor = theme.typography.body1.color;
   const circleRadius = 28;
   const iconSize = 24;
   const labelWidth = circleRadius * 4;
   const labelMargin = 10;
+  const iconName = getNodeIconName(nodeType);
 
   return (
       <Group
@@ -40,7 +49,7 @@ const Node = ({ nodeId, title, coords, onClick, onMove, theme }) => {
           y={-circleRadius}
           width={circleRadius * 2}
           height={circleRadius * 2}
-          text="mic"
+          text={iconName}
           fill={fontColor}
           fontFamily="Material Icons"
           fontSize={iconSize}
