@@ -1,15 +1,24 @@
 import React from 'react';
-import { Arrow } from 'react-konva';
+import { Line } from 'react-konva';
 import withContextMenu from './withContextMenu';
+import { withTheme } from '@material-ui/core/styles';
 
-const Connection = ({ fromCoords, toCoords, onClick }) => {
+const Connection = ({ fromCoords, toCoords, onClick, theme }) => {
+  const from = [fromCoords.x, fromCoords.y];
+  const to = [toCoords.x, toCoords.y];
+  const controls = [fromCoords.x + 100, fromCoords.y, toCoords.x - 100, toCoords.y];
+  const points = Array.prototype.concat(from, controls, to);
   return (
-    <Arrow
-      points={[fromCoords.x, fromCoords.y, toCoords.x, toCoords.y]}
-      stroke="white"
+    <Line
+      points={points}
+      stroke={theme.palette.grey[600]}
+      strokeWidth="2"
       onClick={onClick}
+      lineCap="round"
+      lineJoin="round"
+      bezier={true}
     />
   );
 };
 
-export default withContextMenu(Connection);
+export default withContextMenu(withTheme()(Connection));
