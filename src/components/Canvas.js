@@ -57,12 +57,14 @@ class Canvas extends Component {
           height={this.state.stageHeight}
           draggable={true}
           ref={this.stage}
+          onContentContextMenu={(e) => e.evt.preventDefault()}
         >
           {
             (isConnectionCreatorActive)
               ? <ConnectionCreatorLayer
                   originCoords={originCoords}
                   getStagePointerPosition={this.getStagePointerPosition}
+                  cancelCreatingConnection={this.props.cancelCreatingConnection}
                 />
               : null
           }

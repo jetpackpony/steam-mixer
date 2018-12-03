@@ -5,6 +5,7 @@ import {
   getDrawingConnectionNodeId,
   getNodePortsCoords
 } from '../store/reducers';
+import { createConnectionEnd } from '../store/actions';
 
 const mapState = (state) => {
   const drawingNodeId = getDrawingConnectionNodeId(state);
@@ -16,4 +17,8 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(Canvas);
+const mapDispatch = {
+  cancelCreatingConnection: createConnectionEnd
+};
+
+export default connect(mapState, mapDispatch)(Canvas);
