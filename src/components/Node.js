@@ -73,7 +73,7 @@ const makePort = (color, portType, coords, onClick) => (
 
 const Node = ({
   nodeId, nodeType, title, coords, theme,
-  onClick, onMove, onOutputPortClick
+  onClick, onMove, onOutputPortClick, onInputPortClick
 }) => {
   const secondaryColor = theme.palette.secondary[theme.palette.type];
   const fontColor = theme.typography.body1.color;
@@ -104,7 +104,7 @@ const Node = ({
         />
         {
           (hasInputs(nodeType))
-            ? makePort(secondaryColor, PORT_TYPES.INPUT, portCoords.input)
+            ? makePort(secondaryColor, PORT_TYPES.INPUT, portCoords.input, onInputPortClick)
             : null
         }
         {

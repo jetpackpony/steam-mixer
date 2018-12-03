@@ -35,6 +35,12 @@ const ui = (state = initState, action) => {
         drawingConnection: true,
         drawingConnectionNodeId: action.fromNodeId,
       };
+    case ACTION_TYPES.CREATE_CONNECTION_END:
+      return {
+        ...state,
+        drawingConnection: false,
+        drawingConnectionNodeId: null,
+      };
     default:
       return state;
   }
