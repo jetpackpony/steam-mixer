@@ -41,8 +41,8 @@ class Canvas extends Component {
           draggable={true}
         >
           <Layer>
-            <NodeListContainer />
             <ConnectionListContainer title="Connections" />
+            <NodeListContainer />
           </Layer>
         </Stage>
       </section>

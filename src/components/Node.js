@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import * as R from 'ramda';
-import { Circle, Text, Group, Arc } from 'react-konva';
+import { Circle, Text, Group, Arc, Rect } from 'react-konva';
 import withContextMenu from './withContextMenu';
 import { withTheme } from '@material-ui/core/styles';
 import { NODE_TYPES } from '../store/constants';
@@ -8,10 +8,16 @@ import { NODE_TYPES } from '../store/constants';
 const circleRadius = 28;
 const iconSize = 24;
 const labelWidth = circleRadius * 4;
+const labelHeight = 40;
 const labelMargin = 10;
 const portMargin = 10;
 const portRadius = 5;
 const portWidth = 2;
+
+const PORT_TYPES = {
+  OUTPUT: "OUTPUT",
+  INPUT: "INPUT",
+};
 
 const getNodeIconName = (nodeType) => (
   {
@@ -40,18 +46,43 @@ const hasOutputs = (type) => (
   R.contains(type, [NODE_TYPES.AUDIONODE, NODE_TYPES.SOURCE])
 );
 
-const Node = ({ nodeId, nodeType, title, coords, onClick, onMove, theme }) => {
+const makePort = (color, portType, coords, onClick) => (
+  <Fragment>
+    <Arc
+      x={coords.x}
+      y={coords.y}
+      angle={160}
+      innerRadius={portRadius}
+      outerRadius={portRadius + portWidth}
+      fill={color}
+      strokeEnabled={false}
+      lineCap="round"
+      lineJoin="round"
+      rotation={portType === PORT_TYPES.INPUT ? -80 : 100}
+    />
+    <Rect
+      x={coords.x - (portRadius + portWidth)}
+      y={coords.y - (portRadius + portWidth)}
+      width={(portRadius + portWidth) * 2}
+      height={(portRadius + portWidth) * 2}
+      fill="transparent"
+      onClick={onClick || null}
+    />
+  </Fragment>
+);
+
+const Node = ({
+  nodeId, nodeType, title, coords, theme,
+  onClick, onMove, onOutputPortClick
+}) => {
   const secondaryColor = theme.palette.secondary[theme.palette.type];
   const fontColor = theme.typography.body1.color;
   const iconName = getNodeIconName(nodeType);
   const portCoords = getPortCoords({ x: 0, y: 0 });
-
-  console.log(theme);
   return (
       <Group
         x={coords.x}
         y={coords.y}
-        onClick={onClick}
         draggable
         onDragMove={(event) => {
           const coords = {
@@ -73,34 +104,12 @@ const Node = ({ nodeId, nodeType, title, coords, onClick, onMove, theme }) => {
         />
         {
           (hasInputs(nodeType))
-            ? <Arc
-              x={portCoords.input.x}
-              y={portCoords.input.y}
-              angle={160}
-              innerRadius={portRadius}
-              outerRadius={portRadius + portWidth}
-              fill={secondaryColor}
-              strokeEnabled={false}
-              lineCap="round"
-              lineJoin="round"
-              rotation={-80}
-            />
+            ? makePort(secondaryColor, PORT_TYPES.INPUT, portCoords.input)
             : null
         }
         {
           (hasOutputs(nodeType))
-            ? <Arc
-              x={portCoords.output.x}
-              y={portCoords.output.y}
-              angle={160}
-              innerRadius={portRadius}
-              outerRadius={portRadius + portWidth}
-              fill={secondaryColor}
-              strokeEnabled={false}
-              lineCap="round"
-              lineJoin="round"
-              rotation={100}
-            />
+            ? makePort(secondaryColor, PORT_TYPES.OUTPUT, portCoords.output, onOutputPortClick)
             : null
         }
         <Text
@@ -124,6 +133,14 @@ const Node = ({ nodeId, nodeType, title, coords, onClick, onMove, theme }) => {
           y={circleRadius + labelMargin}
           width={labelWidth}
           align="center"
+        />
+        <Rect
+          x={-circleRadius}
+          y={-circleRadius}
+          width={circleRadius * 2}
+          height={circleRadius * 2 + labelMargin + labelHeight}
+          fill="transparent"
+          onClick={onClick}
         />
       </Group>
   );
