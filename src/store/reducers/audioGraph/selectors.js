@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import { NODE_TYPES } from '../../constants';
 import { deleteNode, toggleEditAudioNodeModal } from '../../actions';
+import { getPortCoords } from '../../../components/Node';
 
 export const getInputNodes = (state) => (
   R.filter((node) => (node.type === NODE_TYPES.SOURCE), state)
@@ -32,14 +33,16 @@ export const getNodeById = (state, id) => (
     R.find(R.propEq("nodeId", id))(state)
 );
 
+const getNodePortsCoords = R.compose(getPortCoords, getNodeCoordsById);
+
 export const getConnections = (state) => (
   R.reduce((agregator, node) => (
     R.concat(
       agregator,
       R.map((out) => ({
         nodeId: node.nodeId + "-" + out,
-        fromCoords: getNodeCoordsById(state, node.nodeId),
-        toCoords: getNodeCoordsById(state, out),
+        fromCoords: getNodePortsCoords(state, node.nodeId).output,
+        toCoords: getNodePortsCoords(state, out).input,
         fromTitle: getNodeTitleById(state, node.nodeId),
         fromId: node.nodeId,
         toTitle: getNodeTitleById(state, out),
