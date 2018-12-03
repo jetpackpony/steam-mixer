@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Menu from './Menu';
 import {
-  toggleAddInputModal, toggleAddAudioNodeModal,
-  toggleAddOutputModal, toggleAddConnectionModal
+  toggleAddInputModal, toggleAddAudioNodeModal, toggleAddOutputModal
 } from '../store/actions';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 
@@ -23,12 +22,7 @@ const mapDispatch = (dispatch) => ({
       title: "Add Audio Node",
       icon: <InboxIcon />,
       onClick: () => dispatch(toggleAddAudioNodeModal())
-    },
-    {
-      title: "Add Connection",
-      icon: <InboxIcon />,
-      onClick: () => dispatch(toggleAddConnectionModal())
-    },
+    }
   ]
 });
 

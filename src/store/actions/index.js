@@ -3,7 +3,6 @@ import uuidv4 from 'uuid/v4';
 export const ACTION_TYPES = {
   TOGGLE_ADD_INPUT_MODAL: "TOGGLE_ADD_INPUT_MODAL",
   TOGGLE_ADD_OUTPUT_MODAL: "TOGGLE_ADD_OUTPUT_MODAL",
-  TOGGLE_ADD_CONNECTION_MODAL: "TOGGLE_ADD_CONNECTION_MODAL",
   TOGGLE_ADD_AUDIO_NODE_MODAL: "TOGGLE_ADD_AUDIO_NODE_MODAL",
   TOGGLE_EDIT_AUDIO_NODE_MODAL: "TOGGLE_EDIT_AUDIO_NODE_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
@@ -24,10 +23,6 @@ export const toggleAddInputModal = () => ({
 
 export const toggleAddOutputModal = () => ({
   type: ACTION_TYPES.TOGGLE_ADD_OUTPUT_MODAL
-});
-
-export const toggleAddConnectionModal = () => ({
-  type: ACTION_TYPES.TOGGLE_ADD_CONNECTION_MODAL
 });
 
 export const toggleAddAudioNodeModal = () => ({

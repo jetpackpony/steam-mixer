@@ -1,7 +1,6 @@
 import React from 'react';
 import WebAudioEngine from './components/WebAudioEngine';
 import AddEndpointContainer from './components/AddEndpointContainer';
-import AddConnectionContainer from './components/AddConnectionContainer';
 import { MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
@@ -27,7 +26,6 @@ const App = () => (
     <CanvasContainer/>
     <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
     <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
-    <AddConnectionContainer />
     <AddAudioNodeContainer />
     <EditAudioNodeContainer />
   </MuiThemeProvider>

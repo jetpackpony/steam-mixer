@@ -13,11 +13,6 @@ const ui = (state = initState, action) => {
         ...state,
         addOutputOpen: !state.addOutputOpen
       };
-    case ACTION_TYPES.TOGGLE_ADD_CONNECTION_MODAL:
-      return {
-        ...state,
-        addConnectionOpen: !state.addConnectionOpen
-      };
     case ACTION_TYPES.TOGGLE_ADD_AUDIO_NODE_MODAL:
       return {
         ...state,
