@@ -5,5 +5,7 @@ const initState = {
   "addAudioNodeOpen": false,
   "editAudioNodeOpen": false,
   "editAudioNodeId": null,
+  drawingConnection: false,
+  drawingConnectionId: null,
 };
 export default initState;

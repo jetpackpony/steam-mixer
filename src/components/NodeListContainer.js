@@ -2,7 +2,7 @@ import * as R from 'ramda';
 import { connect } from 'react-redux';
 import NodeList from './NodeList';
 import { getAllNodes, makeActionListForNode } from '../store/reducers';
-import { moveNode } from '../store/actions';
+import { moveNode, createConnectionStart } from '../store/actions';
 
 const mapState = (state) => {
   return {
@@ -13,7 +13,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     dispatch,
-    onNodeMove: (nodeId, newCoords) => dispatch(moveNode(nodeId, newCoords))
+    onNodeMove: (nodeId, newCoords) => dispatch(moveNode(nodeId, newCoords)),
+    onOutputPortClick: (nodeId) => dispatch(createConnectionStart(nodeId))
   };
 };
 

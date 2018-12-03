@@ -14,6 +14,7 @@ const ACTION_TYPES = {
   EDIT_AUDIO_NODE: "EDIT_AUDIO_NODE",
   UPDATE_DEVICE_LIST: "UPDATE_DEVICE_LIST",
   MOVE_NODE: "MOVE_NODE",
+  CREATE_CONNECTION_START: "CREATE_CONNECTION_START",
 }
 
 const toggleAddInputModal = () => ({
@@ -94,6 +95,11 @@ const moveNode = (nodeId, newCoords) => ({
   newCoords
 });
 
+const createConnectionStart = (fromNodeId) => ({
+  type: ACTION_TYPES.CREATE_CONNECTION_START,
+  fromNodeId
+});
+
 export {
   ACTION_TYPES,
   toggleAddInputModal,
@@ -109,4 +115,5 @@ export {
   editAudioNode,
   updateDeviceList,
   moveNode,
+  createConnectionStart,
 }

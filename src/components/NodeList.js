@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Node from './Node';
 
-const NodeList = ({ nodes, onNodeMove }) => {
+const NodeList = ({ nodes, onNodeMove, onOutputPortClick }) => {
   const nodesList = nodes.map(({ title, nodeId, type, coords, contextActions }) => (
     <Node
       key={nodeId}
@@ -11,6 +11,7 @@ const NodeList = ({ nodes, onNodeMove }) => {
       coords={coords}
       contextActions={contextActions}
       onMove={onNodeMove}
+      onOutputPortClick={onOutputPortClick.bind(null, nodeId)}
     />
   ));
   return (

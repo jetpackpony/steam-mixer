@@ -29,6 +29,12 @@ const ui = (state = initState, action) => {
         editAudioNodeOpen: !state.editAudioNodeOpen,
         editAudioNodeId: action.id
       };
+    case ACTION_TYPES.CREATE_CONNECTION_START:
+      return {
+        ...state,
+        drawingConnection: true,
+        drawingConnectionId: action.fromNodeId,
+      };
     default:
       return state;
   }
