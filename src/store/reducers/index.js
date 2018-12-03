@@ -43,6 +43,10 @@ export const getAudioNodePluginIdById = (state, id) => (
   audioGraphSelectors.getAudioNodePluginIdById(state.audioGraph, id)
 );
 
+export const getNodePortsCoords = (state, id) => (
+  audioGraphSelectors.getNodePortsCoords(state.audioGraph, id)
+);
+
 export const makeActionListForNode = (node, dispatch) => (
   audioGraphSelectors.makeActionListForNode(node, dispatch)
 );
@@ -73,4 +77,12 @@ export const getEditAudioNodeId = (state) => (
 
 export const getPointerCoords = (state) => (
   uiSelectors.getPointerCoords(state.ui)
+);
+
+export const getIsConnectionCreatorActive = (state) => (
+  uiSelectors.getIsConnectionCreatorActive(state.ui)
+);
+
+export const getDrawingConnectionNodeId = (state) => (
+  uiSelectors.getDrawingConnectionNodeId(state.ui)
 );

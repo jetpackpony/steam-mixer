@@ -33,8 +33,6 @@ export const getNodeById = (state, id) => (
     R.find(R.propEq("nodeId", id))(state)
 );
 
-const getNodePortsCoords = R.compose(getPortCoords, getNodeCoordsById);
-
 export const getConnections = (state) => (
   R.reduce((agregator, node) => (
     R.concat(
@@ -87,3 +85,5 @@ export const makeActionListForNode = (node, dispatch) => {
   }
   return res;
 };
+
+export const getNodePortsCoords = R.compose(getPortCoords, getNodeCoordsById);

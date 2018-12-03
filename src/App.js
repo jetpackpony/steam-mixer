@@ -6,7 +6,7 @@ import { MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import Topbar from './components/Topbar';
-import Canvas from './components/Canvas';
+import CanvasContainer from './components/CanvasContainer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -24,7 +24,7 @@ const App = () => (
     <CssBaseline />
     <WebAudioEngine />
     <Topbar/>
-    <Canvas/>
+    <CanvasContainer/>
     <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
     <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
     <AddConnectionContainer />

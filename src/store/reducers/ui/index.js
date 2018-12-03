@@ -33,7 +33,7 @@ const ui = (state = initState, action) => {
       return {
         ...state,
         drawingConnection: true,
-        drawingConnectionId: action.fromNodeId,
+        drawingConnectionNodeId: action.fromNodeId,
       };
     default:
       return state;
