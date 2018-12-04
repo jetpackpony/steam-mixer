@@ -52,3 +52,5 @@ export const bindPluginUtils = (plugins) => ({
   getDefaultPropsForPlugin: getDefaultPropsForPlugin(plugins),
   getPluginsVagCode: getPluginsVagCode(plugins)
 });
+
+export const isIn = R.flip(R.contains);
