@@ -5,6 +5,7 @@ const modalsMap = {
   [MODAL_TYPES.ADD_OUTPUT]: "addOutputOpen",
   [MODAL_TYPES.ADD_AUDIO_NODE]: "addAudioNodeOpen",
   [MODAL_TYPES.EDIT_AUDIO_NODE]: "editAudioNodeOpen",
+  [MODAL_TYPES.HELP]: "helpOpen",
 };
 export const getIsModalOpen = (state, modalType) => {
   return state[modalsMap[modalType]];

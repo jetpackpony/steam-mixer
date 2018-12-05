@@ -4,11 +4,13 @@ import Menu from './Menu';
 import {
   toggleAddInputModal,
   toggleAddAudioNodeModal,
-  toggleAddOutputModal
+  toggleAddOutputModal,
+  toggleHelpModal
 } from '../store/actions';
 import Mic from '@material-ui/icons/Mic';
 import Headset from '@material-ui/icons/Headset';
 import Equalizer from '@material-ui/icons/Equalizer';
+import Help from '@material-ui/icons/Help';
 
 const mapDispatch = (dispatch) => ({
   actions: [
@@ -26,6 +28,11 @@ const mapDispatch = (dispatch) => ({
       title: "Add Audio Node",
       icon: <Equalizer/>,
       onClick: () => dispatch(toggleAddAudioNodeModal())
+    },
+    {
+      title: "Help",
+      icon: <Help/>,
+      onClick: () => dispatch(toggleHelpModal())
     }
   ]
 });

@@ -8,6 +8,7 @@ import Topbar from './components/Topbar';
 import CanvasContainer from './components/CanvasContainer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import HelpWindow from './components/HelpWindow';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,6 +29,7 @@ const App = () => (
     <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
     <AddAudioNodeContainer />
     <EditAudioNodeContainer />
+    <HelpWindow/>
   </MuiThemeProvider>
 );
 

@@ -24,6 +24,11 @@ const ui = (state = initState, action) => {
         editAudioNodeOpen: !state.editAudioNodeOpen,
         editAudioNodeId: action.id
       };
+    case ACTION_TYPES.TOGGLE_HELP_MODAL:
+      return {
+        ...state,
+        helpOpen: !state.helpOpen
+      };
     case ACTION_TYPES.CREATE_CONNECTION_START:
       return {
         ...state,
