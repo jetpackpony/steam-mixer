@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import { OkButton } from './buttons';
+import React, { Component } from 'react';
 import ModalBox from './ModalBox';
 import { MODAL_TYPES } from '../store/constants';
+import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
 
 const getDeviceById = (deviceList, deviceId) => (
   deviceList.find(d => d.deviceId === deviceId)
@@ -49,7 +49,8 @@ class AddEndpoint extends Component {
     this.setState({ title: event.target.value });
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     this.props.toggle();
     this.props.onCreate(
       this.state.title,
@@ -59,10 +60,10 @@ class AddEndpoint extends Component {
 
   render() {
     const { type, deviceList, isOpen, toggle } = this.props;
-    let options = deviceList.map(device => (
-      <option key={device.deviceId} value={device.deviceId}>
+    const options = deviceList.map(device => (
+      <MenuItem key={device.deviceId} value={device.deviceId}>
         {device.label}
-      </option>
+      </MenuItem>
     ));
     return (
       <ModalBox
@@ -70,18 +71,42 @@ class AddEndpoint extends Component {
         toggle={toggle}
         header={getTitle(type)}
         body={
-          <Fragment>
-            <input value={this.state.title} onChange={this.onTitleChanged} />
-            <select value={this.state.deviceId} onChange={this.onDeviceSelected}>
-              <option disabled value="" key="-1">
-                {getDefaultOption(type)}
-              </option>
-              {options}
-            </select>
-          </Fragment>
+          <form
+            style={{ display: 'flex', flexDirection: 'column', }}
+            autoComplete="off"
+            onSubmit={this.onSubmit}
+          >
+            <TextField
+              id="node-title"
+              label="Title"
+              value={this.state.title}
+              onChange={this.onTitleChanged}
+              margin="normal"
+              style={{ minWidth: 150 }}
+            />
+            <FormControl
+              style={{ minWidth: 150 }}
+              margin="normal"
+            >
+              <InputLabel htmlFor="node-device">Device</InputLabel>
+              <Select
+                value={this.state.deviceId}
+                onChange={this.onDeviceSelected}
+                inputProps={{
+                  name: 'node-device',
+                  id: 'node-device',
+                }}
+              >
+                <MenuItem value="" disabled key="-1">
+                  <em>{getDefaultOption(type)}</em>
+                </MenuItem>
+                {options}
+              </Select>
+            </FormControl>
+          </form>
         }
         footer={
-          <OkButton onClick={this.onSubmit} />
+          <Button onClick={this.onSubmit}>Add</Button>
         }
       />
     );

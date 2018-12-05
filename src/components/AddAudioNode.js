@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import { OkButton } from './buttons';
+import React, { Component } from 'react';
 import ModalBox from './ModalBox';
+import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
 
 class AddAudioNode extends Component {
   constructor(props) {
@@ -34,9 +34,9 @@ class AddAudioNode extends Component {
   render() {
     const { nodeTypesList, isOpen, toggle } = this.props;
     let options = nodeTypesList.map((nodeType) => (
-      <option key={nodeType.id} value={nodeType.id}>
+      <MenuItem key={nodeType.id} value={nodeType.id}>
         {nodeType.title}
-      </option>
+      </MenuItem>
     ));
     return (
       <ModalBox
@@ -44,18 +44,42 @@ class AddAudioNode extends Component {
         toggle={toggle}
         header="Add an audio node"
         body={
-          <Fragment>
-            <input value={this.state.title} onChange={this.onTitleChanged} />
-            <select value={this.state.nodeTypeId} onChange={this.onNodeTypeSelected}>
-              <option disabled value="" key="-1">
-                -- select audio node type --
-              </option>
-              {options}
-            </select>
-          </Fragment>
+          <form
+            style={{ display: 'flex', flexDirection: 'column', }}
+            autoComplete="off"
+            onSubmit={this.onSubmit}
+          >
+            <TextField
+              id="node-title"
+              label="Title"
+              value={this.state.title}
+              onChange={this.onTitleChanged}
+              margin="normal"
+              style={{ minWidth: 150 }}
+            />
+            <FormControl
+              style={{ minWidth: 150 }}
+              margin="normal"
+            >
+              <InputLabel htmlFor="node-type">Node Type</InputLabel>
+              <Select
+                value={this.state.nodeTypeId}
+                onChange={this.onNodeTypeSelected}
+                inputProps={{
+                  name: 'node-type',
+                  id: 'node-type',
+                }}
+              >
+                <MenuItem value="" disabled key="-1">
+                  <em>-- select audio node type --</em>
+                </MenuItem>
+                {options}
+              </Select>
+            </FormControl>
+          </form>
         }
         footer={
-          <OkButton onClick={this.onSubmit} />
+          <Button onClick={this.onSubmit}>Add</Button>
         }
       />
     );

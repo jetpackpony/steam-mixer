@@ -1,32 +1,34 @@
-import React, { Fragment } from 'react';
-import './App.css';
+import React from 'react';
 import WebAudioEngine from './components/WebAudioEngine';
-import NodeListContainer from './components/NodeListContainer';
-import ConnectionListContainer from './components/ConnectionListContainer';
 import AddEndpointContainer from './components/AddEndpointContainer';
-import AddConnectionContainer from './components/AddConnectionContainer';
 import { MODAL_TYPES } from './store/constants';
 import AddAudioNodeContainer from './components/AddAudioNodeContainer';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
-import { Stage, Layer } from 'react-konva';
-import MenuContainer from './components/MenuContainer';
+import Topbar from './components/Topbar';
+import CanvasContainer from './components/CanvasContainer';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 const App = () => (
-  <Fragment>
+  <MuiThemeProvider theme={theme}>
+    <CssBaseline />
     <WebAudioEngine />
-    <MenuContainer/>
-    <Stage width={window.innerWidth} height={window.innerHeight}>
-      <Layer>
-        <NodeListContainer/>
-        <ConnectionListContainer title="Connections" />
-      </Layer>
-    </Stage>
+    <Topbar/>
+    <CanvasContainer/>
     <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
     <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
-    <AddConnectionContainer />
     <AddAudioNodeContainer />
     <EditAudioNodeContainer />
-  </Fragment>
+  </MuiThemeProvider>
 );
 
 export default App;

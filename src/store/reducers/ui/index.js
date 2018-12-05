@@ -13,11 +13,6 @@ const ui = (state = initState, action) => {
         ...state,
         addOutputOpen: !state.addOutputOpen
       };
-    case ACTION_TYPES.TOGGLE_ADD_CONNECTION_MODAL:
-      return {
-        ...state,
-        addConnectionOpen: !state.addConnectionOpen
-      };
     case ACTION_TYPES.TOGGLE_ADD_AUDIO_NODE_MODAL:
       return {
         ...state,
@@ -28,6 +23,18 @@ const ui = (state = initState, action) => {
         ...state,
         editAudioNodeOpen: !state.editAudioNodeOpen,
         editAudioNodeId: action.id
+      };
+    case ACTION_TYPES.CREATE_CONNECTION_START:
+      return {
+        ...state,
+        drawingConnection: true,
+        drawingConnectionNodeId: action.fromNodeId,
+      };
+    case ACTION_TYPES.CREATE_CONNECTION_END:
+      return {
+        ...state,
+        drawingConnection: false,
+        drawingConnectionNodeId: null,
       };
     default:
       return state;

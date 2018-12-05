@@ -1,14 +1,26 @@
 import React from 'react';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { Dialog, DialogActions, DialogContent, DialogTitle, withMobileDialog } from '@material-ui/core';
 
-const ModalBox = ({ isOpen, toggle, header, body, footer }) => {
+
+const ModalBox = ({ isOpen, toggle, header, body, footer, fullScreen }) => {
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}>{header}</ModalHeader>
-      <ModalBody>{body}</ModalBody>
-      <ModalFooter>{footer}</ModalFooter>
-    </Modal>
+    <Dialog
+      fullScreen={fullScreen}
+      open={isOpen}
+      onClose={toggle}
+      aria-labelledby="form-dialog-title"
+      fullWidth={true}
+      maxWidth="sm"
+    >
+      <DialogTitle id="form-dialog-title">{header}</DialogTitle>
+      <DialogContent>
+        {body}
+      </DialogContent>
+      <DialogActions>
+        {footer}
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default ModalBox;
+export default withMobileDialog({ breakpoint: 'xs'})(ModalBox);

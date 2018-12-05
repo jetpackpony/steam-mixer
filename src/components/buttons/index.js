@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Button } from '@material-ui/core';
 
 const Btn = ({ onClick, children }) => (
-  <Button outline color="primary" onClick={onClick} size="sm">
+  <Button onClick={onClick}>
     {children}
   </Button>
 );
@@ -23,4 +23,4 @@ const DeleteButton = ({ onClick }) => (
   <Btn onClick={onClick}>-</Btn>
 );
 
-export { AddButton, OkButton, EditButton, DeleteButton };
+export { AddButton, OkButton, EditButton, DeleteButton, Btn };

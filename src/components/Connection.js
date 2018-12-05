@@ -1,15 +1,52 @@
 import React from 'react';
-import { Arrow } from 'react-konva';
-import withContextMenu from './withContextMenu';
+import { Line, Group, Circle } from 'react-konva';
+import { withTheme } from '@material-ui/core/styles';
 
-const Connection = ({ fromCoords, toCoords, onClick }) => {
+const Connection = ({ fromCoords, toCoords, onClick, theme }) => {
+  const from = [fromCoords.x, fromCoords.y];
+  const to = [toCoords.x, toCoords.y];
+  const controls = [from[0] + 100, from[1], to[0] - 100, to[1]];
+  const points = Array.prototype.concat(from, controls, to);
+  const lineColor = theme.palette.grey[600];
   return (
-    <Arrow
-      points={[fromCoords.x, fromCoords.y, toCoords.x, toCoords.y]}
-      stroke="white"
-      onClick={onClick}
-    />
+    <Group onClick={onClick}>
+      <Circle
+        x={fromCoords.x}
+        y={fromCoords.y}
+        fill={lineColor}
+        radius={3}
+        strokeEnabled={false}
+      />
+      <Circle
+        x={toCoords.x}
+        y={toCoords.y}
+        fill={lineColor}
+        radius={3}
+        strokeEnabled={false}
+      />
+      <Line
+        points={points}
+        stroke={lineColor}
+        strokeWidth="2"
+        lineCap="round"
+        lineJoin="round"
+        bezier={true}
+      />
+      {
+        // The second line is here for easier clicability
+        (onClick)
+          ? <Line
+            points={points}
+            stroke="transparent"
+            strokeWidth="10"
+            lineCap="round"
+            lineJoin="round"
+            bezier={true}
+          />
+          : null
+      }
+    </Group>
   );
 };
 
-export default withContextMenu(Connection);
+export default withTheme()(Connection);
