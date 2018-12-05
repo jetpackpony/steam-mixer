@@ -16,6 +16,7 @@ export const ACTION_TYPES = {
   MOVE_NODE: "MOVE_NODE",
   CREATE_CONNECTION_START: "CREATE_CONNECTION_START",
   CREATE_CONNECTION_END: "CREATE_CONNECTION_END",
+  STORAGE_REHYDRATED: "STORAGE_REHYDRATED",
 }
 
 export const toggleAddInputModal = () => ({
@@ -103,4 +104,8 @@ export const createConnectionEnd = () => ({
 
 export const toggleHelpModal = () => ({
   type: ACTION_TYPES.TOGGLE_HELP_MODAL
+});
+
+export const storageRehydrated = () => ({
+  type: ACTION_TYPES.STORAGE_REHYDRATED
 });

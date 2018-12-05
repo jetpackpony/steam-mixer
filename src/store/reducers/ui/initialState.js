@@ -7,5 +7,8 @@ const initState = {
   drawingConnection: false,
   drawingConnectionNodeId: null,
   helpOpen: false,
+  persistent: {
+    hasSeenHelp: false
+  }
 };
 export default initState;
