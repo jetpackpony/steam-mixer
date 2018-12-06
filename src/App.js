@@ -3,7 +3,7 @@ import WebAudioEngine from './components/WebAudioEngine';
 import { MODAL_TYPES } from './store/constants';
 import AddEndpointModal from './components/AddEndpointModal';
 import AddAudioNodeModal from './components/AddAudioNodeModal';
-import EditAudioNodeContainer from './components/EditAudioNodeContainer';
+import EditAudioNodeModal from './components/EditAudioNodeModal';
 import Topbar from './components/Topbar';
 import Canvas from './components/Canvas';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -27,7 +27,7 @@ const App = () => (
     <AddEndpointModal type={MODAL_TYPES.ADD_INPUT} />
     <AddEndpointModal type={MODAL_TYPES.ADD_OUTPUT} />
     <AddAudioNodeModal/>
-    <EditAudioNodeContainer />
+    <EditAudioNodeModal/>
   </MuiThemeProvider>
 );
 
