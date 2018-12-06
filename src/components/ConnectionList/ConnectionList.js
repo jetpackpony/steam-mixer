@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Connection from './Connection';
-import withContextMenu from './withContextMenu';
+import withContextMenu from '../withContextMenu';
 
 const ConnectionWithContextMenu = withContextMenu(Connection);
 
