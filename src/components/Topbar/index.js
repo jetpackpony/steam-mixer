@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuContainer from './MenuContainer';
+import Menu from '../Menu';
 import classes from './Topbar.module.scss';
 
 class Topbar extends Component {
@@ -28,16 +28,24 @@ class Topbar extends Component {
         <AppBar position="fixed" color="default">
           <Toolbar variant="dense">
             <div className={classes.menuButton}>
-              <IconButton color="inherit" aria-label="Menu" onClick={this.toggleMenu}>
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                onClick={this.toggleMenu}
+              >
                 <MenuIcon />
               </IconButton>
             </div>
-            <Typography variant="title" color="inherit" className={classes.grow}>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.grow}
+            >
               Stream Mixer
-              </Typography>
+            </Typography>
           </Toolbar>
         </AppBar>
-        <MenuContainer
+        <Menu
           isOpen={this.state.isMenuOpen}
           toggle={this.toggleMenu}
         />

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import * as R from 'ramda';
 import { Circle, Text, Group, Arc, Rect } from 'react-konva';
-import withContextMenu from './withContextMenu';
+import withContextMenu from '../ContextMenu/withContextMenu';
 import { withTheme } from '@material-ui/core/styles';
-import { NODE_TYPES } from '../store/constants';
+import { NODE_TYPES } from '../../store/constants';
 
 const circleRadius = 28;
 const iconSize = 24;
@@ -46,7 +46,7 @@ const hasOutputs = (type) => (
   R.contains(type, [NODE_TYPES.AUDIONODE, NODE_TYPES.SOURCE])
 );
 
-const makePort = (color, portType, coords, onClick) => (
+const makePort = R.curry((color, portType, coords, onClick) => (
   <Fragment>
     <Arc
       x={coords.x}
@@ -69,7 +69,7 @@ const makePort = (color, portType, coords, onClick) => (
       onClick={onClick || null}
     />
   </Fragment>
-);
+));
 
 const Node = ({
   nodeId, nodeType, title, coords, theme,
@@ -104,12 +104,22 @@ const Node = ({
         />
         {
           (hasInputs(nodeType))
-            ? makePort(secondaryColor, PORT_TYPES.INPUT, portCoords.input, onInputPortClick)
+            ? makePort(
+              secondaryColor,
+              PORT_TYPES.INPUT,
+              portCoords.input,
+              onInputPortClick
+            )
             : null
         }
         {
           (hasOutputs(nodeType))
-            ? makePort(secondaryColor, PORT_TYPES.OUTPUT, portCoords.output, onOutputPortClick)
+            ? makePort(
+              secondaryColor,
+              PORT_TYPES.OUTPUT,
+              portCoords.output,
+              onOutputPortClick
+            )
             : null
         }
         <Text

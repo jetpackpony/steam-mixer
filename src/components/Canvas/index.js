@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import Canvas from './Canvas';
+import Canvas from './component';
 import {
   getIsConnectionCreatorActive,
   getDrawingConnectionNodeId,
   getNodePortsCoords
-} from '../store/reducers';
-import { createConnectionEnd } from '../store/actions';
+} from '../../store/reducers';
+import { createConnectionEnd } from '../../store/actions';
 
 const mapState = (state) => {
   const drawingNodeId = getDrawingConnectionNodeId(state);

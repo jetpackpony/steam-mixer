@@ -1,10 +1,18 @@
 import { connect } from 'react-redux';
-import EditAudioNode from './EditAudioNode';
-import { getIsModalOpen, getEditAudioNodeId, getAudioNodePropsById, getAudioNodePluginIdById } from '../store/reducers';
-import { MODAL_TYPES } from '../store/constants';
-import { toggleEditAudioNodeModal, editAudioNode } from '../store/actions';
-import { bindPluginUtils } from '../utils';
-import plugins from '../plugins';
+import EditAudioNode from './component';
+import {
+  getIsModalOpen,
+  getEditAudioNodeId,
+  getAudioNodePropsById,
+  getAudioNodePluginIdById
+} from '../../store/reducers';
+import { MODAL_TYPES } from '../../store/constants';
+import {
+  toggleEditAudioNodeModal,
+  editAudioNode
+} from '../../store/actions';
+import { bindPluginUtils } from '../../utils';
+import plugins from '../../plugins';
 const pluginUtils = bindPluginUtils(plugins);
 
 const mapState = (state) => {

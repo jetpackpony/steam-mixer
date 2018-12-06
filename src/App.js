@@ -1,11 +1,11 @@
 import React from 'react';
 import WebAudioEngine from './components/WebAudioEngine';
-import AddEndpointContainer from './components/AddEndpointContainer';
 import { MODAL_TYPES } from './store/constants';
-import AddAudioNodeContainer from './components/AddAudioNodeContainer';
-import EditAudioNodeContainer from './components/EditAudioNodeContainer';
+import AddEndpointModal from './components/AddEndpointModal';
+import AddAudioNodeModal from './components/AddAudioNodeModal';
+import EditAudioNodeModal from './components/EditAudioNodeModal';
 import Topbar from './components/Topbar';
-import CanvasContainer from './components/CanvasContainer';
+import Canvas from './components/Canvas';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -23,11 +23,11 @@ const App = () => (
     <CssBaseline />
     <WebAudioEngine />
     <Topbar/>
-    <CanvasContainer/>
-    <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
-    <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
-    <AddAudioNodeContainer />
-    <EditAudioNodeContainer />
+    <Canvas/>
+    <AddEndpointModal type={MODAL_TYPES.ADD_INPUT} />
+    <AddEndpointModal type={MODAL_TYPES.ADD_OUTPUT} />
+    <AddAudioNodeModal/>
+    <EditAudioNodeModal/>
   </MuiThemeProvider>
 );
 

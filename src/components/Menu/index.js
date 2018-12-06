@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Menu from './Menu';
+import Menu from './component';
 import {
   toggleAddInputModal,
   toggleAddAudioNodeModal,
   toggleAddOutputModal
-} from '../store/actions';
+} from '../../store/actions';
 import Mic from '@material-ui/icons/Mic';
 import Headset from '@material-ui/icons/Headset';
 import Equalizer from '@material-ui/icons/Equalizer';
