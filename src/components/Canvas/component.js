@@ -3,7 +3,7 @@ import { Stage, Layer } from 'react-konva';
 import NodeListContainer from '../NodeListContainer';
 import ConnectionListContainer from '../ConnectionListContainer';
 import classes from './Canvas.module.scss';
-import ConnectionCreatorLayer from '../ConnectionCreatorLayer';
+import ConnectionCreatorLayer from './ConnectionCreatorLayer';
 
 class Canvas extends Component {
   constructor(props) {

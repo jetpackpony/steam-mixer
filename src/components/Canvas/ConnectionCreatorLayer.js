@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layer } from 'react-konva';
-import Connection from './Connection';
+import Connection from '../Connection';
 
 class ConnectionCreatorLayer extends Component {
   constructor(props) {
