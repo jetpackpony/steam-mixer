@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import * as R from 'ramda';
 import { Circle, Text, Group, Arc, Rect } from 'react-konva';
-import withContextMenu from '../withContextMenu';
+import withContextMenu from '../ContextMenu/withContextMenu';
 import { withTheme } from '@material-ui/core/styles';
 import { NODE_TYPES } from '../../store/constants';
 
