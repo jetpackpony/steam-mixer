@@ -1,8 +1,8 @@
 import React from 'react';
 import WebAudioEngine from './components/WebAudioEngine';
-import AddEndpointContainer from './components/AddEndpointContainer';
 import { MODAL_TYPES } from './store/constants';
-import AddAudioNodeContainer from './components/AddAudioNodeContainer';
+import AddEndpointModal from './components/AddEndpointModal';
+import AddAudioNodeModal from './components/AddAudioNodeModal';
 import EditAudioNodeContainer from './components/EditAudioNodeContainer';
 import Topbar from './components/Topbar';
 import CanvasContainer from './components/CanvasContainer';
@@ -24,9 +24,9 @@ const App = () => (
     <WebAudioEngine />
     <Topbar/>
     <CanvasContainer/>
-    <AddEndpointContainer type={MODAL_TYPES.ADD_INPUT} />
-    <AddEndpointContainer type={MODAL_TYPES.ADD_OUTPUT} />
-    <AddAudioNodeContainer />
+    <AddEndpointModal type={MODAL_TYPES.ADD_INPUT} />
+    <AddEndpointModal type={MODAL_TYPES.ADD_OUTPUT} />
+    <AddAudioNodeModal/>
     <EditAudioNodeContainer />
   </MuiThemeProvider>
 );

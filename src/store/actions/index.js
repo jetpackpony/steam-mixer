@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import uuidv4 from 'uuid/v4';
 
 export const ACTION_TYPES = {
@@ -34,7 +35,7 @@ export const toggleEditAudioNodeModal = (id) => ({
   id
 });
 
-export const addEndpoint = (deviceType, title, device) => ({
+export const addEndpoint = R.curry((deviceType, title, device) => ({
   type: ACTION_TYPES.ADD_ENDPOINT,
   deviceType,
   title,
@@ -44,7 +45,7 @@ export const addEndpoint = (deviceType, title, device) => ({
     x: Math.random() * (window.innerWidth - 50),
     y: Math.random() * (window.innerHeight - 50)
   }
-});
+}));
 
 export const addAudioNode = (title, typeId) => ({
   type: ACTION_TYPES.ADD_AUDIO_NODE,

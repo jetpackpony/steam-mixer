@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import ModalBox from './ModalBox';
-import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
+import ModalBox from '../ModalBox';
+import {
+  Button, TextField, FormControl,
+  Select, MenuItem, InputLabel
+} from '@material-ui/core';
 
-class AddAudioNode extends Component {
+class AddAudioNodeModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,4 +89,4 @@ class AddAudioNode extends Component {
   }
 }
 
-export default AddAudioNode;
+export default AddAudioNodeModal;
