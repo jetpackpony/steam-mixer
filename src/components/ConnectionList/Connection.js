@@ -2,11 +2,19 @@ import React from 'react';
 import { Line, Group, Circle } from 'react-konva';
 import { withTheme } from '@material-ui/core/styles';
 
-const Connection = ({ fromCoords, toCoords, onClick, theme }) => {
+const makeBezierControls = (from, to) => (
+  [from[0] + 100, from[1], to[0] - 100, to[1]]
+);
+
+const makePointsList = (fromCoords, toCoords) => {
   const from = [fromCoords.x, fromCoords.y];
   const to = [toCoords.x, toCoords.y];
-  const controls = [from[0] + 100, from[1], to[0] - 100, to[1]];
-  const points = Array.prototype.concat(from, controls, to);
+  const controls = makeBezierControls(from, to);
+  return Array.prototype.concat(from, controls, to);
+};
+
+const Connection = ({ fromCoords, toCoords, onClick, theme }) => {
+  const points = makePointsList(fromCoords, toCoords);
   const lineColor = theme.palette.grey[600];
   return (
     <Group onClick={onClick}>

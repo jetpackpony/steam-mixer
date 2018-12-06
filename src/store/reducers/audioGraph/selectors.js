@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { NODE_TYPES } from '../../constants';
 import { deleteNode, toggleEditAudioNodeModal } from '../../actions';
-import { getPortCoords } from '../../../components/Node';
+import { getPortCoords } from '../../../components/NodeList/Node';
 
 export const getInputNodes = (state) => (
   R.filter((node) => (node.type === NODE_TYPES.SOURCE), state)

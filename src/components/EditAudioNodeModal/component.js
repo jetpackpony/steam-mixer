@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import React from 'react';
 import { Button, TextField } from '@material-ui/core';
-import ModalBox from './ModalBox';
+import ModalBox from '../ModalBox';
 
 const buildAudioNodePropsForm = (fields, values, onChange) => (
   R.map((field) => (
@@ -31,7 +31,6 @@ const EditAudioNode = ({
     });
   }
   const boundToggle = toggle.bind(null, nodeId);
-  const filedsHTML = buildAudioNodePropsForm(fields, values, onChange);
   return (
     <ModalBox
       isOpen={isOpen}
@@ -43,7 +42,7 @@ const EditAudioNode = ({
           autoComplete="off"
           onSubmit={boundToggle}
         >
-          {filedsHTML}
+          {buildAudioNodePropsForm(fields, values, onChange)}
         </form>
       }
       footer={

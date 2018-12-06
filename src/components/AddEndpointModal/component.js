@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import ModalBox from './ModalBox';
-import { MODAL_TYPES } from '../store/constants';
-import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
-
-const getDeviceById = (deviceList, deviceId) => (
-  deviceList.find(d => d.deviceId === deviceId)
-);
+import ModalBox from '../ModalBox';
+import { MODAL_TYPES } from '../../store/constants';
+import {
+  Button, TextField, FormControl,
+  Select, MenuItem, InputLabel
+} from '@material-ui/core';
+import { getDeviceById } from '../../store/reducers';
 
 const getTitle = (type) =>
   type === MODAL_TYPES.ADD_INPUT
@@ -21,9 +21,7 @@ const getDefaultOption = (type) =>
       ? "-- select output device --"
       : "";
 
-                
-
-class AddEndpoint extends Component {
+class AddEndpointModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,4 +111,4 @@ class AddEndpoint extends Component {
   }
 }
 
-export default AddEndpoint;
+export default AddEndpointModal;
