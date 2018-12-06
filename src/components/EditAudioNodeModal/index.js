@@ -1,8 +1,16 @@
 import { connect } from 'react-redux';
 import EditAudioNode from './component';
-import { getIsModalOpen, getEditAudioNodeId, getAudioNodePropsById, getAudioNodePluginIdById } from '../../store/reducers';
+import {
+  getIsModalOpen,
+  getEditAudioNodeId,
+  getAudioNodePropsById,
+  getAudioNodePluginIdById
+} from '../../store/reducers';
 import { MODAL_TYPES } from '../../store/constants';
-import { toggleEditAudioNodeModal, editAudioNode } from '../../store/actions';
+import {
+  toggleEditAudioNodeModal,
+  editAudioNode
+} from '../../store/actions';
 import { bindPluginUtils } from '../../utils';
 import plugins from '../../plugins';
 const pluginUtils = bindPluginUtils(plugins);
