@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Stage, Layer } from 'react-konva';
-import NodeListContainer from '../NodeListContainer';
-import ConnectionListContainer from '../ConnectionList';
+import NodeList from '../NodeList';
+import ConnectionList from '../ConnectionList';
 import classes from './Canvas.module.scss';
 import ConnectionCreatorLayer from './ConnectionCreatorLayer';
 
@@ -69,8 +69,8 @@ class Canvas extends Component {
               : null
           }
           <Layer>
-            <ConnectionListContainer title="Connections" />
-            <NodeListContainer />
+            <ConnectionList/>
+            <NodeList/>
           </Layer>
         </Stage>
       </section>
