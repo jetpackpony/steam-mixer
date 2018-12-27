@@ -6,6 +6,7 @@ export const ACTION_TYPES = {
   TOGGLE_ADD_OUTPUT_MODAL: "TOGGLE_ADD_OUTPUT_MODAL",
   TOGGLE_ADD_AUDIO_NODE_MODAL: "TOGGLE_ADD_AUDIO_NODE_MODAL",
   TOGGLE_EDIT_AUDIO_NODE_MODAL: "TOGGLE_EDIT_AUDIO_NODE_MODAL",
+  TOGGLE_HELP_MODAL: "TOGGLE_HELP_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_CONNECTION: "ADD_CONNECTION",
   ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
@@ -16,6 +17,7 @@ export const ACTION_TYPES = {
   MOVE_NODE: "MOVE_NODE",
   CREATE_CONNECTION_START: "CREATE_CONNECTION_START",
   CREATE_CONNECTION_END: "CREATE_CONNECTION_END",
+  STORAGE_REHYDRATED: "STORAGE_REHYDRATED",
 }
 
 export const toggleAddInputModal = () => ({
@@ -99,4 +101,12 @@ export const createConnectionStart = (fromNodeId) => ({
 
 export const createConnectionEnd = () => ({
   type: ACTION_TYPES.CREATE_CONNECTION_END
+});
+
+export const toggleHelpModal = () => ({
+  type: ACTION_TYPES.TOGGLE_HELP_MODAL
+});
+
+export const storageRehydrated = () => ({
+  type: ACTION_TYPES.STORAGE_REHYDRATED
 });

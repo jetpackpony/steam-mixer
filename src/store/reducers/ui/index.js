@@ -24,6 +24,15 @@ const ui = (state = initState, action) => {
         editAudioNodeOpen: !state.editAudioNodeOpen,
         editAudioNodeId: action.id
       };
+    case ACTION_TYPES.TOGGLE_HELP_MODAL:
+      return {
+        ...state,
+        helpOpen: !state.helpOpen,
+        persistent: {
+          ...state.persistent,
+          hasSeenHelp: true
+        }
+      };
     case ACTION_TYPES.CREATE_CONNECTION_START:
       return {
         ...state,
@@ -35,6 +44,11 @@ const ui = (state = initState, action) => {
         ...state,
         drawingConnection: false,
         drawingConnectionNodeId: null,
+      };
+    case ACTION_TYPES.STORAGE_REHYDRATED:
+      return {
+        ...state,
+        helpOpen: !state.persistent.hasSeenHelp
       };
     default:
       return state;
