@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 import reducer from './reducers';
 import { storageRehydrated } from './actions';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 const rootConfig = {
   key: 'root',
@@ -12,7 +13,8 @@ const rootConfig = {
   whitelist: ['audioGraph', 'ui'],
   transforms: [
     createWhitelistFilter('ui', ['persistent']),
-  ]
+  ],
+  stateReconciler: autoMergeLevel2
 };
 
 const persistedReducer = persistReducer(rootConfig, reducer);
