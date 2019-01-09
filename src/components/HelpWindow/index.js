@@ -6,9 +6,9 @@ import { toggleHelpModal } from '../../store/actions';
 import { getIsModalOpen } from '../../store/reducers';
 import { MODAL_TYPES } from '../../store/constants';
 import classes from './HelpWindow.module.scss';
-import img1 from './help-img-1.png';
-import img2 from './help-img-2.png';
-import img3 from './help-img-3.png';
+import img1 from './help-img-1-1.png';
+import img2 from './help-img-2-1.png';
+import img3 from './help-img-3-1.png';
 
 const mapState = (state) => ({
   isOpen: getIsModalOpen(state, MODAL_TYPES.HELP)
@@ -65,11 +65,8 @@ const HelpWindow = ({ isOpen, toggle }) => (
         <Typography variant="body1" gutterBottom>
           In this setup for twitch streaming we have sounds from microphone,
           game and discord connected to headphones and OBS (streaming software).
-          A setup like this allows you to adjust the volume and effects that we
-          hear in our headphones separately from what is recorded by OBS and
-          visa versa.
-          Use software like Virtual Audio Cable to crate virtual audio devices
-          on your machine.
+          A setup like this allows you to adjust the volume and effects for each
+          sound source separately for both headphones and OBS.
         </Typography>
 
         <Typography variant="body1" gutterBottom>
