@@ -37,7 +37,7 @@ class Topbar extends Component {
               </IconButton>
             </div>
             <Typography
-              variant="title"
+              variant="h6"
               color="inherit"
               className={classes.grow}
             >
