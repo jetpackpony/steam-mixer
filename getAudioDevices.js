@@ -17,4 +17,5 @@ const getAudioDevices = () =>
         .then(filterAudioDefault)
         .then(breakIntoCategories);
 
+
 module.exports = getAudioDevices;
