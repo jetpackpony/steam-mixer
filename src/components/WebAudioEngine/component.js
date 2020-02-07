@@ -53,7 +53,11 @@ const getNotNil = R.filter(R.compose(R.not, R.isNil));
 class WebAudioEngine extends Component {
   constructor(props) {
     super(props);
-    this.virtualAudioGraph = createVirtualAudioGraph();
+    const AC = window.AudioContext || window.webkitAudioContext || false;
+    if (!AC) {
+      console.log("AudioContext is not supported");
+    }
+    this.virtualAudioGraph = createVirtualAudioGraph({ audioContext: new AC() });
     this.sinks = {};
     this.buildAudioGraph = this.buildAudioGraph.bind(this);
   }
