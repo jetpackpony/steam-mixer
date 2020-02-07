@@ -13,11 +13,11 @@
     "react-konva": "^16.6.31",
     "react-redux": "^5.1.1",
     "react-scripts": "2.0.5",
-    "redux": "^4.0.1",
+    "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "redux-persist-transform-filter": "0.0.18",
-    "uuid": "^3.3.2",
+    "uuid": "^3.4.0",
     "virtual-audio-graph": "^1.1.0"
   },
   "homepage": "./",
@@ -48,6 +48,6 @@
   ],
   "devDependencies": {
     "electron": "^3.0.10",
-    "node-sass": "^4.10.0"
+    "node-sass": "^4.13.1"
   }
 }
