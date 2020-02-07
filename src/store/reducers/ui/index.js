@@ -33,6 +33,16 @@ const ui = (state = initState, action) => {
           hasSeenHelp: true
         }
       };
+    case ACTION_TYPES.OPEN_PERMISSIONS_MODAL:
+      return {
+        ...state,
+        permissionsModalOpen: true
+      };
+    case ACTION_TYPES.CLOSE_PERMISSIONS_MODAL:
+      return {
+        ...state,
+        permissionsModalOpen: false
+      };
     case ACTION_TYPES.CREATE_CONNECTION_START:
       return {
         ...state,

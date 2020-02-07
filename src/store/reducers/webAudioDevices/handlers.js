@@ -6,10 +6,15 @@ const isDeviceAnOutput = R.propEq('kind', "audiooutput");
 const filterInputDevices = R.filter(isDeviceAnInput);
 const filterOutputDevices = R.filter(isDeviceAnOutput);
 
-const isAudioDevice = R.either(isDeviceAnInput, isDeviceAnOutput);
+export const isAudioDevice = R.either(isDeviceAnInput, isDeviceAnOutput);
 
 const isDefaultDevice = R.propEq("deviceId", "default");
 const isNotDefaultDevice = R.complement(isDefaultDevice);
+
+const isDeviceHasEmptyLabel = (device) => device.label === "";
+export const needToRequestAudioPermissions = (list) => {
+  return R.all(isDeviceHasEmptyLabel)(list)
+};
 
 /**
  * Takes a list of audio devices `audioDeviceList`. Returns an object

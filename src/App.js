@@ -9,6 +9,7 @@ import Canvas from './components/Canvas';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import HelpWindow from './components/HelpWindow';
+import PermissionsModal from './components/PermissionsModal';
 
 const theme = createMuiTheme({
   palette: {
@@ -30,6 +31,7 @@ const App = () => (
     <AddAudioNodeModal/>
     <EditAudioNodeModal/>
     <HelpWindow/>
+    <PermissionsModal/>
   </MuiThemeProvider>
 );
 

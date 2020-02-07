@@ -7,6 +7,8 @@ export const ACTION_TYPES = {
   TOGGLE_ADD_AUDIO_NODE_MODAL: "TOGGLE_ADD_AUDIO_NODE_MODAL",
   TOGGLE_EDIT_AUDIO_NODE_MODAL: "TOGGLE_EDIT_AUDIO_NODE_MODAL",
   TOGGLE_HELP_MODAL: "TOGGLE_HELP_MODAL",
+  OPEN_PERMISSIONS_MODAL: "OPEN_PERMISSIONS_MODAL",
+  CLOSE_PERMISSIONS_MODAL: "CLOSE_PERMISSIONS_MODAL",
   ADD_ENDPOINT: "ADD_ENDPOINT",
   ADD_CONNECTION: "ADD_CONNECTION",
   ADD_AUDIO_NODE: "ADD_AUDIO_NODE",
@@ -35,6 +37,14 @@ export const toggleAddAudioNodeModal = () => ({
 export const toggleEditAudioNodeModal = (id) => ({
   type: ACTION_TYPES.TOGGLE_EDIT_AUDIO_NODE_MODAL,
   id
+});
+
+export const openPermissionsModal = () => ({
+  type: ACTION_TYPES.OPEN_PERMISSIONS_MODAL
+});
+
+export const closePermissionsModal = () => ({
+  type: ACTION_TYPES.CLOSE_PERMISSIONS_MODAL
 });
 
 export const addEndpoint = R.curry((deviceType, title, device) => ({

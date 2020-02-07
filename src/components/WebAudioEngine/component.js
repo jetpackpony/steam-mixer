@@ -4,6 +4,7 @@ import createVirtualAudioGraph from 'virtual-audio-graph';
 import makeNode from './makeNode';
 import { PromiseAllObj } from '../../utils';
 import { NODE_TYPES } from '../../store/constants';
+import { needToRequestAudioPermissions } from '../../store/reducers/webAudioDevices/handlers';
 
 const isNodeADeviceDestination = (d) => d.type === NODE_TYPES.DESTINATION;
 
@@ -58,7 +59,13 @@ class WebAudioEngine extends Component {
   }
 
   componentDidMount() {
-    loadDevices(this.props.onDevicesLoaded);
+    loadDevices((list) => {
+      if (needToRequestAudioPermissions(list)) {
+        this.props.onNeedsAudioPermissions();
+      } else {
+        this.props.onDevicesLoaded(list);
+      }
+    });
     navigator.mediaDevices.addEventListener('devicechange', (event) => {
       loadDevices(this.props.onDevicesLoaded);
     });

@@ -7,6 +7,7 @@ const initState = {
   drawingConnection: false,
   drawingConnectionNodeId: null,
   helpOpen: false,
+  permissionsModalOpen: false,
   persistent: {
     hasSeenHelp: false
   }
