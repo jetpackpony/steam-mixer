@@ -6,16 +6,25 @@ import { connect } from 'react-redux';
 import { closePermissionsModal } from '../../store/actions';
 import { getIsModalOpen } from '../../store/reducers';
 import { MODAL_TYPES } from '../../store/constants';
+import { loadDevices } from '../WebAudioEngine/loadDevices';
+import { updateDeviceList, openPermissionsModal } from '../../store/actions';
 
 const mapState = (state) => ({
   isOpen: getIsModalOpen(state, MODAL_TYPES.PERMISSIONS)
 });
 
 const mapDispatch = {
-  close: closePermissionsModal
+  close: closePermissionsModal,
+  onDevicesLoaded: updateDeviceList,
+  onNeedsAudioPermissions: openPermissionsModal
 };
 
-const PermissionsModal = ({ isOpen, close }) => (
+const PermissionsModal = ({
+  isOpen,
+  close,
+  onDevicesLoaded,
+  onNeedsAudioPermissions
+}) => (
   <ModalBox
     isOpen={isOpen}
     toggle={close}
@@ -35,7 +44,13 @@ const PermissionsModal = ({ isOpen, close }) => (
           <Button color="secondary" size="large" variant="contained" onClick={() => {
             navigator.mediaDevices.getUserMedia({ audio: true })
               .then(() => {
-                window.location.reload();
+                loadDevices()
+                  .then((list) => {
+                    onDevicesLoaded(list);
+                    close();
+                  })
+                  .catch(onNeedsAudioPermissions)
+                // window.location.reload();
               });
           }}><Mic/></Button>
         </Typography>

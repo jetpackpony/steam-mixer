@@ -4,7 +4,7 @@ import createVirtualAudioGraph from 'virtual-audio-graph';
 import makeNode from './makeNode';
 import { PromiseAllObj } from '../../utils';
 import { NODE_TYPES } from '../../store/constants';
-import { needToRequestAudioPermissions } from '../../store/reducers/webAudioDevices/handlers';
+import { loadDevices } from './loadDevices';
 
 const isNodeADeviceDestination = (d) => d.type === NODE_TYPES.DESTINATION;
 
@@ -44,10 +44,6 @@ const createAudioSinks = (props, virtualAudioGraph, sinks) => {
   );
 };
 
-const loadDevices = (callback) => {
-  return navigator.mediaDevices.enumerateDevices().then(callback);
-};
-
 const getNotNil = R.filter(R.compose(R.not, R.isNil));
 
 class WebAudioEngine extends Component {
@@ -63,15 +59,13 @@ class WebAudioEngine extends Component {
   }
 
   componentDidMount() {
-    loadDevices((list) => {
-      if (needToRequestAudioPermissions(list)) {
-        this.props.onNeedsAudioPermissions();
-      } else {
-        this.props.onDevicesLoaded(list);
-      }
-    });
+    loadDevices()
+      .then(this.props.onDevicesLoaded)
+      .catch(this.props.onNeedsAudioPermissions)
     navigator.mediaDevices.addEventListener('devicechange', (event) => {
-      loadDevices(this.props.onDevicesLoaded);
+      loadDevices()
+        .then(this.props.onDevicesLoaded)
+        .catch(this.props.onNeedsAudioPermissions)
     });
   }
 
