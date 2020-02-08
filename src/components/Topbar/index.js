@@ -41,7 +41,7 @@ class Topbar extends Component {
               color="inherit"
               className={classes.grow}
             >
-              Stream Mixer
+              Audio Mixer
             </Typography>
           </Toolbar>
         </AppBar>

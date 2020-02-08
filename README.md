@@ -1,2 +1,2 @@
 # steam-mixer
-Audio mixer for streaming audio
+Audio mixer for real time audio

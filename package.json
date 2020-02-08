@@ -1,7 +1,7 @@
 {
-  "name": "stream-mixer",
+  "name": "audio-mixer",
   "version": "0.0.1",
-  "description": "Audio mixer for streaming audio",
+  "description": "Audio mixer for real time audio",
   "main": "index.js",
   "dependencies": {
     "@material-ui/core": "^3.6.0",

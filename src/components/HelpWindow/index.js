@@ -22,7 +22,7 @@ const HelpWindow = ({ isOpen, toggle }) => (
   <ModalBox
     isOpen={isOpen}
     toggle={toggle}
-    header="Welcome to Stream Mixer"
+    header="Welcome to Audio Mixer"
     body={
       <Fragment>
         <Typography variant="body1" gutterBottom>
