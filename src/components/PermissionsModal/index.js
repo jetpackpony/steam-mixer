@@ -29,6 +29,7 @@ const PermissionsModal = ({
     isOpen={isOpen}
     toggle={close}
     header="I am once again asking you for your audio permissions"
+    maxWidth="xs"
     body={
       <Fragment>
         <Typography variant="body1" gutterBottom>
